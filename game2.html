@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>NEONVERSE</title>
 
 <style>
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
     font-family:Arial, sans-serif;
 }
 
@@ -18,32 +19,37 @@ html{
 }
 
 body{
-    background:#050509;
-    color:white;
     min-height:100vh;
+    color:white;
+    background:#050510;
     overflow-x:hidden;
 }
+
+/* BACKGROUND */
 
 body::before{
     content:"";
     position:fixed;
     inset:0;
-    background:
-        radial-gradient(circle at 15% 20%,#7c3aed55,transparent 28%),
-        radial-gradient(circle at 85% 30%,#06b6d455,transparent 28%),
-        radial-gradient(circle at 50% 100%,#ec489955,transparent 30%);
     z-index:-2;
+
+    background:
+    radial-gradient(circle at 15% 20%, #7c3aed66, transparent 30%),
+    radial-gradient(circle at 85% 25%, #06b6d466, transparent 30%),
+    radial-gradient(circle at 50% 100%, #ec489955, transparent 35%);
 }
 
 body::after{
     content:"";
     position:fixed;
     inset:0;
-    background-image:
-        linear-gradient(#ffffff08 1px,transparent 1px),
-        linear-gradient(90deg,#ffffff08 1px,transparent 1px);
-    background-size:50px 50px;
     z-index:-1;
+
+    background-image:
+    linear-gradient(#ffffff08 1px, transparent 1px),
+    linear-gradient(90deg,#ffffff08 1px,transparent 1px);
+
+    background-size:45px 45px;
 }
 
 /* NAVBAR */
@@ -52,20 +58,31 @@ nav{
     position:sticky;
     top:0;
     z-index:100;
-    padding:15px 5%;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:#050509cc;
+
+    padding:15px 6%;
+
+    background:#050510dd;
     backdrop-filter:blur(20px);
-    border-bottom:1px solid #ffffff12;
+
+    border-bottom:1px solid #ffffff15;
 }
 
 .logo{
-    font-size:25px;
+    font-size:24px;
     font-weight:900;
     letter-spacing:2px;
-    background:linear-gradient(90deg,#c084fc,#22d3ee);
+
+    background:linear-gradient(
+        90deg,
+        #c084fc,
+        #22d3ee,
+        #f472b6
+    );
+
     -webkit-background-clip:text;
     color:transparent;
 }
@@ -77,18 +94,23 @@ nav{
 
 .nav-buttons button{
     border:0;
+    background:#ffffff10;
     color:white;
-    background:#ffffff0d;
-    padding:10px 14px;
+
+    padding:10px 15px;
+
     border-radius:12px;
     cursor:pointer;
+
+    transition:.2s;
 }
 
 .nav-buttons button:hover{
-    background:#ffffff20;
+    background:#ffffff25;
+    transform:translateY(-2px);
 }
 
-/* PAGES */
+/* PAGE */
 
 .page{
     display:none;
@@ -101,12 +123,14 @@ nav{
 /* HOME */
 
 .hero{
-    min-height:75vh;
+    min-height:78vh;
+
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
+
     text-align:center;
-    padding:60px 20px;
+    padding:50px 20px;
 }
 
 .hero-content{
@@ -115,48 +139,71 @@ nav{
 
 .hero h1{
     font-size:clamp(50px,10vw,110px);
-    line-height:.9;
+
     font-weight:1000;
     letter-spacing:-5px;
-    background:linear-gradient(
+
+    background:
+    linear-gradient(
         90deg,
         #c084fc,
         #22d3ee,
         #f472b6,
         #c084fc
     );
+
     background-size:300%;
+
     -webkit-background-clip:text;
     color:transparent;
+
     animation:gradient 5s linear infinite;
 }
 
 @keyframes gradient{
-    to{background-position:300%}
+    to{
+        background-position:300%;
+    }
 }
 
 .hero p{
-    color:#999;
-    font-size:20px;
-    margin:25px auto;
     max-width:600px;
+
+    margin:25px auto;
+
+    color:#999;
+    font-size:19px;
+    line-height:1.6;
 }
 
 .main-btn{
     border:0;
+
     padding:16px 30px;
+
     border-radius:18px;
-    background:linear-gradient(90deg,#7c3aed,#0891b2);
+
+    background:
+    linear-gradient(
+        90deg,
+        #7c3aed,
+        #0891b2
+    );
+
     color:white;
+
     font-size:17px;
     font-weight:bold;
+
     cursor:pointer;
-    box-shadow:0 0 35px #7c3aed44;
+
+    box-shadow:0 0 35px #7c3aed55;
+
     transition:.3s;
 }
 
 .main-btn:hover{
-    transform:translateY(-5px) scale(1.03);
+    transform:scale(1.06);
 }
 
 /* CONTAINER */
@@ -164,16 +211,17 @@ nav{
 .container{
     width:92%;
     max-width:1050px;
+
     margin:auto;
     padding:50px 0;
 }
 
-.section-title{
+.title{
     font-size:40px;
     margin-bottom:10px;
 }
 
-.section-sub{
+.subtitle{
     color:#888;
     margin-bottom:30px;
 }
@@ -182,33 +230,44 @@ nav{
 
 .game-grid{
     display:grid;
+
     grid-template-columns:
-        repeat(auto-fit,minmax(280px,1fr));
+    repeat(auto-fit,minmax(250px,1fr));
+
     gap:20px;
 }
 
 .game-card{
-    padding:25px;
-    border:1px solid #ffffff12;
+    padding:28px;
+
     border-radius:25px;
+
     background:#ffffff09;
+
+    border:1px solid #ffffff15;
+
     backdrop-filter:blur(15px);
-    transition:.3s;
+
     cursor:pointer;
+
+    transition:.3s;
 }
 
 .game-card:hover{
     transform:translateY(-8px);
-    border-color:#ffffff30;
+
+    background:#ffffff12;
+
+    border-color:#ffffff35;
 }
 
-.game-icon{
-    font-size:50px;
+.icon{
+    font-size:55px;
     margin-bottom:15px;
 }
 
 .game-card h3{
-    font-size:24px;
+    font-size:23px;
     margin-bottom:8px;
 }
 
@@ -217,33 +276,44 @@ nav{
     line-height:1.5;
 }
 
-/* GAME SCREEN */
+/* GAME */
 
 .game-screen{
     max-width:600px;
     margin:auto;
-    text-align:center;
 }
 
-.back{
+.back-btn{
     border:0;
-    background:#ffffff10;
-    color:white;
-    padding:10px 15px;
+
+    padding:11px 18px;
+
     border-radius:12px;
+
+    background:#ffffff12;
+    color:white;
+
     cursor:pointer;
-    margin-bottom:25px;
+
+    margin-bottom:20px;
 }
 
 .game-box{
     padding:35px 25px;
+
+    text-align:center;
+
     border-radius:30px;
-    background:#ffffff0b;
+
+    background:#ffffff09;
+
     border:1px solid #ffffff15;
+
+    backdrop-filter:blur(15px);
 }
 
 .game-box h2{
-    font-size:35px;
+    font-size:34px;
     margin-bottom:10px;
 }
 
@@ -252,57 +322,131 @@ nav{
     margin-bottom:25px;
 }
 
+.game-content{
+    display:none;
+}
+
+.game-content.active{
+    display:block;
+}
+
 input{
     width:100%;
+
     padding:14px;
+
     border:0;
     outline:0;
+
     border-radius:13px;
-    margin-bottom:12px;
+
+    margin-bottom:10px;
+
     font-size:16px;
 }
 
 .game-btn{
     border:0;
+
     padding:13px 20px;
+
     border-radius:13px;
+
     background:#7c3aed;
+
     color:white;
+
     font-weight:bold;
+
     cursor:pointer;
-    margin:4px;
+
+    margin:5px;
+
+    transition:.2s;
+}
+
+.game-btn:hover{
+    transform:scale(1.05);
+    background:#8b5cf6;
 }
 
 .result{
+    min-height:45px;
+
     margin-top:20px;
-    min-height:40px;
+
+    color:#ddd;
+
     font-size:18px;
+
+    line-height:1.5;
+}
+
+/* CLICK GAME */
+
+.click-box{
+    height:160px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:20px;
+
+    background:#ffffff08;
+
+    font-size:30px;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    margin-bottom:15px;
+}
+
+.click-box:active{
+    transform:scale(.97);
 }
 
 /* PROFILE */
 
-.profile-box{
+.profile{
     max-width:700px;
+
     margin:auto;
+
     padding:30px;
+
     border-radius:30px;
+
     background:#ffffff09;
+
     border:1px solid #ffffff15;
 }
 
 .avatar{
     width:100px;
     height:100px;
+
     margin:auto;
+
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
+
     border-radius:50%;
+
     font-size:50px;
-    background:linear-gradient(135deg,#7c3aed,#0891b2);
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c3aed,
+        #0891b2
+    );
 }
 
-.profile-box h2{
+.profile h2{
     text-align:center;
     margin:15px;
 }
@@ -310,98 +454,147 @@ input{
 .level-row{
     display:flex;
     justify-content:space-between;
+
     margin-bottom:8px;
 }
 
 .xpbar{
+    width:100%;
     height:13px;
+
     background:#222;
+
     border-radius:20px;
+
     overflow:hidden;
 }
 
 .xp{
     height:100%;
     width:0%;
-    background:linear-gradient(90deg,#a855f7,#22d3ee);
+
+    background:
+    linear-gradient(
+        90deg,
+        #a855f7,
+        #22d3ee
+    );
+
     transition:.5s;
 }
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+    repeat(3,1fr);
+
     gap:12px;
+
     margin-top:25px;
 }
 
 .stat{
     padding:20px 10px;
+
     text-align:center;
+
     border-radius:18px;
+
     background:#ffffff08;
 }
 
 .stat b{
     display:block;
+
     font-size:25px;
+
     margin-bottom:5px;
 }
 
 /* ACHIEVEMENT */
 
-.achievements{
+.achievement-grid{
     display:grid;
+
     grid-template-columns:
-        repeat(auto-fit,minmax(220px,1fr));
+    repeat(auto-fit,minmax(220px,1fr));
+
     gap:15px;
 }
 
 .achievement{
-    padding:20px;
+    padding:22px;
+
     border-radius:20px;
+
     background:#ffffff08;
+
     border:1px solid #ffffff10;
+
     opacity:.35;
+
+    transition:.3s;
 }
 
 .achievement.unlocked{
     opacity:1;
-    background:linear-gradient(
+
+    background:
+    linear-gradient(
         135deg,
         #7c3aed44,
         #0891b244
     );
+
+    border-color:#ffffff30;
 }
 
 /* TOAST */
 
 #toast{
     position:fixed;
-    bottom:25px;
+
     left:50%;
+    bottom:25px;
+
     transform:
-        translateX(-50%)
-        translateY(100px);
+    translateX(-50%)
+    translateY(100px);
+
     padding:15px 25px;
+
     background:#171722;
+
     border:1px solid #ffffff20;
+
     border-radius:15px;
+
     opacity:0;
+
     transition:.4s;
+
     z-index:999;
 }
 
 #toast.show{
     opacity:1;
-    transform:translateX(-50%) translateY(0);
+
+    transform:
+    translateX(-50%)
+    translateY(0);
 }
 
 /* FOOTER */
 
 footer{
     text-align:center;
-    padding:50px 20px;
-    color:#555;
+
+    padding:45px 20px;
+
+    color:#777;
+
+    font-size:15px;
 }
 
 /* MOBILE */
@@ -425,25 +618,41 @@ footer{
 </style>
 </head>
 
+
 <body>
 
-<!-- NAVIGATION -->
+<!-- ================= NAVBAR ================= -->
 
 <nav>
 
-    <div class="logo">NEONVERSE</div>
+    <div class="logo">
+        NEONVERSE
+    </div>
 
     <div class="nav-buttons">
-        <button onclick="showPage('home')">🏠</button>
-        <button onclick="showPage('games')">🎮</button>
-        <button onclick="showPage('profile')">👤</button>
-        <button onclick="showPage('achievements')">🏆</button>
+
+        <button onclick="showPage('home')">
+            🏠
+        </button>
+
+        <button onclick="showPage('games')">
+            🎮
+        </button>
+
+        <button onclick="showPage('profile')">
+            👤
+        </button>
+
+        <button onclick="showPage('achievements')">
+            🏆
+        </button>
+
     </div>
 
 </nav>
 
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 
 <section id="home" class="page active">
 
@@ -451,18 +660,22 @@ footer{
 
         <div class="hero-content">
 
-            <h1>NEONVERSE</h1>
+            <h1>
+                NEONVERSE
+            </h1>
 
             <p>
-                Dunia mini-game random.
-                Main, kumpulkan XP, naik level,
-                dan buka achievement rahasia.
+                Selamat datang di dunia mini-game.
+                Mainkan game random, kumpulkan XP,
+                naik level dan buka achievement.
             </p>
 
             <button
                 class="main-btn"
                 onclick="showPage('games')">
+
                 🚀 MULAI BERMAIN
+
             </button>
 
         </div>
@@ -472,26 +685,37 @@ footer{
 </section>
 
 
-<!-- GAMES -->
+<!-- ================= GAMES ================= -->
 
 <section id="games" class="page">
 
 <div class="container">
 
-    <h2 class="section-title">🎮 GAME CENTER</h2>
+    <h2 class="title">
+        🎮 GAME CENTER
+    </h2>
 
-    <p class="section-sub">
-        Pilih game yang mau kamu mainkan.
+    <p class="subtitle">
+        Pilih game dan mulai bermain.
     </p>
+
 
     <div class="game-grid">
 
-        <div class="game-card"
-             onclick="openGame('guess')">
 
-            <div class="game-icon">🔢</div>
+        <!-- GAME 1 -->
 
-            <h3>Tebak Angka</h3>
+        <div
+            class="game-card"
+            onclick="openGame('guess')">
+
+            <div class="icon">
+                🔢
+            </div>
+
+            <h3>
+                Tebak Angka
+            </h3>
 
             <p>
                 Tebak angka rahasia
@@ -501,42 +725,63 @@ footer{
         </div>
 
 
-        <div class="game-card"
-             onclick="openGame('suit')">
+        <!-- GAME 2 -->
 
-            <div class="game-icon">✊</div>
+        <div
+            class="game-card"
+            onclick="openGame('suit')">
 
-            <h3>Batu Gunting Kertas</h3>
+            <div class="icon">
+                ✊
+            </div>
+
+            <h3>
+                Batu Gunting Kertas
+            </h3>
 
             <p>
-                Lawan komputer
-                dan buktikan keberuntunganmu.
+                Lawan komputer dan
+                buktikan keberuntunganmu.
             </p>
 
         </div>
 
 
-        <div class="game-card"
-             onclick="openGame('click')">
+        <!-- GAME 3 -->
 
-            <div class="game-icon">⚡</div>
+        <div
+            class="game-card"
+            onclick="openGame('click')">
 
-            <h3>Click Rush</h3>
+            <div class="icon">
+                ⚡
+            </div>
+
+            <h3>
+                Click Rush
+            </h3>
 
             <p>
                 Klik sebanyak mungkin
-                dalam waktu 5 detik.
+                dalam 5 detik.
             </p>
 
         </div>
 
 
-        <div class="game-card"
-             onclick="openGame('random')">
+        <!-- GAME 4 -->
 
-            <div class="game-icon">🎰</div>
+        <div
+            class="game-card"
+            onclick="openGame('random')">
 
-            <h3>Random Machine</h3>
+            <div class="icon">
+                🎰
+            </div>
+
+            <h3>
+                Random Machine
+            </h3>
 
             <p>
                 Tidak ada tujuan.
@@ -545,6 +790,7 @@ footer{
 
         </div>
 
+
     </div>
 
 </div>
@@ -552,7 +798,7 @@ footer{
 </section>
 
 
-<!-- GAME PLAY -->
+<!-- ================= PLAY ================= -->
 
 <section id="play" class="page">
 
@@ -560,145 +806,165 @@ footer{
 
 <div class="game-screen">
 
-<button class="back"
+    <button
+        class="back-btn"
         onclick="showPage('games')">
-    ← Kembali
-</button>
 
-<div class="game-box">
+        ← Kembali
 
-    <h2 id="gameTitle">Game</h2>
+    </button>
 
-    <p id="gameDescription">
-        Game
-    </p>
 
-    <!-- GUESS -->
+    <div class="game-box">
 
-    <div id="guessGame" class="game-content">
+        <h2 id="gameTitle">
+            Game
+        </h2>
 
-        <input
-            id="guessInput"
-            type="number"
-            placeholder="Masukkan angka 1-50">
+        <p id="gameDescription">
+            Pilih game.
+        </p>
 
-        <button
-            class="game-btn"
-            onclick="guessNumber()">
-            🚀 TEBAK
-        </button>
+
+        <!-- TEBAK ANGKA -->
 
         <div
-            class="result"
-            id="guessResult">
+            id="guessGame"
+            class="game-content">
+
+            <input
+                id="guessInput"
+                type="number"
+                placeholder="Masukkan angka 1-50">
+
+            <button
+                class="game-btn"
+                onclick="guessNumber()">
+
+                🚀 TEBAK
+
+            </button>
+
+            <div
+                id="guessResult"
+                class="result">
+            </div>
+
         </div>
+
+
+        <!-- SUIT -->
+
+        <div
+            id="suitGame"
+            class="game-content">
+
+            <div
+                style="font-size:60px;margin:20px">
+
+                ❓
+
+            </div>
+
+            <button
+                class="game-btn"
+                onclick="playSuit('batu')">
+
+                ✊
+
+            </button>
+
+            <button
+                class="game-btn"
+                onclick="playSuit('gunting')">
+
+                ✌️
+
+            </button>
+
+            <button
+                class="game-btn"
+                onclick="playSuit('kertas')">
+
+                ✋
+
+            </button>
+
+            <div
+                id="suitResult"
+                class="result">
+            </div>
+
+        </div>
+
+
+        <!-- CLICK -->
+
+        <div
+            id="clickGame"
+            class="game-content">
+
+            <div
+                id="clickBox"
+                class="click-box"
+                onclick="clickTarget()">
+
+                KLIK!
+
+            </div>
+
+            <button
+                class="game-btn"
+                onclick="startClick()">
+
+                ▶ MULAI
+
+            </button>
+
+            <div
+                id="clickResult"
+                class="result">
+
+                Tekan MULAI untuk bermain.
+
+            </div>
+
+        </div>
+
+
+        <!-- RANDOM -->
+
+        <div
+            id="randomGame"
+            class="game-content">
+
+            <div
+                id="randomEmoji"
+                style="
+                font-size:70px;
+                margin:20px">
+
+                🎲
+
+            </div>
+
+            <button
+                class="game-btn"
+                onclick="randomMachine()">
+
+                🎰 ACAK
+
+            </button>
+
+            <div
+                id="randomResult"
+                class="result">
+            </div>
+
+        </div>
+
 
     </div>
-
-
-    <!-- SUIT -->
-
-    <div id="suitGame"
-         class="game-content"
-         style="display:none">
-
-        <div style="font-size:60px;margin:20px">
-            ❓
-        </div>
-
-        <button
-            class="game-btn"
-            onclick="playSuit('batu')">
-            ✊
-        </button>
-
-        <button
-            class="game-btn"
-            onclick="playSuit('gunting')">
-            ✌️
-        </button>
-
-        <button
-            class="game-btn"
-            onclick="playSuit('kertas')">
-            ✋
-        </button>
-
-        <div
-            class="result"
-            id="suitResult">
-        </div>
-
-    </div>
-
-
-    <!-- CLICK -->
-
-    <div id="clickGame"
-         class="game-content"
-         style="display:none">
-
-        <div
-            id="clickBox"
-            onclick="clickTarget()"
-            style="
-            height:150px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            background:#ffffff08;
-            border-radius:20px;
-            font-size:30px;
-            cursor:pointer;
-            user-select:none;">
-            KLIK!
-        </div>
-
-        <br>
-
-        <button
-            class="game-btn"
-            onclick="startClick()">
-            ▶ MULAI
-        </button>
-
-        <div
-            class="result"
-            id="clickResult">
-            Siap?
-        </div>
-
-    </div>
-
-
-    <!-- RANDOM -->
-
-    <div id="randomGame"
-         class="game-content"
-         style="display:none">
-
-        <div
-            style="
-            font-size:60px;
-            margin:20px"
-            id="randomEmoji">
-            🎲
-        </div>
-
-        <button
-            class="game-btn"
-            onclick="randomMachine()">
-            🎰 ACAK
-        </button>
-
-        <div
-            class="result"
-            id="randomResult">
-        </div>
-
-    </div>
-
-</div>
 
 </div>
 
@@ -707,537 +973,469 @@ footer{
 </section>
 
 
-<!-- PROFILE -->
+<!-- ================= PROFILE ================= -->
 
 <section id="profile" class="page">
 
 <div class="container">
 
-<h2 class="section-title">👤 PLAYER PROFILE</h2>
+    <h2 class="title">
+        👤 PLAYER PROFILE
+    </h2>
 
-<div class="profile-box">
+    <div class="profile">
 
-    <div class="avatar">😎</div>
-
-    <h2>PLAYER ONE</h2>
-
-    <div class="level-row">
-
-        <span>LEVEL <b id="level">1</b></span>
-
-        <span>
-            <b id="xpText">0</b> XP
-        </span>
-
-    </div>
-
-    <div class="xpbar">
-        <div class="xp" id="xpBar"></div>
-    </div>
-
-    <div class="stats">
-
-        <div class="stat">
-            <b id="totalScore">0</b>
-            Score
+        <div class="avatar">
+            😎
         </div>
 
-        <div class="stat">
-            <b id="gamesPlayed">0</b>
-            Games
+        <h2>
+            PLAYER ONE
+        </h2>
+
+
+        <div class="level-row">
+
+            <span>
+                LEVEL
+                <b id="level">
+                    1
+                </b>
+            </span>
+
+            <span>
+                <b id="xpText">
+                    0
+                </b>
+                XP
+            </span>
+
         </div>
 
-        <div class="stat">
-            <b id="bestScore">0</b>
-            Best
+
+        <div class="xpbar">
+
+            <div
+                id="xpBar"
+                class="xp">
+            </div>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <b id="totalScore">
+                    0
+                </b>
+
+                Score
+
+            </div>
+
+
+            <div class="stat">
+
+                <b id="gamesPlayed">
+                    0
+                </b>
+
+                Games
+
+            </div>
+
+
+            <div class="stat">
+
+                <b id="bestScore">
+                    0
+                </b>
+
+                Best
+
+            </div>
+
         </div>
 
     </div>
-
-</div>
 
 </div>
 
 </section>
 
 
-<!-- ACHIEVEMENTS -->
+<!-- ================= ACHIEVEMENT ================= -->
 
 <section id="achievements" class="page">
 
 <div class="container">
 
-<h2 class="section-title">
-    🏆 ACHIEVEMENTS
-</h2>
+    <h2 class="title">
+        🏆 ACHIEVEMENTS
+    </h2>
 
-<p class="section-sub">
-    Buka semuanya kalau kamu bisa.
-</p>
+    <p class="subtitle">
+        Buka semua achievement.
+    </p>
 
-<div class="achievements">
 
-    <div class="achievement" id="a1">
-        🎮
-        <h3>First Game</h3>
-        <p>Mainkan game pertama.</p>
+    <div class="achievement-grid">
+
+
+        <div
+            id="a1"
+            class="achievement">
+
+            🎮
+
+            <h3>
+                First Game
+            </h3>
+
+            <p>
+                Mainkan game pertama.
+            </p>
+
+        </div>
+
+
+        <div
+            id="a2"
+            class="achievement">
+
+            ⭐
+
+            <h3>
+                100 XP
+            </h3>
+
+            <p>
+                Kumpulkan 100 XP.
+            </p>
+
+        </div>
+
+
+        <div
+            id="a3"
+            class="achievement">
+
+            🔥
+
+            <h3>
+                Level 5
+            </h3>
+
+            <p>
+                Capai level 5.
+            </p>
+
+        </div>
+
+
+        <div
+            id="a4"
+            class="achievement">
+
+            ⚡
+
+            <h3>
+                Speed Demon
+            </h3>
+
+            <p>
+                Dapatkan 30 klik.
+            </p>
+
+        </div>
+
+
+        <div
+            id="a5"
+            class="achievement">
+
+            🎰
+
+            <h3>
+                Lucky
+            </h3>
+
+            <p>
+                Gunakan Random Machine 10 kali.
+            </p>
+
+        </div>
+
+
     </div>
-
-    <div class="achievement" id="a2">
-        ⭐
-        <h3>100 XP</h3>
-        <p>Kumpulkan 100 XP.</p>
-    </div>
-
-    <div class="achievement" id="a3">
-        🔥
-        <h3>Level 5</h3>
-        <p>Capai level 5.</p>
-    </div>
-
-    <div class="achievement" id="a4">
-        ⚡
-        <h3>Speed Demon</h3>
-        <p>Dapatkan 30 klik.</p>
-    </div>
-
-    <div class="achievement" id="a5">
-        🎰
-        <h3>Lucky</h3>
-        <p>Gunakan Random Machine 10 kali.</p>
-    </div>
-
-</div>
 
 </div>
 
 </section>
 
 
+<!-- ================= FOOTER ================= -->
+
 <footer>
-    By.Lyzz © 2026
+
+    By.Lyzz
+
 </footer>
 
+
+<!-- TOAST -->
 
 <div id="toast"></div>
 
 
 <script>
 
-/* =========================
+/* =========================================
    DATA
-========================= */
+========================================= */
 
-let xp = Number(localStorage.getItem("xp")) || 0;
-let score = Number(localStorage.getItem("score")) || 0;
-let games = Number(localStorage.getItem("games")) || 0;
-let best = Number(localStorage.getItem("best")) || 0;
+let xp =
+    Number(localStorage.getItem("neon_xp")) || 0;
+
+let score =
+    Number(localStorage.getItem("neon_score")) || 0;
+
+let games =
+    Number(localStorage.getItem("neon_games")) || 0;
+
+let best =
+    Number(localStorage.getItem("neon_best")) || 0;
+
 let randomUses =
-    Number(localStorage.getItem("randomUses")) || 0;
+    Number(localStorage.getItem("neon_random")) || 0;
 
 let secretNumber =
     Math.floor(Math.random()*50)+1;
 
 let clickActive = false;
+
 let clickCount = 0;
 
 
-/* =========================
-   SAVE
-========================= */
+/* =========================================
+   SAVE DATA
+========================================= */
 
-function save(){
+function saveData(){
 
-    localStorage.setItem("xp",xp);
-    localStorage.setItem("score",score);
-    localStorage.setItem("games",games);
-    localStorage.setItem("best",best);
-    localStorage.setItem("randomUses",randomUses);
+    localStorage.setItem(
+        "neon_xp",
+        xp
+    );
+
+    localStorage.setItem(
+        "neon_score",
+        score
+    );
+
+    localStorage.setItem(
+        "neon_games",
+        games
+    );
+
+    localStorage.setItem(
+        "neon_best",
+        best
+    );
+
+    localStorage.setItem(
+        "neon_random",
+        randomUses
+    );
 
 }
 
 
-/* =========================
+/* =========================================
    PAGE SYSTEM
-========================= */
+========================================= */
 
 function showPage(page){
 
-    document.querySelectorAll(".page")
-    .forEach(p=>p.classList.remove("active"));
+    document
+    .querySelectorAll(".page")
+    .forEach(function(section){
 
-    document.getElementById(page)
-    .classList.add("active");
+        section.classList.remove("active");
+
+    });
+
+
+    let target =
+        document.getElementById(page);
+
+
+    if(target){
+
+        target.classList.add("active");
+
+    }
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
 
     updateUI();
 
-    window.scrollTo(0,0);
 }
 
 
-/* =========================
+/* =========================================
    OPEN GAME
-========================= */
+========================================= */
 
 function openGame(game){
 
     showPage("play");
 
-    document.querySelectorAll(".game-content")
-    .forEach(x=>x.style.display="none");
 
-    document.getElementById(game+"Game")
-    .style.display="block";
+    document
+    .querySelectorAll(".game-content")
+    .forEach(function(content){
 
-    if(game==="guess"){
+        content.classList.remove("active");
 
-        gameTitle.textContent="🔢 Tebak Angka";
+    });
 
-        gameDescription.textContent=
-            "Tebak angka rahasia 1 sampai 50.";
+
+    let selected =
+        document.getElementById(
+            game + "Game"
+        );
+
+
+    if(selected){
+
+        selected.classList.add("active");
 
     }
 
-    if(game==="suit"){
 
-        gameTitle.textContent=
+    if(game === "guess"){
+
+        document.getElementById(
+            "gameTitle"
+        ).textContent =
+            "🔢 Tebak Angka";
+
+        document.getElementById(
+            "gameDescription"
+        ).textContent =
+            "Tebak angka rahasia dari 1 sampai 50.";
+
+    }
+
+
+    if(game === "suit"){
+
+        document.getElementById(
+            "gameTitle"
+        ).textContent =
             "✊ Batu Gunting Kertas";
 
-        gameDescription.textContent=
-            "Kalahkan komputer.";
+        document.getElementById(
+            "gameDescription"
+        ).textContent =
+            "Lawan komputer.";
 
     }
 
-    if(game==="click"){
 
-        gameTitle.textContent="⚡ Click Rush";
+    if(game === "click"){
 
-        gameDescription.textContent=
+        document.getElementById(
+            "gameTitle"
+        ).textContent =
+            "⚡ Click Rush";
+
+        document.getElementById(
+            "gameDescription"
+        ).textContent =
             "Klik sebanyak mungkin dalam 5 detik.";
 
     }
 
-    if(game==="random"){
 
-        gameTitle.textContent=
+    if(game === "random"){
+
+        document.getElementById(
+            "gameTitle"
+        ).textContent =
             "🎰 Random Machine";
 
-        gameDescription.textContent=
-            "Mesin random tidak pernah mengecewakan.";
+        document.getElementById(
+            "gameDescription"
+        ).textContent =
+            "Tekan tombol dan lihat apa yang kamu dapat.";
 
     }
 
 }
 
 
-/* =========================
-   XP
-========================= */
+/* =========================================
+   XP SYSTEM
+========================================= */
 
 function addXP(amount){
 
     xp += amount;
+
     score += amount;
+
     games++;
 
-    if(score > best)
+
+    if(score > best){
+
         best = score;
 
-    save();
+    }
+
+
+    saveData();
+
     updateUI();
 
 }
 
 
-/* =========================
-   UI
-========================= */
+/* =========================================
+   UPDATE UI
+========================================= */
 
 function updateUI(){
 
     let level =
-        Math.floor(xp/100)+1;
+        Math.floor(xp / 100) + 1;
+
 
     let progress =
         xp % 100;
 
-    document.getElementById("level")
-        .textContent=level;
 
-    document.getElementById("xpText")
-        .textContent=xp;
+    document.getElementById(
+        "level"
+    ).textContent =
+        level;
 
-    document.getElementById("xpBar")
-        .style.width=progress+"%";
 
-    document.getElementById("totalScore")
-        .textContent=score;
+    document.getElementById(
+        "xpText"
+    ).textContent =
+        xp;
 
-    document.getElementById("gamesPlayed")
-        .textContent=games;
 
-    document.getElementById("bestScore")
-        .textContent=best;
-
-    achievements();
-
-}
-
-
-/* =========================
-   GUESS NUMBER
-========================= */
-
-function guessNumber(){
-
-    let value =
-        Number(
-            document.getElementById("guessInput")
-            .value
-        );
-
-    let result =
-        document.getElementById("guessResult");
-
-    if(!value){
-
-        result.textContent=
-            "Masukkan angka dulu 😭";
-
-        return;
-    }
-
-    if(value===secretNumber){
-
-        result.textContent=
-            "🎉 BENAR! Angkanya "+secretNumber;
-
-        addXP(50);
-
-        toast("🎉 +50 XP");
-
-        secretNumber=
-            Math.floor(Math.random()*50)+1;
-
-    }
-
-    else if(value<secretNumber){
-
-        result.textContent=
-            "⬆️ Terlalu kecil.";
-
-    }
-
-    else{
-
-        result.textContent=
-            "⬇️ Terlalu besar.";
-
-    }
-
-}
-
-
-/* =========================
-   SUIT
-========================= */
-
-function playSuit(player){
-
-    const choices=[
-        "batu",
-        "gunting",
-        "kertas"
-    ];
-
-    let computer=
-        choices[
-            Math.floor(Math.random()*3)
-        ];
-
-    let result;
-
-    if(player===computer){
-
-        result="🤝 SERI!";
-
-    }
-
-    else if(
-        (player==="batu" &&
-         computer==="gunting") ||
-
-        (player==="gunting" &&
-         computer==="kertas") ||
-
-        (player==="kertas" &&
-         computer==="batu")
-    ){
-
-        result="🏆 KAMU MENANG!";
-
-        addXP(25);
-
-        toast("🏆 +25 XP");
-
-    }
-
-    else{
-
-        result="💀 KAMU KALAH";
-
-    }
-
-    document.getElementById("suitResult")
-    .innerHTML=
-        result+
-        "<br><small>Kamu: "+player+
-        " | Komputer: "+computer+
-        "</small>";
-
-}
-
-
-/* =========================
-   CLICK RUSH
-========================= */
-
-function startClick(){
-
-    clickActive=true;
-    clickCount=0;
-
-    document.getElementById("clickBox")
-    .textContent="🔥 KLIK!";
-
-    document.getElementById("clickResult")
-    .textContent=
-        "WAKTU BERJALAN!";
-
-    setTimeout(()=>{
-
-        clickActive=false;
-
-        document.getElementById("clickResult")
-        .textContent=
-            "⏰ "+clickCount+
-            " klik dalam 5 detik!";
-
-        addXP(clickCount);
-
-        if(clickCount>=30){
-
-            toast("⚡ SPEED DEMON!");
-
-        }
-
-    },5000);
-
-}
-
-
-function clickTarget(){
-
-    if(!clickActive)
-        return;
-
-    clickCount++;
-
-    document.getElementById("clickBox")
-    .textContent=clickCount;
-
-}
-
-
-/* =========================
-   RANDOM MACHINE
-========================= */
-
-function randomMachine(){
-
-    const results=[
-        ["🔥","AURA +100"],
-        ["💎","ITEM LEGENDARY"],
-        ["😂","KAMU DAPAT KEPO"],
-        ["🚀","ROCKET BOOST"],
-        ["🍜","MIE AYAM"],
-        ["👻","HANTU RANDOM"],
-        ["😎","MODE GANTENG"],
-        ["🗿","MODE BATU"],
-        ["🐱","KUCING RANDOM"],
-        ["🎮","WAKTU MAIN"]
-    ];
-
-    let r=
-        results[
-            Math.floor(Math.random()*results.length)
-        ];
-
-    document.getElementById("randomEmoji")
-    .textContent=r[0];
-
-    document.getElementById("randomResult")
-    .textContent=r[1];
-
-    randomUses++;
-
-    addXP(10);
-
-    save();
-
-}
-
-
-/* =========================
-   ACHIEVEMENTS
-========================= */
-
-function achievements(){
-
-    let level=
-        Math.floor(xp/100)+1;
-
-    unlock("a1",games>=1);
-    unlock("a2",xp>=100);
-    unlock("a3",level>=5);
-
-    /* Click achievement */
-    if(clickCount>=30)
-        unlock("a4",true);
-
-    unlock("a5",randomUses>=10);
-
-}
-
-
-function unlock(id,state){
-
-    if(state){
-
-        document.getElementById(id)
-        .classList.add("unlocked");
-
-    }
-
-}
-
-
-/* =========================
-   TOAST
-========================= */
-
-function toast(message){
-
-    let t=
-        document.getElementById("toast");
-
-    t.textContent=message;
-
-    t.classList.add("show");
-
-    setTimeout(()=>{
-        t.classList.remove("show");
-    },2000);
-
-}
-  
+    document.getElementById(
+        "xpBar"
+    ).st
