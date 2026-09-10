@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Hari Spesial ✨</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            color: white;
+            background:
+                radial-gradient(circle at 20% 20%, #ff4ecd55, transparent 25%),
+                radial-gradient(circle at 80% 10%, #00eaff55, transparent 25%),
+                radial-gradient(circle at 50% 90%, #7c3aed66, transparent 30%),
+                #09001a;
+        }
+
+        /* Bintang */
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from {
+                opacity: .2;
+                transform: scale(.7);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        /* Konten utama */
+        .page {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 850px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        .crown {
+            font-size: 65px;
+            animation: floating 2s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .hero h1 {
+            margin-top: 15px;
+            font-size: clamp(40px, 8vw, 75px);
+            background: linear-gradient(90deg, #fff, #ff8bea, #67e8f9, #fff);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradient 5s linear infinite;
+        }
+
+        @keyframes gradient {
+            from {
+                background-position: 0%;
+            }
+
+            to {
+                background-position: 300%;
+            }
+        }
+
+        .hero p {
+            margin-top: 15px;
+            color: #d8ccff;
+            font-size: 18px;
+        }
+
+        /* Kartu */
+        .card {
+            margin-top: 25px;
+            padding: 35px;
+            border-radius: 28px;
+
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.18);
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,.4),
+                inset 0 0 30px rgba(255,255,255,.03);
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+        }
+
+        .letter {
+            line-height: 1.9;
+            color: #eee7ff;
+            font-size: 17px;
+        }
+
+        .letter p {
+            margin-bottom: 16px;
+        }
+
+        /* Tombol */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        button {
+            border: none;
+            padding: 14px 22px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(135deg, #ec4899, #7c3aed);
+            box-shadow: 0 8px 25px rgba(236,72,153,.3);
+            transition: .2s;
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.03);
+        }
+
+        button:active {
+            transform: scale(.95);
+        }
+
+        /* Pesan rahasia */
+        #secret {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            text-align: center;
+            border-radius: 20px;
+            background: rgba(0,0,0,.25);
+            color: #f5d0fe;
+            line-height: 1.8;
+            animation: appear .5s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Statistik */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat {
+            padding: 25px 10px;
+            text-align: center;
+            border-radius: 18px;
+            background: rgba(255,255,255,.07);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 30px;
+            color: #67e8f9;
+        }
+
+        .stat span {
+            font-size: 13px;
+            color: #c4b5fd;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 10px;
+            color: #a78bfa;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: -20px;
+            width: 10px;
+            height: 15px;
+            z-index: 20;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 25px 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .letter {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stars" id="stars"></div>
+
+    <main class="page">
+
+        <div class="wrapper">
+
+            <section class="hero">
+
+                <div class="crown">👑</div>
+
+                <h1>HAPPY BIRTHDAY!</h1>
+
+                <p>
+                    Hari ini bukan hari biasa... ✨
+                </p>
+
+            </section>
+
+
+            <section class="card">
+
+                <h2>🎂 Untuk Diriku Sendiri</h2>
+
+                <div class="letter">
+
+                    <p>
+                        Selamat ulang tahun untuk diriku sendiri.
+                        Terima kasih sudah bertahan melewati hari-hari
+                        yang tidak selalu mudah.
+                    </p>
+
+                    <p>
+                        Mungkin masih banyak hal yang belum tercapai,
+                        masih banyak mimpi yang sedang dikejar,
+                        dan masih banyak cerita yang belum selesai.
+                    </p>
+
+                    <p>
+                        Tapi tidak apa-apa.
+                        Aku tidak harus memiliki semuanya hari ini.
+                        Yang penting, aku masih terus berjalan.
+                    </p>
+
+                    <p>
+                        Semoga di usia yang baru ini,
+                        aku menjadi lebih kuat, lebih bijaksana,
+                        dan lebih berani mengambil kesempatan.
+                    </p>
+
+                    <p>
+                        Untuk semua hal baik yang akan datang...
+                        <b>aku siap. 🚀</b>
+                    </p>
+
+                </div>
+
+
+                <div class="stats">
+
+                    <div class="stat">
+                        <strong>🎯</strong>
+                        <span>Mimpi Baru</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>🚀</strong>
+                        <span>Perjalanan Baru</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>✨</strong>
+                        <span>Cerita Baru</span>
+                    </div>
+
+                </div>
+
+
+                <div class="buttons">
+
+                    <button onclick="celebrate()">
+                        🎉 Rayakan!
+                    </button>
+
+                    <button onclick="secretMessage()">
+                        💌 Pesan Rahasia
+                    </button>
+
+                </div>
+
+
+                <div id="secret">
+                    <h3>💜 Pesan untuk diriku</h3>
+
+                    <p>
+                        Jangan terlalu sibuk melihat seberapa jauh
+                        orang lain sudah berjalan.
+                    </p>
+
+                    <p>
+                        Lihatlah dirimu sendiri.
+                        Kamu sudah melewati banyak hal yang dulu
+                        kamu pikir tidak akan sanggup kamu lewati.
+                    </p>
+
+                    <p>
+                        Jadi teruslah berjalan.
+                        Pelan tidak masalah.
+                        Berhenti sebentar juga tidak masalah.
+                        Yang penting jangan menyerah. 🌙
+                    </p>
+                </div>
+
+            </section>
+
+
+            <footer>
+                Dibuat dengan ❤️ untuk hari yang spesial.
+                <br>
+                © <span id="year"></span> My Special Day
+            </footer>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /* Tahun otomatis */
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+
+        /* Membuat bintang */
+        const stars = document.getElementById("stars");
+
+        for (let i = 0; i < 100; i++) {
+
+            const star = document.createElement("div");
+
+            star.className = "star";
+
+            star.style.left =
+                Math.random() * 100 + "%";
+
+            star.style.top =
+                Math.random() * 100 + "%";
+
+            star.style.animationDelay =
+                Math.random() * 3 + "s";
+
+            stars.appendChild(star);
+        }
+
+
+        /* Pesan rahasia */
+        function secretMessage() {
+
+            const secret =
+                document.getElementById("secret");
+
+            if (secret.style.display === "block") {
+
+                secret.style.display = "none";
+
+            } else {
+
+                secret.style.display = "block";
+
+                secret.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }
+        }
+
+
+        /* Confetti */
+        function celebrate() {
+
+            const symbols = [
+                "🎉",
+                "✨",
+                "🎊",
+                "💜",
+                "⭐",
+                "🎂"
+            ];
+
+            for (let i = 0; i < 80; i++) {
+
+                const confetti =
+                    document.createElement("div");
+
+                confetti.className = "confetti";
+
+                confetti.textContent =
+                    symbols[
+                        Math.floor(
+                            Math.random() * symbols.length
+                        )
+                    ];
+
+                confetti.style.left =
+                    Math.random() * 100 + "vw";
+
+                confetti.style.fontSize =
+                    (12 + Math.random() * 18) + "px";
+
+                confetti.style.animationDuration =
+                    (2 + Math.random() * 3) + "s";
+
+                confetti.style.transform =
+                    `rotate(${Math.random() * 360}deg)`;
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5500);
+            }
+        }
+
+    </script>
+
+</body>
+</html>
