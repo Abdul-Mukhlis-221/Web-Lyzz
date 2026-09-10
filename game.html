@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 Mini Game Center</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    color:white;
+    background:
+        radial-gradient(circle at top left,#5b21b6,transparent 35%),
+        radial-gradient(circle at bottom right,#0ea5e9,transparent 35%),
+        #090014;
+    overflow-x:hidden;
+}
+
+.container{
+    width:92%;
+    max-width:1000px;
+    margin:auto;
+    padding:35px 0;
+}
+
+header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+header h1{
+    font-size:clamp(35px,7vw,70px);
+    margin-bottom:10px;
+    animation:float 3s ease-in-out infinite;
+}
+
+header p{
+    opacity:.8;
+    font-size:18px;
+}
+
+@keyframes float{
+    50%{transform:translateY(-8px);}
+}
+
+.score{
+    margin:25px auto;
+    width:max-content;
+    padding:12px 25px;
+    border-radius:30px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.2);
+    backdrop-filter:blur(10px);
+    font-size:20px;
+}
+
+.games{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:25px;
+    padding:25px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-7px);
+    background:rgba(255,255,255,.14);
+}
+
+.card h2{
+    margin-bottom:10px;
+}
+
+.card p{
+    opacity:.75;
+    margin-bottom:18px;
+}
+
+button{
+    border:0;
+    padding:12px 18px;
+    border-radius:14px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:15px;
+    margin:4px;
+    transition:.2s;
+}
+
+button:hover{
+    transform:scale(1.06);
+}
+
+input{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:12px;
+    margin-bottom:10px;
+    outline:none;
+}
+
+.result{
+    min-height:35px;
+    margin-top:12px;
+    font-weight:bold;
+}
+
+.choices{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.big{
+    font-size:45px;
+    text-align:center;
+    margin:10px;
+}
+
+.click-area{
+    height:100px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:20px;
+    background:rgba(0,0,0,.2);
+    margin-bottom:10px;
+    font-size:25px;
+    cursor:pointer;
+    user-select:none;
+}
+
+footer{
+    text-align:center;
+    margin-top:35px;
+    opacity:.6;
+}
+
+/* confetti */
+.confetti{
+    position:fixed;
+    width:10px;
+    height:10px;
+    top:-20px;
+    animation:fall 3s linear forwards;
+    z-index:999;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+    }
+}
+
+.hidden{
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <h1>🎮 MINI GAME CENTER</h1>
+    <p>Tempat gabut paling tidak berguna tapi menyenangkan 😂</p>
+
+    <div class="score">
+        🏆 Total Score: <span id="score">0</span>
+    </div>
+</header>
+
+<div class="games">
+
+<!-- RANDOM -->
+<div class="card">
+    <h2>🎰 Random Generator</h2>
+    <p>Tekan tombol dan lihat apa yang terjadi.</p>
+
+    <button onclick="randomNumber()">🎲 Angka</button>
+    <button onclick="randomEmoji()">😂 Emoji</button>
+    <button onclick="randomColor()">🎨 Warna</button>
+
+    <div class="result" id="randomResult">
+        Hasil muncul di sini...
+    </div>
+</div>
+
+<!-- TEBAK ANGKA -->
+<div class="card">
+    <h2>🔢 Tebak Angka</h2>
+    <p>Aku memilih angka 1–20. Bisa tebak?</p>
+
+    <input type="number" id="guess" placeholder="Masukkan angka">
+
+    <button onclick="guessNumber()">🚀 Tebak</button>
+
+    <div class="result" id="guessResult"></div>
+</div>
+
+<!-- SUIT -->
+<div class="card">
+    <h2>✊ Batu Gunting Kertas</h2>
+    <p>Lawan komputer sekarang!</p>
+
+    <div class="choices">
+        <button onclick="suit('batu')">✊</button>
+        <button onclick="suit('gunting')">✌️</button>
+        <button onclick="suit('kertas')">✋</button>
+    </div>
+
+    <div class="big" id="suitResult">❓</div>
+</div>
+
+<!-- CLICK GAME -->
+<div class="card">
+    <h2>⚡ Click Speed</h2>
+    <p>Klik kotak sebanyak mungkin dalam 5 detik!</p>
+
+    <div class="click-area" id="clickArea" onclick="clickGame()">
+        KLIK!
+    </div>
+
+    <button onclick="startClickGame()">▶️ MULAI</button>
+
+    <div class="result" id="clickResult">
+        Belum dimulai
+    </div>
+</div>
+
+<!-- RANDOM LIFE -->
+<div class="card">
+    <h2>🔮 Ramalan Random</h2>
+    <p>Nasibmu hari ini ditentukan komputer.</p>
+
+    <button onclick="fortune()">🔮 RAMAL</button>
+
+    <div class="result" id="fortuneResult"></div>
+</div>
+
+<!-- EASTER EGG -->
+<div class="card">
+    <h2>👀 Jangan Klik</h2>
+    <p>Serius. Jangan klik tombol ini.</p>
+
+    <button onclick="secret()">🚫 JANGAN KLIK</button>
+
+    <div class="result" id="secretResult"></div>
+</div>
+
+</div>
+
+<footer>
+    Made with HTML + CSS + JavaScript ❤️
+</footer>
+
+</div>
+
+<script>
+
+let score = 0;
+
+function addScore(points){
+    score += points;
+    document.getElementById("score").textContent = score;
+}
+
+function randomNumber(){
+
+    let number = Math.floor(Math.random()*100)+1;
+
+    document.getElementById("randomResult").innerHTML =
+        "🎲 Angka random kamu: <b>"+number+"</b>";
+
+    addScore(5);
+}
+
+function randomEmoji(){
+
+    const emojis = [
+        "😂","🤣","😎","🔥","🚀",
+        "👻","🤯","🥶","😈","🗿",
+        "🐱","🐸","💀","❤️","🤡"
+    ];
+
+    let emoji = emojis[Math.floor(Math.random()*emojis.length)];
+
+    document.getElementById("randomResult").innerHTML =
+        "Emoji kamu: <span style='font-size:35px'>"+emoji+"</span>";
+
+    addScore(5);
+}
+
+function randomColor(){
+
+    const colors = [
+        "Merah 🔴",
+        "Biru 🔵",
+        "Hijau 🟢",
+        "Ungu 🟣",
+        "Kuning 🟡",
+        "Pink 🩷",
+        "Orange 🟠"
+    ];
+
+    let color = colors[Math.floor(Math.random()*colors.length)];
+
+    document.getElementById("randomResult").textContent =
+        "🎨 Warna random: "+color;
+
+    addScore(5);
+}
+
+
+/* TEBAK ANGKA */
+
+let secretNumber =
+    Math.floor(Math.random()*20)+1;
+
+function guessNumber(){
+
+    let guess =
+        Number(document.getElementById("guess").value);
+
+    let result =
+        document.getElementById("guessResult");
+
+    if(!guess){
+        result.textContent = "Masukkan angka dulu 😭";
+        return;
+    }
+
+    if(guess === secretNumber){
+
+        result.textContent =
+            "🎉 BENAR! Kamu hebat!";
+
+        addScore(30);
+
+        confetti();
+
+        secretNumber =
+            Math.floor(Math.random()*20)+1;
+
+    }else if(guess < secretNumber){
+
+        result.textContent =
+            "⬆️ Terlalu kecil!";
+
+    }else{
+
+        result.textContent =
+            "⬇️ Terlalu besar!";
+    }
+}
+
+
+/* BATU GUNTING KERTAS */
+
+function suit(player){
+
+    const choices = [
+        "batu",
+        "gunting",
+        "kertas"
+    ];
+
+    let computer =
+        choices[Math.floor(Math.random()*3)];
+
+    let result = "";
+
+    if(player === computer){
+
+        result = "🤝 SERI!";
+
+    }else if(
+        (player==="batu" && computer==="gunting") ||
+        (player==="gunting" && computer==="kertas") ||
+        (player==="kertas" && computer==="batu")
+    ){
+
+        result = "🎉 KAMU MENANG!";
+        addScore(20);
+
+    }else{
+
+        result = "😂 KAMU KALAH!";
+    }
+
+    document.getElementById("suitResult").innerHTML =
+        result+"<br><small>Kamu: "+player+
+        " | Komputer: "+computer+"</small>";
+}
+
+
+/* CLICK GAME */
+
+let clicking = false;
+let clicks = 0;
+let timer;
+
+function startClickGame(){
+
+    clicking = true;
+    clicks = 0;
+
+    document.getElementById("clickResult").textContent =
+        "🔥 KLIK SEKARANG!";
+
+    timer = setTimeout(function(){
+
+        clicking = false;
+
+        document.getElementById("clickResult").textContent =
+            "⏰ Waktu habis! Kamu klik "+clicks+" kali!";
+
+        addScore(clicks);
+
+    },5000);
+}
+
+function clickGame(){
+
+    if(!clicking) return;
+
+    clicks++;
+
+    document.getElementById("clickResult").textContent =
+        "⚡ "+clicks+" KLIK!";
+}
+
+
+/* RAMALAN */
+
+function fortune(){
+
+    const fortunes = [
+        "Hari ini kamu bakal ketawa tanpa alasan 😂",
+        "Ada sesuatu menarik yang akan terjadi 👀",
+        "Keberuntungan sedang mendekat 🍀",
+        "Hari ini cocok buat mencoba sesuatu baru 🚀",
+        "Kamu akan menemukan hal yang bikin senang 😎",
+        "Jangan terlalu serius menjalani hari 😌",
+        "Seseorang mungkin sedang memikirkanmu 👀",
+        "Hari ini: mode santai ON 🗿"
+    ];
+
+    let result =
+        fortunes[Math.floor(Math.random()*fortunes.length)];
+
+    document.getElementById("fortuneResult").textContent =
+        "🔮 "+result;
+
+    addScore(10);
+}
+
+
+/* EASTER EGG */
+
+let secretCount = 0;
+
+function secret(){
+
+    secretCount++;
+
+    const messages = [
+        "😐 Kan sudah dibilang jangan klik.",
+        "🤨 Kamu ngeyel juga ya...",
+        "😭 Masih diklik?",
+        "💀 Oke. Kamu menemukan rahasia.",
+        "🎉 SELAMAT! Kamu terlalu kepo!"
+    ];
+
+    let index =
+        Math.min(secretCount-1,messages.length-1);
+
+    document.getElementById("secretResult").textContent =
+        messages[index];
+
+    if(secretCount === 5){
+
+        addScore(100);
+        confetti();
+
+        document.body.style.transform =
+            "rotate(1deg)";
+
+        setTimeout(()=>{
+            document.body.style.transform =
+                "rotate(0deg)";
+        },200);
+    }
+}
+
+
+/* CONFETTI */
+
+function confetti(){
+
+    for(let i=0;i<80;i++){
+
+        let piece =
+            document.createElement("div");
+
+        piece.className = "confetti";
+
+        piece.style.left =
+            Math.random()*100+"vw";
+
+        piece.style.background =
+            "hsl("+Math.random()*360+",100%,60%)";
+
+        piece.style.animationDuration =
+            (Math.random()*2+2)+"s";
+
+        document.body.appendChild(piece);
+
+        setTimeout(()=>{
+            piece.remove();
+        },4000);
+    }
+}
+
+</script>
+
+</body>
+</html>
