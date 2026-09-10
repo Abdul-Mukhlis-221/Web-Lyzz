@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -1340,4 +1341,560 @@ function reactionGame(){
 
 let btn=document.getElementById("reactionBtn");
 
-let text=document.getElement
+let text=document.getElementById("reactionText");
+
+let result=document.getElementById("reactionResult");
+
+
+if(reactionReady){
+
+let ms=Date.now()-reactionTime;
+
+result.innerText=
+"⚡ "+ms+" ms! +20 XP";
+
+addXP(20);
+
+reactionReady=false;
+
+btn.innerText="START";
+
+text.innerText=
+"Tekan START untuk mencoba lagi.";
+
+return;
+
+}
+
+
+reactionReady=false;
+
+btn.innerText="TUNGGU...";
+
+text.innerText="⏳ Jangan klik dulu!";
+
+clearTimeout(reactionTimer);
+
+reactionTimer=setTimeout(function(){
+
+reactionReady=true;
+
+reactionTime=Date.now();
+
+btn.innerText="KLIK SEKARANG!";
+
+text.innerText="🟢 SEKARANG!";
+
+},1500+Math.random()*3000);
+
+}
+
+
+/* =========================
+   8 COLOR
+========================= */
+
+function newColor(){
+
+let colors=["MERAH","BIRU","HIJAU"];
+
+let x=
+colors[Math.floor(Math.random()*3)];
+
+document.getElementById("colorName").innerText=x;
+
+document.getElementById("colorResult").innerText="";
+
+}
+
+
+function colorCheck(choice){
+
+let correct=
+document.getElementById("colorName").innerText;
+
+let r=document.getElementById("colorResult");
+
+if(choice===correct){
+
+r.innerText="🎨 BENAR! +15 XP";
+
+addXP(15);
+
+newColor();
+
+}
+
+else{
+
+r.innerText="❌ Salah!";
+
+}
+
+}
+
+
+/* =========================
+   9 MEMORY
+========================= */
+
+function newMemory(){
+
+memoryValues=[
+"🐱","🐱",
+"🐶","🐶",
+"🦊","🦊",
+"🐼","🐼"
+];
+
+memoryValues.sort(function(){
+return Math.random()-.5;
+});
+
+memoryOpen=[];
+
+memoryFound=[];
+
+let grid=
+document.getElementById("memoryGrid");
+
+grid.innerHTML="";
+
+for(let i=0;i<memoryValues.length;i++){
+
+let button=document.createElement("button");
+
+button.innerText=memoryValues[i];
+
+button.dataset.index=i;
+
+button.onclick=function(){
+
+memoryClick(button,i);
+
+};
+
+grid.appendChild(button);
+
+}
+
+document.getElementById("memoryResult").innerText="";
+
+}
+
+
+function memoryClick(button,index){
+
+if(memoryFound.indexOf(index)!==-1)return;
+
+if(memoryOpen.indexOf(index)!==-1)return;
+
+button.classList.add("open");
+
+memoryOpen.push(index);
+
+if(memoryOpen.length===2){
+
+let a=memoryOpen[0];
+
+let b=memoryOpen[1];
+
+let buttons=
+document.querySelectorAll(".memory button");
+
+if(memoryValues[a]===memoryValues[b]){
+
+memoryFound.push(a);
+memoryFound.push(b);
+
+memoryOpen=[];
+
+if(memoryFound.length===memoryValues.length){
+
+document.getElementById("memoryResult").innerText=
+"🧠 SEMUA PASANGAN BENAR! +60 XP";
+
+addXP(60);
+
+}
+
+}
+
+else{
+
+setTimeout(function(){
+
+buttons[a].classList.remove("open");
+
+buttons[b].classList.remove("open");
+
+memoryOpen=[];
+
+},700);
+
+}
+
+}
+
+}
+
+
+/* =========================
+   10 CODE
+========================= */
+
+function newCode(){
+
+codeAnswer=
+Math.floor(100+Math.random()*900);
+
+document.getElementById("codeInput").value="";
+
+document.getElementById("codeResult").innerText="";
+
+}
+
+
+function codeCheck(){
+
+let n=
+Number(document.getElementById("codeInput").value);
+
+let r=document.getElementById("codeResult");
+
+if(n===codeAnswer){
+
+r.innerText="🔓 KODE BENAR! +50 XP";
+
+addXP(50);
+
+newCode();
+
+}
+
+else if(n<codeAnswer){
+
+r.innerText="⬆️ Kode lebih besar!";
+
+}
+
+else{
+
+r.innerText="⬇️ Kode lebih kecil!";
+
+}
+
+}
+
+
+/* =========================
+   11 TARGET
+========================= */
+
+function newTarget(){
+
+let target=
+document.getElementById("targetButton");
+
+target.style.marginLeft=
+Math.floor(Math.random()*55)+"%";
+
+document.getElementById("targetResult").innerText="";
+
+}
+
+
+function hitTarget(){
+
+document.getElementById("targetResult").innerText=
+"🎯 HIT! +10 XP";
+
+addXP(10);
+
+newTarget();
+
+}
+
+
+/* =========================
+   12 COIN
+========================= */
+
+function coinGame(player){
+
+let result=
+Math.random()<0.5?"HEAD":"TAIL";
+
+let r=document.getElementById("coinResult");
+
+if(player===result){
+
+r.innerText=
+"🎉 BENAR! "+result+" | +15 XP";
+
+addXP(15);
+
+}
+
+else{
+
+r.innerText=
+"😵 SALAH! Hasilnya "+result;
+
+}
+
+}
+
+
+/* =========================
+   13 SEQUENCE
+========================= */
+
+function newSequence(){
+
+document.getElementById("sequenceText").innerText=
+"Tekan START untuk melihat angka.";
+
+document.getElementById("sequenceInput").value="";
+
+document.getElementById("sequenceResult").innerText="";
+
+}
+
+
+function sequenceStart(){
+
+sequence=[];
+
+for(let i=0;i<4;i++){
+
+sequence.push(
+Math.floor(Math.random()*9)+1
+);
+
+}
+
+document.getElementById("sequenceText").innerText=
+"INGAT: "+sequence.join(" ");
+
+setTimeout(function(){
+
+document.getElementById("sequenceText").innerText=
+"🤔 Sekarang masukkan urutannya!";
+
+},2000);
+
+}
+
+
+function sequenceCheck(){
+
+let answer=
+document.getElementById("sequenceInput").value;
+
+let correct=sequence.join("");
+
+let r=document.getElementById("sequenceResult");
+
+if(answer===correct){
+
+r.innerText="🧠 INGATAN BAGUS! +40 XP";
+
+addXP(40);
+
+}
+
+else{
+
+r.innerText=
+"❌ Salah! Jawaban: "+correct;
+
+}
+
+}
+
+
+/* =========================
+   14 HIGHER LOWER
+========================= */
+
+function newHigher(){
+
+higherNumber=
+Math.floor(Math.random()*90)+10;
+
+document.getElementById("higherNumber").innerText=
+higherNumber;
+
+document.getElementById("higherResult").innerText="";
+
+}
+
+
+function higherGame(choice){
+
+let next=
+Math.floor(Math.random()*100)+1;
+
+let correct;
+
+if(choice==="higher"){
+
+correct=next>higherNumber;
+
+}
+else{
+
+correct=next<higherNumber;
+
+}
+
+let r=document.getElementById("higherResult");
+
+if(correct){
+
+r.innerText=
+"🎉 BENAR! "+higherNumber+" → "+next+" | +20 XP";
+
+addXP(20);
+
+}
+
+else{
+
+r.innerText=
+"❌ SALAH! "+higherNumber+" → "+next;
+
+}
+
+higherNumber=next;
+
+document.getElementById("higherNumber").innerText=
+next;
+
+}
+
+
+/* =========================
+   15 QUIZ
+========================= */
+
+let quizData=[
+
+{
+q:"Planet tempat manusia tinggal?",
+a:["Mars","Bumi","Venus","Jupiter"],
+c:"Bumi"
+},
+
+{
+q:"Bahasa untuk membuat struktur halaman web?",
+a:["HTML","Python","SQL","PHP"],
+c:"HTML"
+},
+
+{
+q:"Berapa jumlah hari dalam seminggu?",
+a:["5","6","7","8"],
+c:"7"
+},
+
+{
+q:"Hewan yang dikenal sebagai raja hutan?",
+a:["Kucing","Singa","Serigala","Beruang"],
+c:"Singa"
+},
+
+{
+q:"Rumus kimia air?",
+a:["CO2","O2","H2O","NaCl"],
+c:"H2O"
+},
+
+{
+q:"Berapa jumlah sisi segitiga?",
+a:["2","3","4","5"],
+c:"3"
+}
+
+];
+
+let quizCurrent=0;
+
+
+function newQuiz(){
+
+quizCurrent=
+Math.floor(Math.random()*quizData.length);
+
+let q=quizData[quizCurrent];
+
+document.getElementById("quizQuestion").innerText=q.q;
+
+let box=
+document.getElementById("quizChoices");
+
+box.innerHTML="";
+
+for(let i=0;i<q.a.length;i++){
+
+let button=document.createElement("button");
+
+button.innerText=q.a[i];
+
+button.onclick=function(){
+
+quizAnswer(q.a[i]);
+
+};
+
+box.appendChild(button);
+
+}
+
+document.getElementById("quizResult").innerText="";
+
+}
+
+
+function quizAnswer(answer){
+
+let q=quizData[quizCurrent];
+
+let r=document.getElementById("quizResult");
+
+if(answer===q.c){
+
+r.innerText="🏆 BENAR! +30 XP";
+
+addXP(30);
+
+}
+
+else{
+
+r.innerText=
+"❌ Salah! Jawabannya "+q.c;
+
+}
+
+setTimeout(function(){
+
+newQuiz();
+
+},1000);
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+updateStats();
+
+</script>
+
+</body>
+</html>
+```
