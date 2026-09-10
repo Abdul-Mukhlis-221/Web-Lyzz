@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Random Website</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #111827, #312e81);
+            color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+
+            padding: 45px 30px;
+
+            text-align: center;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            color: #d1d5db;
+            margin-bottom: 30px;
+        }
+
+        button {
+            border: none;
+
+            padding: 14px 28px;
+
+            border-radius: 12px;
+
+            background: white;
+            color: #312e81;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .result {
+            margin-top: 25px;
+
+            padding: 18px;
+
+            border-radius: 15px;
+
+            background: rgba(0, 0, 0, 0.2);
+
+            color: #e5e7eb;
+
+            min-height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="icon">🌙</div>
+
+            <h1>Random Website</h1>
+
+            <p class="description">
+                Website sederhana dengan HTML, CSS, dan JavaScript.
+            </p>
+
+            <button onclick="randomMessage()">
+                Klik Aku 🎲
+            </button>
+
+            <div class="result" id="result">
+                Tekan tombol untuk mendapatkan pesan random.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        const messages = [
+            "Hari ini adalah hari yang bagus! ✨",
+            "Jangan lupa istirahat 😴",
+            "Tetap semangat mengejar tujuan! 🚀",
+            "Sesuatu yang menarik akan terjadi 👀",
+            "Kamu baru saja menemukan pesan rahasia 🎁",
+            "Coding sedikit, ngopi sedikit ☕",
+            "Jangan menyerah! 💪",
+            "JavaScript berhasil berjalan! 🎉"
+        ];
+
+        function randomMessage() {
+
+            const randomIndex = Math.floor(
+                Math.random() * messages.length
+            );
+
+            document.getElementById("result").textContent =
+                messages[randomIndex];
+
+        }
+    </script>
+
+</body>
+</html>
