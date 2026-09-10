@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEONVERSE MAX</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#07000f;
+    color:white;
+    overflow-x:hidden;
+}
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+    radial-gradient(circle at 15% 20%,#7b00ff35,transparent 30%),
+    radial-gradient(circle at 85% 70%,#00eaff25,transparent 30%);
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 22px;
+    background:#080014ee;
+    border-bottom:1px solid #ffffff18;
+}
+
+.logo{
+    color:#00eaff;
+    font-size:23px;
+    font-weight:bold;
+    text-shadow:0 0 15px #00eaff;
+}
+
+nav{
+    display:flex;
+    gap:7px;
+}
+
+nav button,.back{
+    background:#ffffff0d;
+    border:1px solid #ffffff20;
+    color:white;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+nav button:hover,.back:hover{
+    background:#00eaff22;
+}
+
+.page{
+    display:none;
+    min-height:calc(100vh - 70px);
+    padding:35px 18px;
+}
+
+.page.show{
+    display:block;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    text-align:center;
+}
+
+.hero{
+    padding-top:70px;
+}
+
+.hero h1{
+    font-size:clamp(48px,11vw,105px);
+    color:#00eaff;
+    text-shadow:
+    0 0 10px #00eaff,
+    0 0 30px #00eaff,
+    0 0 70px #8a2be2;
+}
+
+.hero p{
+    max-width:650px;
+    margin:20px auto 30px;
+    color:#aaa;
+    line-height:1.7;
+}
+
+.main-btn{
+    border:0;
+    background:linear-gradient(90deg,#00eaff,#8a2be2);
+    color:white;
+    padding:15px 27px;
+    border-radius:13px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 25px #00eaff44;
+}
+
+.main-btn:hover{
+    transform:scale(1.04);
+}
+
+h2{
+    font-size:34px;
+    margin:15px 0 28px;
+}
+
+.games{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:15px;
+}
+
+.card{
+    background:#ffffff09;
+    border:1px solid #ffffff17;
+    border-radius:18px;
+    padding:22px 15px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#00eaff88;
+    box-shadow:0 0 25px #00eaff22;
+}
+
+.icon{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.card h3{
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#999;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.game-box{
+    max-width:550px;
+    min-height:250px;
+    margin:auto;
+    padding:30px 22px;
+    border-radius:20px;
+    background:#ffffff09;
+    border:1px solid #ffffff18;
+}
+
+.game-box input{
+    width:100%;
+    padding:14px;
+    margin:18px 0;
+    background:#00000055;
+    color:white;
+    border:1px solid #ffffff25;
+    border-radius:10px;
+    outline:none;
+}
+
+.game-box button{
+    cursor:pointer;
+}
+
+.result{
+    min-height:45px;
+    margin-top:20px;
+    color:#00eaff;
+    font-weight:bold;
+    line-height:1.6;
+}
+
+.choice{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.choice button{
+    padding:13px 18px;
+    border:1px solid #ffffff22;
+    border-radius:11px;
+    background:#ffffff0d;
+    color:white;
+}
+
+.big-number{
+    font-size:65px;
+    font-weight:bold;
+    color:#00eaff;
+    margin:15px;
+}
+
+.target{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#00eaff;
+    border:0;
+    box-shadow:0 0 25px #00eaff;
+    position:relative;
+    margin:30px auto;
+}
+
+.color-box{
+    width:150px;
+    height:100px;
+    margin:25px auto;
+    border-radius:15px;
+    border:2px solid white;
+}
+
+.memory-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    max-width:320px;
+    margin:20px auto;
+}
+
+.memory-card{
+    height:65px;
+    border-radius:10px;
+    border:1px solid #ffffff22;
+    background:#ffffff0d;
+    color:transparent;
+    font-size:25px;
+    cursor:pointer;
+}
+
+.memory-card.open{
+    color:white;
+    background:#00eaff22;
+}
+
+.profile{
+    max-width:500px;
+    margin:auto;
+    background:#ffffff09;
+    border:1px solid #ffffff18;
+    padding:30px;
+    border-radius:20px;
+}
+
+.avatar{
+    font-size:65px;
+    margin-bottom:10px;
+}
+
+.stat{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 0;
+    border-bottom:1px solid #ffffff12;
+}
+
+.achievements{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+}
+
+.achievement{
+    padding:22px;
+    border-radius:15px;
+    background:#ffffff09;
+    border:1px solid #ffffff18;
+}
+
+footer{
+    text-align:center;
+    color:#777;
+    padding:25px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+@media(max-width:500px){
+    header{
+        padding:14px;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+    nav button{
+        padding:8px 10px;
+    }
+
+    .page{
+        padding:25px 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">NEONVERSE</div>
+
+    <nav>
+        <button onclick="home()">🏠</button>
+        <button onclick="games()">🎮</button>
+        <button onclick="profile()">👤</button>
+        <button onclick="achievements()">🏆</button>
+    </nav>
+</header>
+
+
+<!-- HOME -->
+<section id="homePage" class="page show">
+    <div class="container hero">
+
+        <h1>NEONVERSE</h1>
+
+        <p>
+            Selamat datang di dunia mini game neon.
+            Mainkan berbagai tantangan, kumpulkan XP,
+            naik level, dan buka achievement.
+        </p>
+
+        <button class="main-btn" onclick="games()">
+            🚀 MULAI BERMAIN
+        </button>
+
+    </div>
+</section>
+
+
+<!-- GAME CENTER -->
+<section id="gamesPage" class="page">
+<div class="container">
+
+<button class="back" onclick="home()">← Kembali</button>
+
+<h2>🎮 GAME CENTER</h2>
+
+<div class="games">
+
+<div class="card" onclick="openGame('guess')">
+<div class="icon">🔢</div>
+<h3>Tebak Angka</h3>
+<p>Tebak angka rahasia 1 sampai 50.</p>
+</div>
+
+<div class="card" onclick="openGame('suit')">
+<div class="icon">✊</div>
+<h3>Batu Gunting Kertas</h3>
+<p>Lawan komputer.</p>
+</div>
+
+<div class="card" onclick="openGame('click')">
+<div class="icon">⚡</div>
+<h3>Click Rush</h3>
+<p>Klik sebanyak mungkin.</p>
+</div>
+
+<div class="card" onclick="openGame('random')">
+<div class="icon">🎲</div>
+<h3>Random Machine</h3>
+<p>Mesin pilihan acak.</p>
+</div>
+
+<div class="card" onclick="openGame('math')">
+<div class="icon">🧮</div>
+<h3>Math Challenge</h3>
+<p>Hitung soal dengan cepat.</p>
+</div>
+
+<div class="card" onclick="openGame('word')">
+<div class="icon">🔤</div>
+<h3>Tebak Kata</h3>
+<p>Tebak kata rahasia.</p>
+</div>
+
+<div class="card" onclick="openGame('reaction')">
+<div class="icon">⏱️</div>
+<h3>Reaction Test</h3>
+<p>Uji kecepatan reaksimu.</p>
+</div>
+
+<div class="card" onclick="openGame('color')">
+<div class="icon">🎨</div>
+<h3>Color Challenge</h3>
+<p>Pilih warna yang benar.</p>
+</div>
+
+<div class="card" onclick="openGame('memory')">
+<div class="icon">🧠</div>
+<h3>Memory Card</h3>
+<p>Ingat pasangan kartu.</p>
+</div>
+
+<div class="card" onclick="openGame('code')">
+<div class="icon">🔐</div>
+<h3>Tebak Kode</h3>
+<p>Temukan kode rahasia.</p>
+</div>
+
+<div class="card" onclick="openGame('target')">
+<div class="icon">🎯</div>
+<h3>Target Tap</h3>
+<p>Tekan target secepat mungkin.</p>
+</div>
+
+<div class="card" onclick="openGame('coin')">
+<div class="icon">🪙</div>
+<h3>Coin Flip</h3>
+<p>Prediksi sisi koin.</p>
+</div>
+
+<div class="card" onclick="openGame('sequence')">
+<div class="icon">🔢</div>
+<h3>Sequence</h3>
+<p>Ingat urutan angka.</p>
+</div>
+
+<div class="card" onclick="openGame('higher')">
+<div class="icon">⬆️</div>
+<h3>Higher or Lower</h3>
+<p>Tebak angka berikutnya.</p>
+</div>
+
+<div class="card" onclick="openGame('quiz')">
+<div class="icon">❓</div>
+<h3>Quiz Challenge</h3>
+<p>Uji pengetahuanmu.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- PLAY -->
+<section id="playPage" class="page">
+<div class="container">
+
+<button class="back" onclick="games()">← GAME CENTER</button>
+
+<h2 id="gameTitle">Game</h2>
+
+
+<!-- GUESS -->
+<div id="guessGame" class="game-box hidden">
+<p>Tebak angka 1 - 50</p>
+
+<input id="guessInput" type="number" placeholder="Masukkan angka">
+
+<button class="main-btn" onclick="checkGuess()">TEBAK</button>
+
+<div id="guessResult" class="result"></div>
+</div>
+
+
+<!-- SUIT -->
+<div id="suitGame" class="game-box hidden">
+<p>Pilih pilihanmu!</p>
+
+<div class="choice">
+<button onclick="suit('Batu')">✊ Batu</button>
+<button onclick="suit('Gunting')">✌️ Gunting</button>
+<button onclick="suit('Kertas')">✋ Kertas</button>
+</div>
+
+<div id="suitResult" class="result"></div>
+</div>
+
+
+<!-- CLICK -->
+<div id="clickGame" class="game-box hidden">
+<p>Klik sebanyak mungkin selama 5 detik.</p>
+
+<br>
+
+<button id="clickButton" class="main-btn" onclick="clickTarget()">
+START
+</button>
+
+<div id="clickResult" class="result">Siap?</div>
+</div>
+
+
+<!-- RANDOM -->
+<div id="randomGame" class="game-box hidden">
+<p>Tekan tombol untuk mendapatkan hasil random.</p>
+
+<br>
+
+<button class="main-btn" onclick="randomPick()">🎲 RANDOM</button>
+
+<div id="randomResult" class="result"></div>
+</div>
+
+
+<!-- MATH -->
+<div id="mathGame" class="game-box hidden">
+<p id="mathQuestion"></p>
+
+<input id="mathInput" type="number" placeholder="Jawaban">
+
+<button class="main-btn" onclick="checkMath()">JAWAB</button>
+
+<div id="mathResult" class="result"></div>
+</div>
+
+
+<!-- WORD -->
+<div id="wordGame" class="game-box hidden">
+<p>Petunjuk: <span id="wordHint"></span></p>
+
+<input id="wordInput" placeholder="Jawaban">
+
+<button class="main-btn" onclick="checkWord()">TEBAK</button>
+
+<div id="wordResult" class="result"></div>
+</div>
+
+
+<!-- REACTION -->
+<div id="reactionGame" class="game-box hidden">
+<p id="reactionText">Tekan START lalu tunggu warna berubah.</p>
+
+<br>
+
+<button id="reactionButton" class="main-btn" onclick="reactionStart()">
+START
+</button>
+
+<div id="reactionResult" class="result"></div>
+</div>
+
+
+<!-- COLOR -->
+<div id="colorGame" class="game-box hidden">
+<p>Pilih warna yang sesuai dengan nama.</p>
+
+<div id="colorName" class="big-number">MERAH</div>
+
+<div class="choice">
+<button onclick="chooseColor('MERAH')">🔴 MERAH</button>
+<button onclick="chooseColor('BIRU')">🔵 BIRU</button>
+<button onclick="chooseColor('HIJAU')">🟢 HIJAU</button>
+</div>
+
+<div id="colorResult" class="result"></div>
+</div>
+
+
+<!-- MEMORY -->
+<div id="memoryGame" class="game-box hidden">
+<p>Cari pasangan kartu yang sama.</p>
+
+<div id="memoryGrid" class="memory-grid"></div>
+
+<div id="memoryResult" class="result"></div>
+</div>
+
+
+<!-- CODE -->
+<div id="codeGame" class="game-box hidden">
+<p>Tebak kode 3 digit.</p>
+
+<input id="codeInput" type="number" placeholder="Contoh: 123">
+
+<button class="main-btn" onclick="checkCode()">BUKA</button>
+
+<div id="codeResult" class="result"></div>
+</div>
+
+
+<!-- TARGET -->
+<div id="targetGame" class="game-box hidden">
+<p>Klik target!</p>
+
+<button id="target" class="target" onclick="hitTarget()"></button>
+
+<div id="targetResult" class="result"></div>
+</div>
+
+
+<!-- COIN -->
+<div id="coinGame" class="game-box hidden">
+<p>Prediksi hasil koin.</p>
+
+<div class="choice">
+<button onclick="coin('HEAD')">🙂 HEAD</button>
+<button onclick="coin('TAIL')">😎 TAIL</button>
+</div>
+
+<div id="coinResult" class="result"></div>
+</div>
+
+
+<!-- SEQUENCE -->
+<div id="sequenceGame" class="game-box hidden">
+<p id="sequenceText">Tekan START.</p>
+
+<br>
+
+<button class="main-btn" onclick="startSequence()">START</button>
+
+<input id="sequenceInput" placeholder="Masukkan urutan angka">
+
+<button class="main-btn" onclick="checkSequence()">CEK</button>
+
+<div id="sequenceResult" class="result"></div>
+</div>
+
+
+<!-- HIGHER LOWER -->
+<div id="higherGame" class="game-box hidden">
+<p>Angka sekarang:</p>
+
+<div id="higherNumber" class="big-number">50</div>
+
+<div class="choice">
+<button onclick="higher('higher')">⬆️ HIGHER</button>
+<button onclick="higher('lower')">⬇️ LOWER</button>
+</div>
+
+<div id="higherResult" class="result"></div>
+</div>
+
+
+<!-- QUIZ -->
+<div id="quizGame" class="game-box hidden">
+<p id="quizQuestion"></p>
+
+<div id="quizChoices" class="choice"></div>
+
+<div id="quizResult" class="result"></div>
+</div>
+
+</div>
+</section>
+
+
+<!-- PROFILE -->
+<section id="profilePage" class="page">
+<div class="container">
+
+<button class="back" onclick="home()">← Kembali</button>
+
+<div class="profile">
+
+<div class="avatar">😎</div>
+
+<h2>PLAYER ONE</h2>
+
+<div class="stat">
+<span>Level</span>
+<b id="level">1</b>
+</div>
+
+<div class="stat">
+<span>XP</span>
+<b id="xp">0</b>
+</div>
+
+<div class="stat">
+<span>Score</span>
+<b id="score">0</b>
+</div>
+
+<div class="stat">
+<span>Games Played</span>
+<b id="played">0</b>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- ACHIEVEMENTS -->
+<section id="achievementPage" class="page">
+<div class="container">
+
+<button class="back" onclick="home()">← Kembali</button>
+
+<h2>🏆 ACHIEVEMENTS</h2>
+
+<div class="achievements">
+
+<div class="achievement">
+<h3>🎮 First Game</h3>
+<p>Mainkan game pertama.</p>
+</div>
+
+<div class="achievement">
+<h3>⭐ 100 XP</h3>
+<p>Kumpulkan 100 XP.</p>
+</div>
+
+<div class="achievement">
+<h3>🔥 Level 5</h3>
+<p>Capai level 5.</p>
+</div>
+
+<div class="achievement">
+<h3>⚡ Speedster</h3>
+<p>Menjadi pemain cepat.</p>
+</div>
+
+<div class="achievement">
+<h3>🧠 Smart Player</h3>
+<p>Menangkan challenge.</p>
+</div>
+
+<div class="achievement">
+<h3>👑 NEON MASTER</h3>
+<p>Terus bermain!</p>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<footer>
+By.Lyzz
+</footer>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+let xp=0;
+let score=0;
+let played=0;
+
+let secretNumber=1;
+let mathAnswer=0;
+let wordAnswer="";
+let codeAnswer=0;
+
+let clickCount=0;
+let clickActive=false;
+
+let reactionReady=false;
+let reactionStartTime=0;
+let reactionTimer;
+
+let memoryValues=[];
+let memoryOpen=[];
+let memoryFound=[];
+
+let sequence=[];
+let higherNumber=50;
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function hidePages(){
+
+document.getElementById("homePage").classList.remove("show");
+document.getElementById("gamesPage").classList.remove("show");
+document.getElementById("playPage").classList.remove("show");
+document.getElementById("profilePage").classList.remove("show");
+document.getElementById("achievementPage").classList.remove("show");
+
+}
+
+function home(){
+
+hidePages();
+document.getElementById("homePage").classList.add("show");
+
+}
+
+function games(){
+
+hidePages();
+document.getElementById("gamesPage").classList.add("show");
+
+}
+
+function profile(){
+
+hidePages();
+document.getElementById("profilePage").classList.add("show");
+updateStats();
+
+}
+
+function achievements(){
+
+hidePages();
+document.getElementById("achievementPage").classList.add("show");
+
+}
+
+
+/* =========================
+   OPEN GAME
+========================= */
+
+function openGame(game){
+
+hidePages();
+
+document.getElementById("playPage").classList.add("show");
+
+let boxes=document.querySelectorAll(".game-box");
+
+boxes.forEach(box=>box.classList.add("hidden"));
+
+let box=document.getElementById(game+"Game");
+
+if(box){
+box.classList.remove("hidden");
+}
+
+document.getElementById("gameTitle").innerText=gameNames[game];
+
+
+/* INITIALIZE */
+
+if(game==="guess") startGuess();
+if(game==="math") startMath();
+if(game==="word") startWord();
+if(game==="color") startColor();
+if(game==="memory") startMemory();
+if(game==="code") startCode();
+if(game==="target") startTarget();
+if(game==="sequence") resetSequence();
+if(game==="higher") startHigher();
+if(game==="quiz") startQuiz();
+
+}
+
+
+const gameNames={
+
+guess:"🔢 Tebak Angka",
+suit:"✊ Batu Gunting Kertas",
+click:"⚡ Click Rush",
+random:"🎲 Random Machine",
+math:"🧮 Math Challenge",
+word:"🔤 Tebak Kata",
+reaction:"⏱️ Reaction Test",
+color:"🎨 Color Challenge",
+memory:"🧠 Memory Card",
+code:"🔐 Tebak Kode",
+target:"🎯 Target Tap",
+coin:"🪙 Coin Flip",
+sequence:"🔢 Sequence",
+higher:"⬆️ Higher or Lower",
+quiz:"❓ Quiz Challenge"
+
+};
+
+
+/* =========================
+   XP
+========================= */
+
+function addXP(amount){
+
+xp+=amount;
+score+=amount;
+played++;
+
+updateStats();
+
+}
+
+function updateStats(){
+
+document.getElementById("xp").innerText=xp;
+document.getElementById("score").innerText=score;
+document.getElementById("played").innerText=played;
+document.getElementById("level").innerText=Math.floor(xp/100)+1;
+
+}
+
+
+/* =========================
+   1 TEBAK ANGKA
+========================= */
+
+function startGuess(){
+
+secretNumber=Math.floor(Math.random()*50)+1;
+
+document.getElementById("guessInput").value="";
+document.getElementById("guessResult").innerText="";
+
+}
+
+function checkGuess(){
+
+let n=Number(document.getElementById("guessInput").value);
+let r=document.getElementById("guessResult");
+
+if(n<1||n>50){
+
+r.innerText="Masukkan angka 1 - 50!";
+return;
+
+}
+
+if(n===secretNumber){
+
+r.innerText="🎉 BENAR! +50 XP";
+addXP(50);
+startGuess();
+
+}
+else if(n<secretNumber){
+
+r.innerText="⬆️ Terlalu kecil!";
+
+}
+else{
+
+r.innerText="⬇️ Terlalu besar!";
+
+}
+
+}
+
+
+/* =========================
+   2 SUIT
+========================= */
+
+function suit(player){
+
+let choices=["Batu","Gunting","Kertas"];
+let computer=choices[Math.floor(Math.random()*3)];
+
+let win=
+(player==="Batu"&&computer==="Gunting")||
+(player==="Gunting"&&computer==="Kertas")||
+(player==="Kertas"&&computer==="Batu");
+
+let r=document.getElementById("suitResult");
+
+if(player===computer){
+
+r.innerText="🤝 SERI! Komputer memilih "+computer;
+return;
+
+}
+
+if(win){
+
+r.innerText="🏆 MENANG! +20 XP";
+addXP(20);
+
+}else{
+
+r.innerText="😵 KALAH! Komputer memilih "+computer;
+
+}
+
+}
+
+
+/* =========================
+   3 CLICK RUSH
+========================= */
+
+function clickTarget(){
+
+if(!clickActive){
+
+clickCount=0;
+clickActive=true;
+
+document.getElementById("clickButton").innerText="KLIK!";
+
+let start=Date.now();
+
+let timer=setInterval(()=>{
+
+let left=5-Math.floor((Date.now()-start)/1000);
+
+document.getElementById("clickResult").innerText=
+"⏱️ "+left+" detik | Klik: "+clickCount;
+
+if(left<=0){
+
+clearInterval(timer);
+clickActive=false;
+
+document.getElementById("clickButton").innerText="START";
+
+document.getElementById("clickResult").innerText=
+"⚡ "+clickCount+" klik! +"+clickCount*2+" XP";
+
+addXP(clickCount*2);
+
+}
+
+},100);
+
+return;
+
+}
+
+clickCount++;
+
+}
+
+
+/* =========================
+   4 RANDOM
+========================= */
+
+function randomPick(){
+
+let arr=[
+"🔥 Gas terus!",
+"😎 Mode keren aktif!",
+"⚡ Kamu sedang beruntung!",
+"🌟 Jangan menyerah!",
+"🎮 Saatnya main lagi!",
+"💎 Energi positif!",
+"🚀 Level up!",
+"🧠 Gunakan otakmu!",
+"🏆 Calon juara!"
+];
+
+let x=arr[Math.floor(Math.random()*arr.length)];
+
+document.getElementById("randomResult").innerText=x;
+
+addXP(5);
+
+}
+
+
+/* =========================
+   5 MATH
+========================= */
+
+function startMath(){
+
+let a=Math.floor(Math.random()*20)+1;
+let b=Math.floor(Math.random()*20)+1;
+
+mathAnswer=a+b;
+
+document.getElementById("mathQuestion").innerText=
+a+" + "+b+" = ?";
+
+document.getElementById("mathInput").value="";
+document.getElementById("mathResult").innerText="";
+
+}
+
+function checkMath(){
+
+let n=Number(document.getElementById("mathInput").value);
+let r=document.getElementById("mathResult");
+
+if(n===mathAnswer){
+
+r.innerText="🧠 BENAR! +25 XP";
+addXP(25);
+startMath();
+
+}else{
+
+r.innerText="❌ Salah, coba lagi!";
+
+}
+
+}
+
+
+/* =========================
+   6 TEBAK KATA
+========================= */
+
+function startWord(){
+
+let data=[
+["komputer","Digunakan untuk menjalankan program"],
+["internet","Menghubungkan banyak perangkat"],
+["sekolah","Tempat belajar"],
+["keyboard","Digunakan untuk mengetik"],
+["website","Halaman yang dibuka melalui browser"],
+["game","Sesuatu yang dimainkan"]
+];
+
+let x=data[Math.floor(Math.random()*data.length)];
+
+wordAnswer=x[0];
+
+document.getElementById("wordHint").innerText=x[1];
+document.getElementById("wordInput").value="";
+document.getElementById("wordResult").innerText="";
+
+}
+
+function checkWord(){
+
+let n=document.getElementById("wordInput").value.toLowerCase();
+let r=document.getElementById("wordResult");
+
+if(n===wordAnswer){
+
+r.innerText="🎉 BENAR! +30 XP";
