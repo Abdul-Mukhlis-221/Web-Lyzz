@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Selamat Tidur 🌙</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:
+        radial-gradient(circle at 50% 20%,#27356b 0%,#121a3b 38%,#070b1c 100%);
+    color:white;
+}
+
+/* LANGIT */
+
+.sky{
+    position:relative;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* BINTANG */
+
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{
+        opacity:.2;
+        transform:scale(.7);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.4);
+    }
+}
+
+/* BULAN */
+
+.moon{
+    position:absolute;
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background:#fff8d9;
+    right:12%;
+    top:10%;
+    box-shadow:
+        0 0 25px #fff4bd,
+        0 0 60px rgba(255,244,189,.35);
+}
+
+.moon:before{
+    content:"";
+    position:absolute;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:#eee7c5;
+    top:35px;
+    left:35px;
+    opacity:.55;
+}
+
+.moon:after{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#eee7c5;
+    bottom:35px;
+    right:30px;
+    opacity:.45;
+}
+
+/* AWAN */
+
+.cloud{
+    position:absolute;
+    width:180px;
+    height:55px;
+    background:rgba(255,255,255,.08);
+    border-radius:50px;
+    filter:blur(.5px);
+    animation:moveCloud 25s linear infinite;
+}
+
+.cloud:before,
+.cloud:after{
+    content:"";
+    position:absolute;
+    background:inherit;
+    border-radius:50%;
+}
+
+.cloud:before{
+    width:80px;
+    height:80px;
+    left:30px;
+    bottom:0;
+}
+
+.cloud:after{
+    width:100px;
+    height:100px;
+    right:20px;
+    bottom:0;
+}
+
+.cloud1{
+    top:25%;
+    left:-200px;
+}
+
+.cloud2{
+    top:45%;
+    left:-300px;
+    transform:scale(.7);
+    animation-duration:32s;
+    animation-delay:5s;
+}
+
+@keyframes moveCloud{
+
+    from{
+        left:-250px;
+    }
+
+    to{
+        left:110%;
+    }
+
+}
+
+/* KONTEN */
+
+.content{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    max-width:700px;
+    text-align:center;
+    z-index:5;
+}
+
+.sleep-icon{
+    font-size:70px;
+    margin-bottom:15px;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+
+}
+
+h1{
+    font-size:clamp(42px,8vw,75px);
+    font-weight:800;
+    letter-spacing:2px;
+    text-shadow:
+        0 0 15px rgba(255,255,255,.35);
+}
+
+.subtitle{
+    margin-top:15px;
+    font-size:18px;
+    line-height:1.7;
+    color:#d8defc;
+}
+
+/* PESAN */
+
+.message{
+    margin:30px auto;
+    padding:20px 25px;
+    max-width:560px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.07);
+    backdrop-filter:blur(12px);
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+.message p{
+    font-size:16px;
+    line-height:1.8;
+    color:#e7eaff;
+}
+
+/* TOMBOL */
+
+button{
+    border:none;
+    padding:13px 25px;
+    border-radius:30px;
+    background:#fff;
+    color:#17204b;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 5px 20px rgba(255,255,255,.15);
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 25px rgba(255,255,255,.3);
+}
+
+/* FOOTER */
+
+.footer{
+    position:absolute;
+    bottom:25px;
+    left:0;
+    width:100%;
+    text-align:center;
+    color:#858db8;
+    font-size:13px;
+}
+
+/* BINTANG JATUH */
+
+.shooting-star{
+    position:absolute;
+    width:100px;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        white,
+        transparent
+    );
+    transform:rotate(-35deg);
+    opacity:0;
+    animation:shoot 5s linear infinite;
+}
+
+.shooting1{
+    top:20%;
+    left:20%;
+}
+
+.shooting2{
+    top:35%;
+    left:70%;
+    animation-delay:2.5s;
+}
+
+@keyframes shoot{
+
+    0%{
+        opacity:0;
+        transform:translate(0,0) rotate(-35deg);
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    30%{
+        opacity:0;
+        transform:translate(250px,180px) rotate(-35deg);
+    }
+
+    100%{
+        opacity:0;
+    }
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:600px){
+
+    .moon{
+        width:100px;
+        height:100px;
+        right:8%;
+        top:8%;
+    }
+
+    .sleep-icon{
+        font-size:55px;
+    }
+
+    .subtitle{
+        font-size:15px;
+    }
+
+    .message{
+        padding:18px;
+    }
+
+    .message p{
+        font-size:14px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="sky">
+
+    <!-- BINTANG -->
+    <div class="star" style="top:8%;left:15%;"></div>
+    <div class="star" style="top:18%;left:35%;"></div>
+    <div class="star" style="top:12%;left:60%;"></div>
+    <div class="star" style="top:28%;left:78%;"></div>
+    <div class="star" style="top:40%;left:12%;"></div>
+    <div class="star" style="top:50%;left:30%;"></div>
+    <div class="star" style="top:35%;left:50%;"></div>
+    <div class="star" style="top:55%;left:70%;"></div>
+    <div class="star" style="top:65%;left:85%;"></div>
+    <div class="star" style="top:72%;left:20%;"></div>
+    <div class="star" style="top:80%;left:45%;"></div>
+    <div class="star" style="top:15%;left:90%;"></div>
+    <div class="star" style="top:45%;left:92%;"></div>
+    <div class="star" style="top:70%;left:65%;"></div>
+    <div class="star" style="top:30%;left:5%;"></div>
+
+    <!-- BULAN -->
+    <div class="moon"></div>
+
+    <!-- AWAN -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+
+    <!-- BINTANG JATUH -->
+    <div class="shooting-star shooting1"></div>
+    <div class="shooting-star shooting2"></div>
+
+
+    <!-- KONTEN -->
+
+    <div class="content">
+
+        <div class="sleep-icon">
+            🌙
+        </div>
+
+        <h1>
+            Selamat Tidur
+        </h1>
+
+        <div class="subtitle">
+            Pejamkan mata, tenangkan pikiran,<br>
+            dan biarkan malam membawamu menuju mimpi indah.
+        </div>
+
+
+        <div class="message">
+
+            <p id="message">
+                Hari ini mungkin melelahkan,
+                tapi kamu sudah berhasil melewatinya.
+                Sekarang waktunya beristirahat. ✨
+            </p>
+
+        </div>
+
+
+        <button onclick="changeMessage()">
+            ✨ Pesan Sebelum Tidur
+        </button>
+
+    </div>
+
+
+    <div class="footer">
+        Good night • Sweet dreams 🌌
+    </div>
+
+</div>
+
+
+<script>
+
+const messages = [
+
+    "Hari ini mungkin melelahkan, tapi kamu sudah berhasil melewatinya. Sekarang waktunya beristirahat. ✨",
+
+    "Tidak semua hal harus selesai malam ini. Istirahat dulu, besok kita lanjut lagi. 🌙",
+
+    "Semoga malam ini membawa ketenangan dan pagi esok membawa semangat baru. ☁️",
+
+    "Letakkan semua kekhawatiran untuk sementara. Malam ini adalah waktunya kamu beristirahat. 💫",
+
+    "Semoga mimpi malam ini lebih indah daripada hari yang telah kamu lewati. 🌌",
+
+    "Tarik napas perlahan, tutup mata, dan biarkan tubuhmu beristirahat. 😴",
+
+    "Selamat malam. Semoga tidurmu nyenyak dan bangun dengan perasaan yang lebih ringan. 🌙"
+
+];
+
+function changeMessage(){
+
+    const message =
+        document.getElementById("message");
+
+    const random =
+        Math.floor(
+            Math.random() * messages.length
+        );
+
+    message.style.opacity = "0";
+
+    setTimeout(function(){
+
+        message.textContent =
+            messages[random];
+
+        message.style.opacity = "1";
+
+    },300);
+
+}
+
+</script>
+
+</body>
+</html>
