@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEONVERSE</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#080014;
+    color:white;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 20%, #5b00ff33, transparent 30%),
+        radial-gradient(circle at 80% 80%, #00eaff22, transparent 30%);
+    z-index:-1;
+}
+
+header{
+    width:100%;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #ffffff18;
+    background:#080014dd;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    color:#00eaff;
+    text-shadow:0 0 15px #00eaff;
+}
+
+nav{
+    display:flex;
+    gap:8px;
+}
+
+nav button{
+    border:1px solid #ffffff22;
+    background:#ffffff0d;
+    color:white;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+nav button:hover{
+    background:#00eaff22;
+}
+
+.page{
+    display:none;
+    min-height:calc(100vh - 80px);
+    padding:50px 20px;
+}
+
+.page.show{
+    display:block;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.hero{
+    padding-top:80px;
+}
+
+.hero h1{
+    font-size:clamp(45px,10vw,100px);
+    color:#00eaff;
+    text-shadow:
+        0 0 10px #00eaff,
+        0 0 30px #00eaff,
+        0 0 70px #8a2be2;
+}
+
+.hero p{
+    margin:20px auto 30px;
+    color:#bbb;
+    max-width:600px;
+    line-height:1.7;
+}
+
+.main-btn{
+    border:0;
+    background:linear-gradient(90deg,#00eaff,#8a2be2);
+    color:white;
+    padding:16px 30px;
+    border-radius:14px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 25px #00eaff55;
+}
+
+.main-btn:hover{
+    transform:scale(1.05);
+}
+
+h2{
+    font-size:35px;
+    margin-bottom:30px;
+}
+
+.games{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:18px;
+}
+
+.card{
+    background:#ffffff0b;
+    border:1px solid #ffffff15;
+    border-radius:18px;
+    padding:25px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:#00eaff88;
+    box-shadow:0 0 25px #00eaff22;
+}
+
+.card .icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#aaa;
+    font-size:14px;
+}
+
+.game-box{
+    max-width:500px;
+    margin:auto;
+    background:#ffffff0b;
+    border:1px solid #ffffff18;
+    border-radius:20px;
+    padding:30px;
+}
+
+.game-box input{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #ffffff22;
+    background:#00000055;
+    color:white;
+    margin:15px 0;
+    outline:none;
+}
+
+.result{
+    min-height:30px;
+    margin:20px 0;
+    color:#00eaff;
+    font-weight:bold;
+}
+
+.choice{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.choice button{
+    padding:15px 20px;
+    border:1px solid #ffffff22;
+    border-radius:12px;
+    background:#ffffff0d;
+    color:white;
+    cursor:pointer;
+}
+
+.choice button:hover{
+    background:#00eaff22;
+}
+
+.back{
+    margin-bottom:25px;
+    border:1px solid #ffffff22;
+    background:#ffffff0d;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.profile{
+    max-width:500px;
+    margin:auto;
+    background:#ffffff0b;
+    border:1px solid #ffffff18;
+    padding:35px;
+    border-radius:20px;
+}
+
+.avatar{
+    font-size:70px;
+    margin-bottom:15px;
+}
+
+.stat{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 0;
+    border-bottom:1px solid #ffffff12;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    color:#777;
+}
+
+.hidden{
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">NEONVERSE</div>
+
+    <nav>
+        <button onclick="home()">🏠</button>
+        <button onclick="games()">🎮</button>
+        <button onclick="profile()">👤</button>
+    </nav>
+</header>
+
+
+<!-- HOME -->
+<section id="homePage" class="page show">
+    <div class="container hero">
+
+        <h1>NEONVERSE</h1>
+
+        <p>
+            Selamat datang di dunia mini game neon.
+            Pilih permainan, kumpulkan skor, dan buktikan kemampuanmu.
+        </p>
+
+        <!-- TOMBOL UTAMA -->
+        <button class="main-btn" onclick="games()">
+            🚀 MULAI BERMAIN
+        </button>
+
+    </div>
+</section>
+
+
+<!-- GAMES -->
+<section id="gamesPage" class="page">
+    <div class="container">
+
+        <button class="back" onclick="home()">← Kembali</button>
+
+        <h2>🎮 GAME CENTER</h2>
+
+        <div class="games">
+
+            <div class="card" onclick="openGame('guess')">
+                <div class="icon">🔢</div>
+                <h3>Tebak Angka</h3>
+                <p>Tebak angka rahasia dari 1 sampai 50.</p>
+            </div>
+
+            <div class="card" onclick="openGame('suit')">
+                <div class="icon">✊</div>
+                <h3>Batu Gunting Kertas</h3>
+                <p>Lawan komputer dan menangkan pertandingan.</p>
+            </div>
+
+            <div class="card" onclick="openGame('click')">
+                <div class="icon">⚡</div>
+                <h3>Click Rush</h3>
+                <p>Seberapa cepat kamu bisa mengklik?</p>
+            </div>
+
+            <div class="card" onclick="openGame('random')">
+                <div class="icon">🎲</div>
+                <h3>Random Machine</h3>
+                <p>Biarkan mesin memilih sesuatu untukmu.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- PLAY -->
+<section id="playPage" class="page">
+    <div class="container">
+
+        <button class="back" onclick="games()">← Pilih Game</button>
+
+        <h2 id="gameTitle">Game</h2>
+
+        <!-- TEBAK ANGKA -->
+        <div id="guessGame" class="game-box hidden">
+
+            <p>Tebak angka antara <b>1 - 50</b></p>
+
+            <input
+                id="guessInput"
+                type="number"
+                min="1"
+                max="50"
+                placeholder="Masukkan angka..."
+            >
+
+            <button class="main-btn" onclick="checkGuess()">
+                TEBAK
+            </button>
+
+            <div id="guessResult" class="result"></div>
+
+        </div>
+
+
+        <!-- SUIT -->
+        <div id="suitGame" class="game-box hidden">
+
+            <p>Pilih senjatamu!</p>
+
+            <br>
+
+            <div class="choice">
+
+                <button onclick="suit('Batu')">
+                    ✊ Batu
+                </button>
+
+                <button onclick="suit('Gunting')">
+                    ✌️ Gunting
+                </button>
+
+                <button onclick="suit('Kertas')">
+                    ✋ Kertas
+                </button>
+
+            </div>
+
+            <div id="suitResult" class="result"></div>
+
+        </div>
+
+
+        <!-- CLICK -->
+        <div id="clickGame" class="game-box hidden">
+
+            <p>Klik tombol sebanyak mungkin dalam 5 detik!</p>
+
+            <br>
+
+            <button
+                id="clickButton"
+                class="main-btn"
+                onclick="clickTarget()"
+            >
+                START
+            </button>
+
+            <div id="clickResult" class="result">
+                Siap?
+            </div>
+
+        </div>
+
+
+        <!-- RANDOM -->
+        <div id="randomGame" class="game-box hidden">
+
+            <p>Tekan tombol dan biarkan mesin memilih.</p>
+
+            <br>
+
+            <button class="main-btn" onclick="randomPick()">
+                🎲 RANDOM
+            </button>
+
+            <div id="randomResult" class="result"></div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- PROFILE -->
+<section id="profilePage" class="page">
+    <div class="container">
+
+        <button class="back" onclick="home()">← Kembali</button>
+
+        <div class="profile">
+
+            <div class="avatar">😎</div>
+
+            <h2>PLAYER ONE</h2>
+
+            <div class="stat">
+                <span>Level</span>
+                <b id="level">1</b>
+            </div>
+
+            <div class="stat">
+                <span>XP</span>
+                <b id="xp">0</b>
+            </div>
+
+            <div class="stat">
+                <span>Score</span>
+                <b id="score">0</b>
+            </div>
+
+            <div class="stat">
+                <span>Games Played</span>
+                <b id="played">0</b>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<footer>
+    By.Lyzz
+</footer>
+
+
+<script>
+
+let score = 0;
+let xp = 0;
+let played = 0;
+
+let secretNumber = Math.floor(Math.random() * 50) + 1;
+
+let clickCount = 0;
+let clickActive = false;
+let clickTimer;
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function hidePages(){
+
+    document.getElementById("homePage").classList.remove("show");
+
+    document.getElementById("gamesPage").classList.remove("show");
+
+    document.getElementById("playPage").classList.remove("show");
+
+    document.getElementById("profilePage").classList.remove("show");
+
+}
+
+
+function home(){
+
+    hidePages();
+
+    document.getElementById("homePage").classList.add("show");
+
+}
+
+
+function games(){
+
+    hidePages();
+
+    document.getElementById("gamesPage").classList.add("show");
+
+}
+
+
+function profile(){
+
+    hidePages();
+
+    document.getElementById("profilePage").classList.add("show");
+
+    updateStats();
+
+}
+
+
+/* =========================
+   OPEN GAME
+========================= */
+
+function openGame(game){
+
+    hidePages();
+
+    document.getElementById("playPage").classList.add("show");
+
+    document.getElementById("guessGame").classList.add("hidden");
+
+    document.getElementById("suitGame").classList.add("hidden");
+
+    document.getElementById("clickGame").classList.add("hidden");
+
+    document.getElementById("randomGame").classList.add("hidden");
+
+
+    if(game === "guess"){
+
+        document.getElementById("gameTitle").innerText = "🔢 Tebak Angka";
+
+        document.getElementById("guessGame").classList.remove("hidden");
+
+        secretNumber = Math.floor(Math.random() * 50) + 1;
+
+        document.getElementById("guessResult").innerText = "";
+
+    }
+
+
+    if(game === "suit"){
+
+        document.getElementById("gameTitle").innerText = "✊ Batu Gunting Kertas";
+
+        document.getElementById("suitGame").classList.remove("hidden");
+
+        document.getElementById("suitResult").innerText = "";
+
+    }
+
+
+    if(game === "click"){
+
+        document.getElementById("gameTitle").innerText = "⚡ Click Rush";
+
+        document.getElementById("clickGame").classList.remove("hidden");
+
+        clickActive = false;
+
+        clickCount = 0;
+
+        document.getElementById("clickButton").innerText = "START";
+
+        document.getElementById("clickResult").innerText = "Siap?";
+
+    }
+
+
+    if(game === "random"){
+
+        document.getElementById("gameTitle").innerText = "🎲 Random Machine";
+
+        document.getElementById("randomGame").classList.remove("hidden");
+
+        document.getElementById("randomResult").innerText = "";
+
+    }
+
+}
+
+
+/* =========================
+   XP
+========================= */
+
+function addXP(amount){
+
+    xp += amount;
+
+    score += amount;
+
+    played++;
+
+    updateStats();
+
+}
+
+
+function updateStats(){
+
+    document.getElementById("xp").innerText = xp;
+
+    document.getElementById("score").innerText = score;
+
+    document.getElementById("played").innerText = played;
+
+    document.getElementById("level").innerText =
+        Math.floor(xp / 100) + 1;
+
+}
+
+
+/* =========================
+   TEBAK ANGKA
+========================= */
+
+function checkGuess(){
+
+    let input =
+        Number(document.getElementById("guessInput").value);
+
+    let result =
+        document.getElementById("guessResult");
+
+
+    if(!input){
+
+        result.innerText = "Masukkan angka dulu!";
+
+        return;
+
+    }
+
+
+    if(input === secretNumber){
+
+        result.innerText =
+            "🎉 BENAR! Kamu mendapatkan +50 XP!";
+
+        addXP(50);
+
+        secretNumber =
+            Math.floor(Math.random() * 50) + 1;
+
+    }
+
+    else if(input < secretNumber){
+
+        result.innerText = "⬆️ Terlalu kecil!";
+
+    }
+
+    else{
+
+        result.innerText = "⬇️ Terlalu besar!";
+
+    }
+
+}
+
+
+/* =========================
+   SUIT
+========================= */
+
+function suit(player){
+
+    let choices = [
+        "Batu",
+        "Gunting",
+        "Kertas"
+    ];
+
+    let computer =
+        choices[Math.floor(Math.random() * 3)];
+
+    let result =
+        document.getElementById("suitResult");
+
+
+    if(player === computer){
+
+        result.innerText =
+            "🤝 Seri! Kamu memilih " +
+            player +
+            ", komputer memilih " +
+            computer;
+
+        return;
+
+    }
+
+
+    let win =
+        (player === "Batu" && computer === "Gunting") ||
+        (player === "Gunting" && computer === "Kertas") ||
+        (player === "Kertas" && computer === "Batu");
+
+
+    if(win){
+
+        result.innerText =
+            "🏆 MENANG! +20 XP";
+
+        addXP(20);
+
+    }
+    else{
+
+        result.innerText =
+            "😵 Kalah! Komputer memilih " +
+            computer;
+
+    }
+
+}
+
+
+/* =========================
+   CLICK RUSH
+========================= */
+
+function startClick(){
+
+    clickCount = 0;
+
+    clickActive = true;
+
+    document.getElementById("clickButton").innerText =
+        "KLIK!";
+
+    document.getElementById("clickResult").innerText =
+        "⏱️ Waktu berjalan...";
+
+
+    clickTimer = setTimeout(function(){
+
+        clickActive = false;
+
+        document.getElementById("clickButton").innerText =
+            "START";
+
+        document.getElementById("clickResult").innerText =
+            "⚡ Kamu mendapat " +
+            clickCount +
+            " klik!";
+
+        addXP(clickCount * 2);
+
+    },5000);
+
+}
+
+
+function clickTarget(){
+
+    if(!clickActive){
+
+        startClick();
+
+        return;
+
+    }
+
+    clickCount++;
+
+    document.getElementById("clickResult").innerText =
+        "Klik: " + clickCount;
+
+}
+
+
+/* =========================
+   RANDOM MACHINE
+========================= */
+
+function randomPick(){
+
+    let results = [
+
+        "🎉 Hari ini keberuntungan berpihak padamu!",
+
+        "🔥 Gas terus!",
+
+        "😎 Kamu sedang dalam mode keren.",
+
+        "⚡ Jangan menyerah!",
+
+        "🎮 Saatnya main lagi!",
+
+        "🌟 Sesuatu yang seru akan datang.",
+
+        "💎 Kamu mendapatkan energi positif!"
+
+    ];
+
+
+    let random =
+        results[Math.floor(Math.random() * results.length)];
+
+
+    document.getElementById("randomResult").innerText =
+        random;
+
+
+    addXP(5);
+
+}
+
+</script>
+
+</body>
+</html>
