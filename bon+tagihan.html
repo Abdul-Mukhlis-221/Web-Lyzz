@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pembuat Bon & Tagihan</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #eef1f5;
+    padding: 20px;
+    color: #222;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.header {
+    background: #111827;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin-bottom: 5px;
+}
+
+.header p {
+    color: #cbd5e1;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+input:focus, textarea:focus {
+    border-color: #2563eb;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+.item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: #fafafa;
+}
+
+.item-grid {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px 45px;
+    gap: 8px;
+    align-items: end;
+}
+
+.btn {
+    border: none;
+    padding: 11px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.btn-add {
+    background: #2563eb;
+    color: white;
+    width: 100%;
+}
+
+.btn-delete {
+    background: #dc2626;
+    color: white;
+    margin: 0;
+    height: 42px;
+}
+
+.btn-print {
+    background: #16a34a;
+    color: white;
+    width: 100%;
+}
+
+.btn-reset {
+    background: #6b7280;
+    color: white;
+    width: 100%;
+}
+
+.summary {
+    border-top: 2px dashed #aaa;
+    margin-top: 20px;
+    padding-top: 15px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.total {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.preview {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 100%;
+    max-width: 360px;
+    margin: auto;
+    font-family: "Courier New", monospace;
+}
+
+.preview-header {
+    text-align: center;
+    border-bottom: 1px dashed #333;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+
+.preview-header h2 {
+    font-family: "Courier New", monospace;
+}
+
+.preview-info {
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.preview-item {
+    margin: 10px 0;
+}
+
+.preview-item-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.preview-item-bottom {
+    font-size: 12px;
+    color: #555;
+}
+
+.preview-total {
+    border-top: 1px dashed #333;
+    margin-top: 12px;
+    padding-top: 10px;
+}
+
+.preview-total div {
+    display: flex;
+    justify-content: space-between;
+    margin: 6px 0;
+}
+
+.preview-footer {
+    text-align: center;
+    border-top: 1px dashed #333;
+    margin-top: 15px;
+    padding-top: 12px;
+    font-size: 13px;
+}
+
+@media(max-width: 800px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .item-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .btn-delete {
+        width: 100%;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .container > *:not(.layout),
+    .editor,
+    .no-print {
+        display: none !important;
+    }
+
+    .layout {
+        display: block;
+    }
+
+    .preview-card {
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .preview {
+        max-width: 80mm;
+        border: none;
+        box-shadow: none;
+        margin: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header no-print">
+        <h1>🧾 Pembuat Bon & Tagihan</h1>
+        <p>Buat bon sendiri dengan mudah</p>
+    </div>
+
+    <div class="layout">
+
+        <!-- BAGIAN EDITOR -->
+        <div class="editor">
+
+            <div class="card">
+                <h2>🏪 Informasi Toko</h2>
+
+                <label>Nama Toko</label>
+                <input type="text" id="storeName"
+                       value="TOKO SAYA">
+
+                <label>Alamat</label>
+                <input type="text" id="storeAddress"
+                       value="Jl. Contoh No. 123">
+
+                <label>No. Telepon</label>
+                <input type="text" id="storePhone"
+                       value="08xxxxxxxxxx">
+
+                <label>Pesan Footer</label>
+                <input type="text" id="footerText"
+                       value="Terima kasih sudah berbelanja 🙏">
+            </div>
+
+            <div class="card">
+                <h2>👤 Data Pelanggan</h2>
+
+                <label>Nama Pelanggan</label>
+                <input type="text" id="customerName"
+                       placeholder="Masukkan nama pelanggan">
+
+                <label>Tanggal</label>
+                <input type="date" id="date">
+
+                <label>No. Bon</label>
+                <input type="text" id="invoice"
+                       placeholder="Contoh: BON-001">
+            </div>
+
+            <div class="card">
+                <h2>🛒 Daftar Barang</h2>
+
+                <div id="items"></div>
+
+                <button class="btn btn-add" onclick="addItem()">
+                    + Tambah Barang
+                </button>
+            </div>
+
+            <div class="card">
+                <h2>💰 Pembayaran</h2>
+
+                <label>Uang Dibayar</label>
+                <input type="number" id="paid"
+                       placeholder="0" min="0">
+
+                <label>Catatan</label>
+                <textarea id="notes"
+                          placeholder="Tambahkan catatan jika diperlukan..."></textarea>
+
+                <div class="summary">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <strong id="subtotal">Rp 0</strong>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Pembayaran</span>
+                        <strong id="paidDisplay">Rp 0</strong>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Kembalian</span>
+                        <strong id="change">Rp 0</strong>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>TOTAL</span>
+                        <span id="total">Rp 0</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-print"
+                        onclick="window.print()">
+                    🖨️ Cetak Bon
+                </button>
+
+                <button class="btn btn-reset"
+                        onclick="resetAll()">
+                    🔄 Bon Baru
+                </button>
+            </div>
+
+        </div>
+
+
+        <!-- PREVIEW -->
+        <div class="card preview-card">
+
+            <h2 class="no-print">👀 Preview Bon</h2>
+
+            <div class="preview">
+
+                <div class="preview-header">
+                    <h2 id="pStoreName">TOKO SAYA</h2>
+                    <div id="pAddress">Jl. Contoh No. 123</div>
+                    <div id="pPhone">08xxxxxxxxxx</div>
+                </div>
+
+                <div class="preview-info">
+                    <div>
+                        Pelanggan:
+                        <span id="pCustomer">-</span>
+                    </div>
+
+                    <div>
+                        Tanggal:
+                        <span id="pDate">-</span>
+                    </div>
+
+                    <div>
+                        No. Bon:
+                        <span id="pInvoice">-</span>
+                    </div>
+                </div>
+
+                <div id="previewItems"></div>
+
+                <div class="preview-total">
+
+                    <div>
+                        <span>TOTAL</span>
+                        <strong id="pTotal">Rp 0</strong>
+                    </div>
+
+                    <div>
+                        <span>Bayar</span>
+                        <span id="pPaid">Rp 0</span>
+                    </div>
+
+                    <div>
+                        <span>Kembali</span>
+                        <span id="pChange">Rp 0</span>
+                    </div>
+
+                </div>
+
+                <div id="pNotes"
+                     style="margin-top:12px;font-size:12px;">
+                </div>
+
+                <div class="preview-footer"
+                     id="pFooter">
+                    Terima kasih sudah berbelanja 🙏
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+let items = [];
+
+
+// FORMAT RUPIAH
+function rupiah(number) {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0
+    }).format(number || 0);
+}
+
+
+// TANGGAL HARI INI
+document.getElementById("date").value =
+    new Date().toISOString().split("T")[0];
+
+
+// TAMBAH BARANG
+function addItem() {
+
+    items.push({
+        name: "",
+        price: 0,
+        qty: 1
+    });
+
+    renderItems();
+    update();
+}
+
+
+// TAMPILKAN BARANG
+function renderItems() {
+
+    const container = document.getElementById("items");
+
+    container.innerHTML = "";
+
+    items.forEach((item, index) => {
+
+        const div = document.createElement("div");
+
+        div.className = "item";
+
+        div.innerHTML = `
+
+            <div class="item-grid">
+
+                <div>
+                    <label>Nama Barang</label>
+                    <input type="text"
+                        value="${item.name}"
+                        placeholder="Contoh: Ayam Penyet"
+                        oninput="updateItem(${index}, 'name', this.value)">
+                </div>
+
+                <div>
+                    <label>Jumlah</label>
+                    <input type="number"
+                        min="1"
+                        value="${item.qty}"
+                        oninput="updateItem(${index}, 'qty', this.value)">
+                </div>
+
+                <div>
+                    <label>Harga</label>
+                    <input type="number"
+                        min="0"
+                        value="${item.price}"
+                        oninput="updateItem(${index}, 'price', this.value)">
+                </div>
+
+                <button class="btn btn-delete"
+                        onclick="deleteItem(${index})">
+                    🗑️
+                </button>
+
+            </div>
+
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+
+// UPDATE BARANG
+function updateItem(index, property, value) {
+
+    if(property === "qty") {
+        items[index][property] = Number(value) || 0;
+    }
+
+    else if(property === "price") {
+        items[index][property] = Number(value) || 0;
+    }
+
+    else {
+        items[index][property] = value;
+    }
+
+    update();
+}
+
+
+// HAPUS BARANG
+function deleteItem(index) {
+
+    items.splice(index, 1);
+
+    renderItems();
+    update();
+}
+
+
+// HITUNG TOTAL
+function calculateTotal() {
+
+    return items.reduce((total, item) => {
+
+        return total +
+            (Number(item.price) * Number(item.qty));
+
+    }, 0);
+}
+
+
+// UPDATE SEMUA
+function update() {
+
+    const total = calculateTotal();
+
+    const paid =
+        Number(document.getElementById("paid").value) || 0;
+
+    const change =
+        Math.max(paid - total, 0);
+
+
+    // SUMMARY
+    document.getElementById("subtotal").textContent =
+        rupiah(total);
+
+    document.getElementById("total").textContent =
+        rupiah(total);
+
+    document.getElementById("paidDisplay").textContent =
+        rupiah(paid);
+
+    document.getElementById("change").textContent =
+        rupiah(change);
+
+
+    // TOKO
+    document.getElementById("pStoreName").textContent =
+        document.getElementById("storeName").value || "TOKO SAYA";
+
+    document.getElementById("pAddress").textContent =
+        document.getElementById("storeAddress").value || "";
+
+    document.getElementById("pPhone").textContent =
+        document.getElementById("storePhone").value || "";
+
+
+    // PELANGGAN
+    document.getElementById("pCustomer").textContent =
+        document.getElementById("customerName").value || "-";
+
+    document.getElementById("pDate").textContent =
+        document.getElementById("date").value || "-";
+
+    document.getElementById("pInvoice").textContent =
+        document.getElementById("invoice").value || "-";
+
+
+    // PEMBAYARAN
+    document.getElementById("pTotal").textContent =
+        rupiah(total);
+
+    document.getElementById("pPaid").textContent =
+        rupiah(paid);
+
+    document.getElementById("pChange").textContent =
+        rupiah(change);
+
+
+    // CATATAN
+    document.getElementById("pNotes").textContent =
+        document.getElementById("notes").value || "";
+
+
+    // FOOTER
+    document.getElementById("pFooter").textContent =
+        document.getElementById("footerText").value ||
+        "Terima kasih";
+
+
+    // ITEM PREVIEW
+    const preview =
+        document.getElementById("previewItems");
+
+    preview.innerHTML = "";
+
+    items.forEach(item => {
+
+        if(!item.name && !item.price) return;
+
+        const subtotal =
+            Number(item.price) * Number(item.qty);
+
+        const div =
+            document.createElement("div");
+
+        div.className = "preview-item";
+
+        div.innerHTML = `
+
+            <div class="preview-item-top">
+                <span>${item.name || "Barang"}</span>
+                <strong>${rupiah(subtotal)}</strong>
+            </div>
+
+            <div class="preview-item-bottom">
+                ${item.qty} x ${rupiah(item.price)}
+            </div>
+
+        `;
+
+        preview.appendChild(div);
+    });
+
+
+    saveData();
+}
+
+
+// EVENT INPUT
+document.querySelectorAll("input, textarea")
+.forEach(input => {
+
+    input.addEventListener("input", update);
+
+});
+
+
+// SIMPAN OTOMATIS
+function saveData() {
+
+    const data = {
+
+        storeName:
+            document.getElementById("storeName").value,
+
+        storeAddress:
+            document.getElementById("storeAddress").value,
+
+        storePhone:
+            document.getElementById("storePhone").value,
+
+        footerText:
+            document.getElementById("footerText").value,
+
+        customerName:
+            document.getElementById("customerName").value,
+
+        date:
+            document.getElementById("date").value,
+
+        invoice:
+            document.getElementById("invoice").value,
+
+        paid:
+            document.getElementById("paid").value,
+
+        notes:
+            document.getElementById("notes").value,
+
+        items: items
+
+    };
+
+    localStorage.setItem(
+        "dataBon",
+        JSON.stringify(data)
+    );
+}
+
+
+// LOAD DATA
+function loadData() {
+
+    const saved =
+        localStorage.getItem("dataBon");
+
+    if(!saved) {
+
+        addItem();
+        return;
+    }
+
+    const data =
+        JSON.parse(saved);
+
+    document.getElementById("storeName").value =
+        data.storeName || "TOKO SAYA";
+
+    document.getElementById("storeAddress").value =
+        data.storeAddress || "";
+
+    document.getElementById("storePhone").value =
+        data.storePhone || "";
+
+    document.getElementById("footerText").value =
+        data.footerText || "";
+
+    document.getElementById("customerName").value =
+        data.customerName || "";
+
+    document.getElementById("date").value =
+        data.date || "";
+
+    document.getElementById("invoice").value =
+        data.invoice || "";
+
+    document.getElementById("paid").value =
+        data.paid || "";
+
+    document.getElementById("notes").value =
+        data.notes || "";
+
+    items = data.items || [];
+
+    renderItems();
+    update();
+}
+
+
+// RESET
+function resetAll() {
+
+    if(!confirm("Buat bon baru? Data saat ini akan dihapus.")) {
+        return;
+    }
+
+    localStorage.removeItem("dataBon");
+
+    location.reload();
+}
+
+
+// MULAI
+loadData();
+
+</script>
+
+</body>
+</html>
