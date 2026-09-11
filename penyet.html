@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Ayam Penyet Mantap</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff3e0;
+            margin: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #e64a19;
+            color: white;
+            padding: 20px;
+        }
+
+        .menu {
+            background-color: white;
+            width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px #aaa;
+        }
+
+        .menu h2 {
+            color: #e64a19;
+        }
+
+        button {
+            background-color: #e64a19;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #bf360c;
+        }
+
+        #pesanan {
+            background-color: white;
+            width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <h1>🍗 Ayam Penyet Mantap</h1>
+
+        <p>Enak, Pedas, dan Murah!</p>
+
+    </header>
+
+
+    <h2>Daftar Menu</h2>
+
+
+    <div class="menu">
+
+        <h2>🍗 Ayam Penyet</h2>
+
+        <p>
+            Ayam + Nasi + Sambal + Lalapan
+        </p>
+
+        <h3>Rp15.000</h3>
+
+        <button onclick="pesan(15000)">
+            Pesan
+        </button>
+
+    </div>
+
+
+    <div class="menu">
+
+        <h2>🔥 Ayam Penyet Jumbo</h2>
+
+        <p>
+            Ayam Jumbo + Nasi + Sambal
+        </p>
+
+        <h3>Rp20.000</h3>
+
+        <button onclick="pesan(20000)">
+            Pesan
+        </button>
+
+    </div>
+
+
+    <div class="menu">
+
+        <h2>🥤 Es Teh Manis</h2>
+
+        <p>
+            Es Teh Manis Segar
+        </p>
+
+        <h3>Rp5.000</h3>
+
+        <button onclick="pesan(5000)">
+            Pesan
+        </button>
+
+    </div>
+
+
+    <div id="pesanan">
+
+        <h2>🛒 Pesanan</h2>
+
+        <p>
+            Jumlah Pesanan:
+            <b id="jumlah">0</b>
+        </p>
+
+        <p>
+            Total Harga:
+            <b>Rp<span id="total">0</span></b>
+        </p>
+
+        <button onclick="reset()">
+            Reset Pesanan
+        </button>
+
+    </div>
+
+
+    <footer>
+
+        <p>
+            © 2026 Ayam Penyet Mantap
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        let jumlah = 0;
+        let total = 0;
+
+
+        function pesan(harga) {
+
+            jumlah = jumlah + 1;
+
+            total = total + harga;
+
+            document.getElementById("jumlah")
+                .innerText = jumlah;
+
+            document.getElementById("total")
+                .innerText = total.toLocaleString("id-ID");
+
+        }
+
+
+        function reset() {
+
+            jumlah = 0;
+
+            total = 0;
+
+            document.getElementById("jumlah")
+                .innerText = 0;
+
+            document.getElementById("total")
+                .innerText = 0;
+
+        }
+
+    </script>
+
+</body>
+</html>
