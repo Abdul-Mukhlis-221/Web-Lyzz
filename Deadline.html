@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Tugas Deadline</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f3f4f6;
+    color:#111827;
+    min-height:100vh;
+}
+
+header{
+    background:#111827;
+    color:white;
+    padding:22px 18px;
+    text-align:center;
+    border-radius:0 0 25px 25px;
+}
+
+header h1{
+    font-size:25px;
+    margin-bottom:6px;
+}
+
+header p{
+    font-size:14px;
+    opacity:.8;
+}
+
+.container{
+    width:92%;
+    max-width:650px;
+    margin:20px auto 40px;
+}
+
+.card{
+    background:white;
+    padding:18px;
+    border-radius:18px;
+    margin-bottom:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.card h2{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    margin-bottom:10px;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#111827;
+}
+
+button{
+    border:none;
+    border-radius:10px;
+    padding:12px 15px;
+    font-size:14px;
+    cursor:pointer;
+    margin:3px;
+}
+
+.btn-add{
+    background:#111827;
+    color:white;
+    width:100%;
+}
+
+.btn-notif{
+    background:#2563eb;
+    color:white;
+    width:100%;
+}
+
+.btn-test{
+    background:#16a34a;
+    color:white;
+    width:100%;
+}
+
+.status{
+    text-align:center;
+    font-size:13px;
+    margin-top:8px;
+    color:#6b7280;
+}
+
+.task{
+    border:1px solid #e5e7eb;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:12px;
+    background:#fafafa;
+}
+
+.task-name{
+    font-size:17px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.deadline{
+    font-size:13px;
+    color:#6b7280;
+    margin-bottom:8px;
+}
+
+.countdown{
+    font-size:15px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.normal{
+    color:#2563eb;
+}
+
+.warning{
+    color:#d97706;
+}
+
+.danger{
+    color:#dc2626;
+}
+
+.finished{
+    color:#991b1b;
+}
+
+.actions{
+    display:flex;
+    gap:5px;
+}
+
+.btn-edit{
+    background:#f59e0b;
+    color:white;
+    flex:1;
+}
+
+.btn-delete{
+    background:#dc2626;
+    color:white;
+    flex:1;
+}
+
+.empty{
+    text-align:center;
+    color:#9ca3af;
+    padding:20px 5px;
+}
+
+.info{
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
+    color:#1e40af;
+    padding:12px;
+    border-radius:10px;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:12px;
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%);
+    background:#111827;
+    color:white;
+    padding:13px 18px;
+    border-radius:12px;
+    font-size:14px;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:9999;
+    max-width:90%;
+    text-align:center;
+}
+
+.toast.show{
+    opacity:1;
+}
+
+footer{
+    text-align:center;
+    color:#9ca3af;
+    font-size:12px;
+    padding:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>📚 Tugas Deadline</h1>
+
+    <p>
+        Pengingat tugas 1 hari, 3 jam dan saat deadline
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- TAMBAH TUGAS -->
+
+    <div class="card">
+
+        <h2>➕ Tambah Tugas</h2>
+
+        <input
+            type="text"
+            id="taskName"
+            placeholder="Nama tugas..."
+        >
+
+        <input
+            type="datetime-local"
+            id="taskDeadline"
+        >
+
+        <button
+            class="btn-add"
+            onclick="addTask()"
+        >
+            💾 Simpan Tugas
+        </button>
+
+    </div>
+
+
+    <!-- NOTIFIKASI -->
+
+    <div class="card">
+
+        <h2>🔔 Notifikasi & Alarm</h2>
+
+        <button
+            class="btn-notif"
+            onclick="enableNotifications()"
+        >
+            🔔 Aktifkan Notifikasi
+        </button>
+
+        <button
+            class="btn-test"
+            onclick="testNotification()"
+        >
+            🔊 Tes Notifikasi & Alarm
+        </button>
+
+        <div
+            class="status"
+            id="notificationStatus"
+        >
+            Status: belum dicek
+        </div>
+
+        <div class="info">
+
+            🔔 <b>Alarm otomatis:</b><br>
+
+            • 1 hari sebelum deadline<br>
+            • 3 jam sebelum deadline<br>
+            • Saat deadline tiba
+
+        </div>
+
+    </div>
+
+
+    <!-- DAFTAR TUGAS -->
+
+    <div class="card">
+
+        <h2>📋 Daftar Tugas</h2>
+
+        <div id="taskList"></div>
+
+    </div>
+
+
+</div>
+
+
+<footer>
+
+    Tugas Deadline • Pengingat otomatis
+
+</footer>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script>
+
+
+/* =====================================================
+   DATA TUGAS
+===================================================== */
+
+let tasks =
+    JSON.parse(
+        localStorage.getItem("tugasDeadline")
+    ) || [];
+
+
+/* =====================================================
+   SIMPAN DATA
+===================================================== */
+
+function saveTasks(){
+
+    localStorage.setItem(
+        "tugasDeadline",
+        JSON.stringify(tasks)
+    );
+
+}
+
+
+/* =====================================================
+   TAMBAH TUGAS
+===================================================== */
+
+function addTask(){
+
+    const name =
+        document
+        .getElementById("taskName")
+        .value
+        .trim();
+
+    const deadline =
+        document
+        .getElementById("taskDeadline")
+        .value;
+
+
+    if(name === ""){
+
+        alert(
+            "Nama tugas belum diisi."
+        );
+
+        return;
+    }
+
+
+    if(deadline === ""){
+
+        alert(
+            "Deadline belum dipilih."
+        );
+
+        return;
+    }
+
+
+    const deadlineTime =
+        new Date(deadline).getTime();
+
+
+    if(deadlineTime <= Date.now()){
+
+        alert(
+            "Deadline harus berada di masa depan."
+        );
+
+        return;
+    }
+
+
+    const task = {
+
+        id: Date.now(),
+
+        name: name,
+
+        deadline: deadline,
+
+        alarm1day: false,
+
+        alarm3hour: false,
+
+        alarmDeadline: false
+
+    };
+
+
+    tasks.push(task);
+
+    saveTasks();
+
+    document
+        .getElementById("taskName")
+        .value = "";
+
+    document
+        .getElementById("taskDeadline")
+        .value = "";
+
+    renderTasks();
+
+    showToast(
+        "✅ Tugas berhasil ditambahkan."
+    );
+
+}
+
+
+/* =====================================================
+   TAMPILKAN TUGAS
+===================================================== */
+
+function renderTasks(){
+
+    const list =
+        document.getElementById(
+            "taskList"
+        );
+
+
+    if(tasks.length === 0){
+
+        list.innerHTML = `
+            <div class="empty">
+                Belum ada tugas.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML = "";
+
+
+    tasks.forEach(task => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "task";
+
+
+        div.innerHTML = `
+
+            <div class="task-name">
+
+                📚 ${escapeHTML(task.name)}
+
+            </div>
+
+
+            <div class="deadline">
+
+                🗓️ Deadline:<br>
+
+                ${formatDate(task.deadline)}
+
+            </div>
+
+
+            <div
+                class="countdown"
+                id="countdown-${task.id}"
+            >
+                Menghitung...
+            </div>
+
+
+            <div class="actions">
+
+                <button
+                    class="btn-edit"
+                    onclick="editTask(${task.id})"
+                >
+                    ✏️ Edit
+                </button>
+
+
+                <button
+                    class="btn-delete"
+                    onclick="deleteTask(${task.id})"
+                >
+                    🗑️ Hapus
+                </button>
+
+            </div>
+
+        `;
+
+
+        list.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   AMANKAN HTML
+===================================================== */
+
+function escapeHTML(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   FORMAT TANGGAL
+===================================================== */
+
+function formatDate(dateString){
+
+    const date =
+        new Date(dateString);
+
+
+    return date.toLocaleString(
+        "id-ID",
+        {
+            weekday:"long",
+            day:"2-digit",
+            month:"long",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   EDIT TUGAS
+===================================================== */
+
+function editTask(id){
+
+    const task =
+        tasks.find(
+            t => t.id === id
+        );
+
+
+    if(!task) return;
+
+
+    const newName =
+        prompt(
+            "Nama tugas:",
+            task.name
+        );
+
+
+    if(newName === null)
+        return;
+
+
+    const cleanName =
+        newName.trim();
+
+
+    if(cleanName === ""){
+
+        alert(
+            "Nama tugas tidak boleh kosong."
+        );
+
+        return;
+    }
+
+
+    task.name =
+        cleanName;
+
+
+    saveTasks();
+
+    renderTasks();
+
+    showToast(
+        "✏️ Tugas berhasil diedit."
+    );
+
+}
+
+
+/* =====================================================
+   HAPUS TUGAS
+===================================================== */
+
+function deleteTask(id){
+
+    const task =
+        tasks.find(
+            t => t.id === id
+        );
+
+
+    if(!task) return;
+
+
+    const yakin =
+        confirm(
+            `Hapus tugas "${task.name}"?`
+        );
+
+
+    if(!yakin)
+        return;
+
+
+    tasks =
+        tasks.filter(
+            t => t.id !== id
+        );
+
+
+    saveTasks();
+
+    renderTasks();
+
+    showToast(
+        "🗑️ Tugas dihapus."
+    );
+
+}
+
+
+/* =====================================================
+   COUNTDOWN
+===================================================== */
+
+function updateCountdown(){
+
+    const now =
+        Date.now();
+
+
+    tasks.forEach(task => {
+
+        const deadline =
+            new Date(
+                task.deadline
+            ).getTime();
+
+
+        const element =
+            document.getElementById(
+                `countdown-${task.id}`
+            );
+
+
+        if(!element)
+            return;
+
+
+        const difference =
+            deadline - now;
+
+
+        if(difference <= 0){
+
+            element.innerHTML =
+                "🚨 DEADLINE SUDAH TIBA";
+
+
+            element.className =
+                "countdown finished";
+
+
+            return;
+
+        }
+
+
+        const days =
+            Math.floor(
+                difference /
+                (1000 * 60 * 60 * 24)
+            );
+
+
+        const hours =
+            Math.floor(
+                (
+                    difference %
+                    (1000 * 60 * 60 * 24)
+                ) /
+                (1000 * 60 * 60)
+            );
+
+
+        const minutes =
+            Math.floor(
+                (
+                    difference %
+                    (1000 * 60 * 60)
+                ) /
+                (1000 * 60)
+            );
+
+
+        const seconds =
+            Math.floor(
+                (
+                    difference %
+                    (1000 * 60)
+                ) /
+                1000
+            );
+
+
+        element.innerHTML =
+            `⏳ ${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
+
+
+        if(
+            days === 0 &&
+            hours < 3
+        ){
+
+            element.className =
+                "countdown danger";
+
+        }
+        else if(
+            days === 0
+        ){
+
+            element.className =
+                "countdown warning";
+
+        }
+        else{
+
+            element.className =
+                "countdown normal";
+
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   ALARM SUARA
+===================================================== */
+
+function speak(text){
+
+    if(
+        !("speechSynthesis" in window)
+    ){
+
+        return;
+    }
+
+
+    try{
+
+        window.speechSynthesis.cancel();
+
+
+        const speech =
+            new SpeechSynthesisUtterance(
+                text
+            );
+
+
+        speech.lang =
+            "id-ID";
+
+        speech.rate =
+            0.8;
+
+        speech.volume =
+            1;
+
+        speech.pitch =
+            1;
+
+
+        window.speechSynthesis.speak(
+            speech
+        );
+
+    }
+    catch(error){
+
+        console.log(
+            "Suara gagal:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   NOTIFIKASI
+===================================================== */
+
+async function sendNotification(
+    title,
+    message,
+    id
+){
+
+    if(
+        !("Notification" in window)
+    ){
+
+        console.log(
+            "Browser tidak mendukung notifikasi."
+        );
+
+        return;
+    }
+
+
+    if(
+        Notification.permission !==
+        "granted"
+    ){
+
+        console.log(
+            "Izin notifikasi belum diberikan."
+        );
+
+        return;
+    }
+
+
+    try{
+
+        if(
+            "serviceWorker" in navigator
+        ){
+
+            const registration =
+                await navigator
+                .serviceWorker
+                .ready;
+
+
+            await registration.showNotification(
+                title,
+                {
+
+                    body:
+                        message,
+
+                    tag:
+                        "tugas-" + id,
+
+                    requireInteraction:
+                        true,
+
+                    renotify:
+                        true,
+
+                    silent:
+                        false,
+
+                    vibrate:
+                        [300,100,300,100,500],
+
+                    data:{
+                        taskId:id
+                    }
+
+                }
+            );
+
+        }
+        else{
+
+            new Notification(
+                title,
+                {
+                    body:message
+                }
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Notifikasi gagal:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   AKTIFKAN NOTIFIKASI
+===================================================== */
+
+async function enableNotifications(){
+
+    if(
+        !("Notification" in window)
+    ){
+
+        alert(
+            "Browser ini tidak mendukung notifikasi."
+        );
+
+        return;
+    }
+
+
+    if(
+        Notification.permission ===
+        "granted"
+    ){
+
+        updateNotificationStatus();
+
+        showToast(
+            "✅ Notifikasi sudah aktif."
+        );
+
+        return;
+    }
+
+
+    if(
+        Notification.permission ===
+        "denied"
+    ){
+
+        alert(
+            "Notifikasi diblokir oleh Chrome. Aktifkan izin notifikasi untuk situs ini melalui pengaturan Chrome."
+        );
+
+        return;
+    }
+
+
+    const permission =
+        await Notification
+        .requestPermission();
+
+
+    updateNotificationStatus();
+
+
+    if(
+        permission === "granted"
+    ){
+
+        showToast(
+            "🔔 Notifikasi berhasil diaktifkan!"
+        );
+
+
+        sendNotification(
+            "🔔 Tugas Deadline",
+            "Notifikasi tugas deadline sudah aktif.",
+            "activation"
+        );
+
+    }
+    else{
+
+        showToast(
+            "❌ Izin notifikasi ditolak."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   STATUS NOTIFIKASI
+===================================================== */
+
+function updateNotificationStatus(){
+
+    const status =
+        document.getElementById(
+            "notificationStatus"
+        );
+
+
+    if(
+        !("Notification" in window)
+    ){
+
+        status.innerHTML =
+            "❌ Browser tidak mendukung notifikasi.";
+
+        return;
+    }
+
+
+    if(
+        Notification.permission ===
+        "granted"
+    ){
+
+        status.innerHTML =
+            "🟢 Notifikasi: AKTIF";
+
+    }
+    else if(
+        Notification.permission ===
+        "denied"
+    ){
+
+        status.innerHTML =
+            "🔴 Notifikasi: DIBLOKIR";
+
+    }
+    else{
+
+        status.innerHTML =
+            "⚪ Notifikasi: BELUM DIAKTIFKAN";
+
+    }
+
+}
+
+
+/* =====================================================
+   TES NOTIFIKASI DAN ALARM
+===================================================== */
+
+function testNotification(){
+
+    const message =
+        "Ini adalah tes pengingat tugas. Harap segera selesaikan tugas tersebut.";
+
+
+    speak(message);
+
+
+    sendNotification(
+        "🔔 Tes Tugas Deadline",
+        message,
+        "test"
+    );
+
+
+    showToast(
+        "🔊 Tes suara dan notifikasi dikirim."
+    );
+
+}
+
+
+/* =====================================================
+   CEK ALARM
+===================================================== */
+
+function checkAlarms(){
+
+    const now =
+        Date.now();
+
+
+    const oneDay =
+        24 *
+        60 *
+        60 *
+        1000;
+
+
+    const threeHours =
+        3 *
+        60 *
+        60 *
+        1000;
+
+
+    tasks.forEach(task => {
+
+        const deadline =
+            new Date(
+                task.deadline
+            ).getTime();
+
+
+        if(
+            isNaN(deadline)
+        ){
+
+            return;
+        }
+
+
+        /* =================================================
+           1 HARI SEBELUM DEADLINE
+        ================================================= */
+
+        if(
+            now >= deadline - oneDay &&
+            now < deadline - threeHours &&
+            !task.alarm1day
+        ){
+
+            const message =
+                `Perhatian! Deadline tinggal 1 hari lagi.\n\n` +
+                `Tugas: ${task.name}\n` +
+                `Deadline: ${formatDate(task.deadline)}`;
+
+
+            speak(
+                `Perhatian! Tugas ${task.name} deadline tinggal satu hari lagi.`
+            );
+
+
+            sendNotification(
+                "🔔 Tugas Deadline",
+                message,
+                task.id + "-1day"
+            );
+
+
+            task.alarm1day =
+                true;
+
+        }
+
+
+        /* =================================================
+           3 JAM SEBELUM DEADLINE
+        ================================================= */
+
+        if(
+            now >= deadline - threeHours &&
+            now < deadline &&
+            !task.alarm3hour
+        ){
+
+            const message =
+                `Perhatian! Deadline tinggal 3 jam lagi.\n\n` +
+                `Tugas: ${task.name}\n` +
+                `Deadline: ${formatDate(task.deadline)}`;
+
+
+            speak(
+                `Perhatian! Tugas ${task.name} deadline tinggal tiga jam lagi.`
+            );
+
+
+            sendNotification(
+                "🚨 Deadline 3 Jam Lagi",
+                message,
+                task.id + "-3hour"
+            );
+
+
+            task.alarm3hour =
+                true;
+
+        }
+
+
+        /* =================================================
+           DEADLINE TIBA
+        ================================================= */
+
+        if(
+            now >= deadline &&
+            !task.alarmDeadline
+        ){
+
+            const message =
+                `Perhatian! Deadline tugas telah tiba.\n\n` +
+                `Tugas: ${task.name}\n` +
+                `Deadline: ${formatDate(task.deadline)}`;
+
+
+            speak(
+                `Perhatian! Deadline tugas ${task.name} telah tiba.`
+            );
+
+
+            sendNotification(
+                "🚨 DEADLINE TUGAS",
+                message,
+                task.id + "-deadline"
+            );
+
+
+            task.alarmDeadline =
+                true;
+
+        }
+
+    });
+
+
+    saveTasks();
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.innerText =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+    () => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },
+    3000
+);
+
+}
+
+  function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.innerText =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        3000
+    );
+
+  }
+
+  /* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if(
+    "serviceWorker" in navigator
+){
+
+    navigator
+        .serviceWorker
+        .register("./sw.js")
+        .then(
+            registration => {
+
+                console.log(
+                    "Service Worker aktif:",
+                    registration.scope
+                );
+
+            }
+        )
+        .catch(
+            error => {
+
+                console.error(
+                    "Service Worker gagal:",
+                    error
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   JALANKAN PROGRAM
+===================================================== */
+
+renderTasks();
+
+updateNotificationStatus();
+
+updateCountdown();
+
+checkAlarms();
+
+
+/* Countdown setiap 1 detik */
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+
+/* Alarm diperiksa setiap 10 detik */
+
+setInterval(
+    checkAlarms,
+    10000
+);
+
+</script>
+
+</body>
+</html>
