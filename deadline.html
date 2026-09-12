@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <meta name="theme-color"
-      content="#111827">
+content="#111827">
 
 <meta name="description"
-      content="Aplikasi pengingat tugas dan deadline">
+content="Pengingat tugas dan deadline">
+
+<link rel="manifest"
+href="manifest.json">
 
 <title>Tugas Deadline</title>
+
 
 <style>
 
@@ -22,7 +27,7 @@
 
 body{
     margin:0;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial,sans-serif;
     background:#f3f4f6;
     color:#111827;
 }
@@ -30,7 +35,7 @@ body{
 header{
     background:#111827;
     color:white;
-    padding:25px 18px;
+    padding:25px 15px;
     text-align:center;
 }
 
@@ -41,8 +46,8 @@ header h1{
 
 header p{
     margin:8px 0 0;
-    color:#d1d5db;
     font-size:14px;
+    color:#d1d5db;
 }
 
 .container{
@@ -56,11 +61,10 @@ header p{
     padding:18px;
     border-radius:18px;
     margin-bottom:16px;
-    box-shadow:
-        0 5px 20px rgba(0,0,0,.08);
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
-.card h2{
+h2{
     margin-top:0;
 }
 
@@ -76,14 +80,14 @@ input{
     padding:14px;
     margin-top:7px;
     border:1px solid #d1d5db;
-    border-radius:11px;
+    border-radius:10px;
     font-size:15px;
 }
 
 button{
     border:0;
     border-radius:11px;
-    padding:13px 15px;
+    padding:13px;
     font-size:15px;
     cursor:pointer;
 }
@@ -113,19 +117,17 @@ button{
     text-align:center;
     margin-top:12px;
     font-size:13px;
-    color:#6b7280;
 }
 
 .task{
     border:1px solid #e5e7eb;
     border-radius:15px;
-    padding:16px;
+    padding:15px;
     margin-top:13px;
 }
 
 .task h3{
     margin:0 0 10px;
-    font-size:18px;
 }
 
 .deadline{
@@ -137,8 +139,8 @@ button{
     background:#f3f4f6;
     border-radius:10px;
     padding:12px;
-    font-weight:bold;
     text-align:center;
+    font-weight:bold;
     margin-bottom:12px;
 }
 
@@ -170,38 +172,29 @@ button{
 
 .empty{
     text-align:center;
-    color:#6b7280;
     padding:20px;
+    color:#6b7280;
 }
 
 .toast{
     position:fixed;
+    bottom:20px;
     left:15px;
     right:15px;
-    bottom:20px;
-
     background:#111827;
     color:white;
-
-    padding:16px;
-
+    padding:15px;
     border-radius:14px;
-
     display:none;
-
     z-index:9999;
-
-    box-shadow:
-        0 5px 25px rgba(0,0,0,.3);
 }
 
 .toast.show{
     display:block;
 }
 
-.warning{
-    background:#fff7ed;
-    border:1px solid #fed7aa;
+.info{
+    background:#eff6ff;
     padding:12px;
     border-radius:12px;
     font-size:13px;
@@ -210,17 +203,20 @@ button{
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
 
-    <h1>📚 Tugas Deadline</h1>
+<h1>📚 Tugas Deadline</h1>
 
-    <p>
-        Pengingat tugas 1 hari • 3 jam • deadline
-    </p>
+<p>
+Pengingat otomatis 1 hari • 3 jam • deadline
+</p>
 
 </header>
 
@@ -228,91 +224,87 @@ button{
 <div class="container">
 
 
-<!-- =========================
-     FORM TAMBAH TUGAS
-========================= -->
-
 <div class="card">
 
-    <h2>➕ Tambah Tugas</h2>
-
-    <label>
-        Nama Tugas
-    </label>
-
-    <input
-        type="text"
-        id="taskName"
-        placeholder="Contoh: Tugas Data Mining"
-    >
+<h2>➕ Tambah Tugas</h2>
 
 
-    <label>
-        Deadline
-    </label>
+<label>Nama Tugas</label>
 
-    <input
-        type="datetime-local"
-        id="taskDeadline"
-    >
+<input
+id="taskName"
+type="text"
+placeholder="Contoh: Tugas Data Mining">
 
 
-    <button
-        class="btn-add"
-        onclick="addTask()">
+<label>Deadline</label>
 
-        💾 Simpan Tugas
-
-    </button>
+<input
+id="taskDeadline"
+type="datetime-local">
 
 
-    <button
-        class="btn-notif"
-        onclick="requestNotification()">
+<button
+class="btn-add"
+onclick="addTask()">
 
-        📱 Aktifkan Notifikasi HP
+💾 Simpan Tugas
 
-    </button>
-
-
-    <button
-        class="btn-sound"
-        onclick="testSound()">
-
-        🔊 Tes Suara Alarm
-
-    </button>
+</button>
 
 
-    <div
-        class="status"
-        id="notificationStatus">
+<button
+class="btn-notif"
+onclick="enableNotifications()">
 
-        Memeriksa status notifikasi...
+📱 Aktifkan Notifikasi HP
 
-    </div>
+</button>
 
 
-    <div class="warning">
+<button
+class="btn-sound"
+onclick="testSound()">
 
-        ⚠️ <b>Penting:</b>
-        Izinkan notifikasi ketika browser meminta izin.
-        Untuk suara, pastikan volume media HP aktif.
+🔊 Tes Suara Alarm
 
-    </div>
+</button>
+
+
+<div
+id="notificationStatus"
+class="status">
+
+Memeriksa notifikasi...
 
 </div>
 
 
-<!-- =========================
-     DAFTAR TUGAS
-========================= -->
+<div class="info">
+
+📱 <b>Notifikasi HP:</b><br>
+
+Setelah menekan tombol di atas,
+pilih <b>Izinkan / Allow</b> ketika browser
+meminta izin notifikasi.
+
+<br><br>
+
+🔊 Suara alarm akan menyebutkan
+nama tugas dan mengatakan:
+<b>"Harap segera selesaikan tugas tersebut."</b>
+
+</div>
+
+</div>
+
+
 
 <div class="card">
 
-    <h2>📋 Daftar Tugas</h2>
+<h2>📋 Daftar Tugas</h2>
 
-    <div id="taskList"></div>
+<div id="taskList"></div>
 
 </div>
 
@@ -321,8 +313,8 @@ button{
 
 
 <div
-    class="toast"
-    id="toast">
+id="toast"
+class="toast">
 </div>
 
 
@@ -334,9 +326,36 @@ button{
 ===================================================== */
 
 let tasks =
-    JSON.parse(
-        localStorage.getItem("tugasDeadline") || "[]"
-    );
+JSON.parse(
+localStorage.getItem("tugasDeadline") || "[]"
+);
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if("serviceWorker" in navigator){
+
+navigator.serviceWorker
+.register("sw.js")
+.then(() => {
+
+console.log(
+"Service Worker berhasil aktif."
+);
+
+})
+.catch(error => {
+
+console.log(
+"Service Worker gagal:",
+error
+);
+
+});
+
+}
 
 
 /* =====================================================
@@ -345,10 +364,10 @@ let tasks =
 
 function saveTasks(){
 
-    localStorage.setItem(
-        "tugasDeadline",
-        JSON.stringify(tasks)
-    );
+localStorage.setItem(
+"tugasDeadline",
+JSON.stringify(tasks)
+);
 
 }
 
@@ -359,224 +378,215 @@ function saveTasks(){
 
 function addTask(){
 
-    const name =
-        document
-        .getElementById("taskName")
-        .value
-        .trim();
+const name =
+document
+.getElementById("taskName")
+.value
+.trim();
 
 
-    const deadline =
-        document
-        .getElementById("taskDeadline")
-        .value;
+const deadline =
+document
+.getElementById("taskDeadline")
+.value;
 
 
-    if(!name){
+if(!name){
 
-        alert("Nama tugas belum diisi!");
+alert("Nama tugas belum diisi!");
 
-        return;
+return;
 
-    }
-
-
-    if(!deadline){
-
-        alert("Deadline belum diisi!");
-
-        return;
-
-    }
+}
 
 
-    const deadlineTime =
-        new Date(deadline).getTime();
+if(!deadline){
+
+alert("Deadline belum diisi!");
+
+return;
+
+}
 
 
-    if(
-        isNaN(deadlineTime) ||
-        deadlineTime <= Date.now()
-    ){
-
-        alert(
-            "Deadline harus berada di masa depan!"
-        );
-
-        return;
-
-    }
+const time =
+new Date(deadline).getTime();
 
 
-    const task = {
+if(
+isNaN(time) ||
+time <= Date.now()
+){
 
-        id:Date.now(),
+alert(
+"Deadline harus berada di masa depan!"
+);
 
-        name:name,
+return;
 
-        deadline:deadline,
-
-        alarm1day:false,
-
-        alarm3:false,
-
-        alarmDeadline:false
-
-    };
+}
 
 
-    tasks.push(task);
+tasks.push({
+
+id:Date.now(),
+
+name:name,
+
+deadline:deadline,
+
+alarm1day:false,
+
+alarm3:false,
+
+alarmDeadline:false
+
+});
 
 
-    saveTasks();
+saveTasks();
 
 
-    document
-        .getElementById("taskName")
-        .value="";
+document
+.getElementById("taskName")
+.value="";
 
 
-    document
-        .getElementById("taskDeadline")
-        .value="";
+document
+.getElementById("taskDeadline")
+.value="";
 
 
-    renderTasks();
+renderTasks();
 
 
-    showToast(
-        "✅ Tugas berhasil disimpan!"
-    );
+showToast(
+"✅ Tugas berhasil disimpan!"
+);
 
 }
 
 
 /* =====================================================
-   TAMPILKAN TUGAS
+   RENDER TUGAS
 ===================================================== */
 
 function renderTasks(){
 
-    const list =
-        document.getElementById("taskList");
+const list =
+document.getElementById("taskList");
 
 
-    if(tasks.length===0){
+if(tasks.length === 0){
 
-        list.innerHTML = `
-            <div class="empty">
-                📭 Belum ada tugas.
-            </div>
-        `;
+list.innerHTML = `
+<div class="empty">
+📭 Belum ada tugas.
+</div>
+`;
 
-        return;
+return;
 
-    }
-
-
-    list.innerHTML="";
+}
 
 
-    tasks.forEach(task => {
-
-        const deadline =
-            new Date(task.deadline);
+list.innerHTML="";
 
 
-        const div =
-            document.createElement("div");
+tasks.forEach(task => {
+
+const div =
+document.createElement("div");
 
 
-        div.className="task";
+div.className="task";
 
 
-        div.innerHTML=`
+div.innerHTML = `
 
-            <h3>
-                📚 ${escapeHTML(task.name)}
-            </h3>
+<h3>
+📚 ${escapeHTML(task.name)}
+</h3>
 
+<div class="deadline">
 
-            <div class="deadline">
+⏰ <b>Deadline:</b><br>
 
-                ⏰ <b>Deadline:</b><br>
+${formatDate(
+new Date(task.deadline)
+)}
 
-                ${formatDate(deadline)}
+</div>
 
-            </div>
+<div
+class="countdown"
+id="count-${task.id}">
 
+Menghitung...
 
-            <div
-                class="countdown"
-                id="count-${task.id}">
-
-                Menghitung...
-
-            </div>
-
-
-            <div class="alarm-box">
-
-                📅
-                <b>Alarm 1 hari:</b>
-                ${
-                    task.alarm1day
-                    ? "✅ Sudah berbunyi"
-                    : "⏳ Menunggu"
-                }
-
-                <br>
+</div>
 
 
-                🔔
-                <b>Alarm 3 jam:</b>
-                ${
-                    task.alarm3
-                    ? "✅ Sudah berbunyi"
-                    : "⏳ Menunggu"
-                }
+<div class="alarm-box">
 
-                <br>
+📅 <b>Alarm 1 hari:</b>
 
+${
+task.alarm1day
+? "✅ Sudah berbunyi"
+: "⏳ Menunggu"
+}
 
-                🚨
-                <b>Alarm Deadline:</b>
-                ${
-                    task.alarmDeadline
-                    ? "✅ Sudah berbunyi"
-                    : "⏳ Menunggu"
-                }
+<br>
 
-            </div>
+🔔 <b>Alarm 3 jam:</b>
 
+${
+task.alarm3
+? "✅ Sudah berbunyi"
+: "⏳ Menunggu"
+}
 
-            <div class="actions">
+<br>
 
-                <button
-                    class="btn-edit"
-                    onclick="editTask(${task.id})">
+🚨 <b>Alarm deadline:</b>
 
-                    ✏️ Edit
+${
+task.alarmDeadline
+? "✅ Sudah berbunyi"
+: "⏳ Menunggu"
+}
 
-                </button>
-
-
-                <button
-                    class="btn-delete"
-                    onclick="deleteTask(${task.id})">
-
-                    🗑️ Hapus
-
-                </button>
-
-            </div>
-
-        `;
+</div>
 
 
-        list.appendChild(div);
+<div class="actions">
 
-    });
+<button
+class="btn-edit"
+onclick="editTask(${task.id})">
+
+✏️ Edit
+
+</button>
+
+
+<button
+class="btn-delete"
+onclick="deleteTask(${task.id})">
+
+🗑️ Hapus
+
+</button>
+
+</div>
+
+`;
+
+
+list.appendChild(div);
+
+});
 
 }
 
@@ -587,73 +597,62 @@ function renderTasks(){
 
 function updateCountdown(){
 
-    tasks.forEach(task => {
+tasks.forEach(task => {
 
-        const element =
-            document.getElementById(
-                "count-"+task.id
-            );
-
-
-        if(!element) return;
+const element =
+document.getElementById(
+"count-"+task.id
+);
 
 
-        const deadline =
-            new Date(task.deadline).getTime();
+if(!element)return;
 
 
-        let diff =
-            deadline - Date.now();
+let diff =
+new Date(task.deadline).getTime()
+- Date.now();
 
 
-        if(diff<=0){
+if(diff <= 0){
 
-            element.innerHTML =
-                "🚨 DEADLINE SUDAH TIBA";
+element.innerHTML =
+"🚨 DEADLINE SUDAH TIBA";
 
-            return;
+return;
 
-        }
-
-
-        const days =
-            Math.floor(
-                diff / 86400000
-            );
+}
 
 
-        diff %= 86400000;
+const days =
+Math.floor(diff / 86400000);
+
+diff %= 86400000;
 
 
-        const hours =
-            Math.floor(
-                diff / 3600000
-            );
+const hours =
+Math.floor(diff / 3600000);
+
+diff %= 3600000;
 
 
-        diff %= 3600000;
+const minutes =
+Math.floor(diff / 60000);
 
 
-        const minutes =
-            Math.floor(
-                diff / 60000
-            );
+const seconds =
+Math.floor(
+(diff % 60000) / 1000
+);
 
 
-        const seconds =
-            Math.floor(
-                (diff % 60000) / 1000
-            );
+element.innerHTML =
 
+`⏳ ${days} hari ` +
+`${hours} jam ` +
+`${minutes} menit ` +
+`${seconds} detik`;
 
-        element.innerHTML =
-
-            `⏳ ${days} hari ` +
-            `${hours} jam ` +
-            `${minutes} menit ` +
-            `${seconds} detik`;
-
-    });
+});
 
 }
 
@@ -664,198 +663,167 @@ function updateCountdown(){
 
 function checkAlarms(){
 
-    const now =
-        Date.now();
+const now =
+Date.now();
 
 
-    let changed=false;
+let changed=false;
 
 
-    tasks.forEach(task => {
+tasks.forEach(task => {
 
-        const deadline =
-            new Date(task.deadline).getTime();
+const deadline =
+new Date(task.deadline).getTime();
 
 
-        /* =============================================
-           1 HARI
-        ============================================= */
+/* ===============================
+   ALARM 1 HARI
+=============================== */
 
-        if(
+if(
 
-            now >= deadline - 86400000 &&
+now >= deadline - 86400000 &&
 
-            now < deadline - 10800000 &&
+now < deadline - 10800000 &&
 
-            !task.alarm1day
+!task.alarm1day
 
-        ){
+){
 
-            const message =
+const message =
 
-                `Perhatian! ` +
+`Perhatian! Tugas ${task.name} ` +
+`akan mencapai deadline dalam satu hari. ` +
+`Harap segera selesaikan tugas tersebut.`;
 
-                `Tugas ${task.name} ` +
 
-                `akan mencapai deadline ` +
+speak(message);
 
-                `dalam satu hari. ` +
 
-                `Harap segera selesaikan ` +
+sendNotification(
 
-                `tugas tersebut.`;
+"📅 Pengingat 1 Hari",
 
+message,
 
-            speak(message);
+task.id
 
+);
 
-            notify(
 
-                `📅 Pengingat: ${task.name}`,
+showToast(
+"📅 "+message
+);
 
-                `Deadline dalam 1 hari. ` +
 
-                `Harap segera selesaikan ` +
+task.alarm1day=true;
 
-                `tugas tersebut.`
+changed=true;
 
-            );
+}
 
 
-            showToast(
-                "📅 "+message
-            );
+/* ===============================
+   ALARM 3 JAM
+=============================== */
 
+if(
 
-            task.alarm1day=true;
+now >= deadline - 10800000 &&
 
+now < deadline &&
 
-            changed=true;
+!task.alarm3
 
-        }
+){
 
+const message =
 
-        /* =============================================
-           3 JAM
-        ============================================= */
+`Perhatian! Tugas ${task.name} ` +
+`akan mencapai deadline dalam tiga jam. ` +
+`Harap segera selesaikan tugas tersebut.`;
 
-        if(
 
-            now >= deadline - 10800000 &&
+speak(message);
 
-            now < deadline &&
 
-            !task.alarm3
+sendNotification(
 
-        ){
+"🔔 Pengingat 3 Jam",
 
-            const message =
+message,
 
-                `Perhatian! ` +
+task.id
 
-                `Tugas ${task.name} ` +
+);
 
-                `akan mencapai deadline ` +
 
-                `dalam tiga jam. ` +
+showToast(
+"🔔 "+message
+);
 
-                `Harap segera selesaikan ` +
 
-                `tugas tersebut.`;
+task.alarm3=true;
 
+changed=true;
 
-            speak(message);
+}
 
 
-            notify(
+/* ===============================
+   DEADLINE
+=============================== */
 
-                `🔔 Pengingat: ${task.name}`,
+if(
 
-                `Deadline dalam 3 jam. ` +
+now >= deadline &&
 
-                `Harap segera selesaikan ` +
+!task.alarmDeadline
 
-                `tugas tersebut.`
+){
 
-            );
+const message =
 
+`Perhatian! Deadline tugas ${task.name} ` +
+`telah tiba. ` +
+`Harap segera selesaikan tugas tersebut.`;
 
-            showToast(
-                "🔔 "+message
-            );
 
+speak(message);
 
-            task.alarm3=true;
 
+sendNotification(
 
-            changed=true;
+"🚨 DEADLINE TUGAS",
 
-        }
+message,
 
+task.id
 
-        /* =============================================
-           DEADLINE
-        ============================================= */
+);
 
-        if(
 
-            now >= deadline &&
+showToast(
+"🚨 "+message
+);
 
-            !task.alarmDeadline
 
-        ){
+task.alarmDeadline=true;
 
-            const message =
+changed=true;
 
-                `Perhatian! ` +
+}
 
-                `Deadline tugas ${task.name} ` +
+});
 
-                `telah tiba. ` +
 
-                `Harap segera selesaikan ` +
+if(changed){
 
-                `tugas tersebut.`;
+saveTasks();
 
+renderTasks();
 
-            speak(message);
-
-
-            notify(
-
-                `🚨 DEADLINE: ${task.name}`,
-
-                `Deadline telah tiba. ` +
-
-                `Harap segera selesaikan ` +
-
-                `tugas tersebut.`
-
-            );
-
-
-            showToast(
-                "🚨 "+message
-            );
-
-
-            task.alarmDeadline=true;
-
-
-            changed=true;
-
-        }
-
-    });
-
-
-    if(changed){
-
-        saveTasks();
-
-        renderTasks();
-
-    }
+}
 
 }
 
@@ -866,67 +834,53 @@ function checkAlarms(){
 
 function speak(text){
 
-    if(
-        !("speechSynthesis" in window)
-    ){
+if(
+!("speechSynthesis" in window)
+){
 
-        alert(
-            "Browser HP kamu tidak mendukung suara."
-        );
+return;
 
-        return;
-
-    }
+}
 
 
-    speechSynthesis.cancel();
+speechSynthesis.cancel();
 
 
-    const voice =
-        new SpeechSynthesisUtterance(text);
+const voice =
+new SpeechSynthesisUtterance(text);
 
 
-    voice.lang="id-ID";
+voice.lang="id-ID";
+
+voice.rate=0.70;
+
+voice.pitch=1;
+
+voice.volume=1;
 
 
-    /*
-       Dibuat lambat supaya
-       nama tugas terdengar jelas.
-    */
-
-    voice.rate=0.70;
+const voices =
+speechSynthesis.getVoices();
 
 
-    voice.pitch=1;
+const indonesia =
+voices.find(
+v =>
+v.lang &&
+v.lang
+.toLowerCase()
+.startsWith("id")
+);
 
 
-    voice.volume=1;
+if(indonesia){
+
+voice.voice=indonesia;
+
+}
 
 
-    const voices =
-        speechSynthesis.getVoices();
-
-
-    const indonesia =
-        voices.find(
-            v =>
-                v.lang &&
-                v.lang
-                .toLowerCase()
-                .startsWith("id")
-        );
-
-
-    if(indonesia){
-
-        voice.voice=indonesia;
-
-    }
-
-
-    speechSynthesis.speak(
-        voice
-    );
+speechSynthesis.speak(voice);
 
 }
 
@@ -937,109 +891,174 @@ function speak(text){
 
 function testSound(){
 
-    speak(
+speak(
 
-        "Halo. " +
+"Halo. Ini adalah tes suara pengingat tugas. " +
 
-        "Ini adalah tes suara alarm tugas. " +
+"Contoh tugas Pemrograman Web. " +
 
-        "Suara pengingat sudah aktif. " +
+"Akan mencapai deadline dalam tiga jam. " +
 
-        "Harap segera selesaikan tugas Anda " +
+"Harap segera selesaikan tugas tersebut."
 
-        "sebelum mencapai deadline."
-
-    );
+);
 
 
-    showToast(
-        "🔊 Suara alarm sedang dites..."
-    );
+showToast(
+"🔊 Tes suara sedang diputar..."
+);
 
 }
 
 
 /* =====================================================
-   NOTIFIKASI
+   AKTIFKAN NOTIFIKASI
 ===================================================== */
 
-async function requestNotification(){
+async function enableNotifications(){
 
-    if(
-        !("Notification" in window)
-    ){
+if(
+!("Notification" in window)
+){
 
-        document
-            .getElementById(
-                "notificationStatus"
-            )
-            .innerText =
-                "❌ Browser tidak mendukung notifikasi.";
+alert(
+"Browser ini tidak mendukung notifikasi."
+);
 
-        return;
+return;
 
-    }
+}
 
 
-    if(
-        Notification.permission === "granted"
-    ){
+if(
+Notification.permission === "granted"
+){
 
-        updateNotificationStatus();
+updateNotificationStatus();
 
-        showToast(
-            "✅ Notifikasi HP sudah aktif!"
-        );
+showToast(
+"✅ Notifikasi HP sudah aktif!"
+);
 
-        return;
+return;
 
-    }
-
-
-    if(
-        Notification.permission === "denied"
-    ){
-
-        updateNotificationStatus();
-
-        alert(
-
-            "Notifikasi diblokir. " +
-
-            "Buka pengaturan izin situs di browser " +
-
-            "lalu aktifkan Notifikasi."
-
-        );
-
-        return;
-
-    }
+}
 
 
-    const permission =
-        await Notification.requestPermission();
+if(
+Notification.permission === "denied"
+){
+
+alert(
+
+"Notifikasi sedang diblokir. " +
+
+"Silakan buka pengaturan izin situs " +
+
+"pada browser dan aktifkan notifikasi."
+
+);
+
+return;
+
+}
 
 
-    updateNotificationStatus();
+const permission =
+await Notification.requestPermission();
 
 
-    if(permission==="granted"){
-
-        showToast(
-            "📱 Notifikasi HP berhasil diaktifkan!"
-        );
+updateNotificationStatus();
 
 
-        notify(
+if(permission === "granted"){
 
-            "✅ Tugas Deadline",
+showToast(
+"📱 Notifikasi HP berhasil diaktifkan!"
+);
 
-            "Notifikasi HP sudah aktif."
 
-        );
+sendNotification(
 
-    }
+"✅ Tugas Deadline",
+
+"Notifikasi HP sudah aktif.",
+
+"test"
+
+);
+
+}
+
+}
+
+
+/* =====================================================
+   KIRIM NOTIFIKASI HP
+===================================================== */
+
+async function sendNotification(
+title,
+message,
+id
+){
+
+if(
+Notification.permission !== "granted"
+){
+
+return;
+
+}
+
+
+try{
+
+const registration =
+await navigator
+.serviceWorker
+.ready;
+
+
+await registration.showNotification(
+
+title,
+
+{
+
+body:message,
+
+tag:
+"tugas-deadline-"+id,
+
+icon:"icon-192.png",
+
+badge:"icon-192.png",
+
+requireInteraction:true,
+
+vibrate:[
+200,
+100,
+200
+],
+
+data:{
+taskId:id
+}
+
+}
+
+);
+
+}catch(error){
+
+console.log(
+"Notifikasi gagal:",
+error
+);
+
+}
 
 }
 
@@ -1050,98 +1069,48 @@ async function requestNotification(){
 
 function updateNotificationStatus(){
 
-    const element =
-        document.getElementById(
-            "notificationStatus"
-        );
+const element =
+document.getElementById(
+"notificationStatus"
+);
 
 
-    if(
-        !("Notification" in window)
-    ){
+if(
+!("Notification" in window)
+){
 
-        element.innerText =
-            "❌ Notifikasi tidak didukung.";
+element.innerText =
+"❌ Notifikasi tidak didukung.";
 
-        return;
-
-    }
-
-
-    if(
-        Notification.permission === "granted"
-    ){
-
-        element.innerText =
-            "🟢 Notifikasi HP AKTIF";
-
-    }
-
-    else if(
-        Notification.permission === "denied"
-    ){
-
-        element.innerText =
-            "🔴 Notifikasi DIBLOKIR";
-
-    }
-
-    else{
-
-        element.innerText =
-            "🟡 Notifikasi belum diizinkan";
-
-    }
+return;
 
 }
 
 
-/* =====================================================
-   KIRIM NOTIFIKASI
-===================================================== */
+if(
+Notification.permission === "granted"
+){
 
-function notify(title,message){
+element.innerText =
+"🟢 Notifikasi HP AKTIF";
 
-    if(
+}
 
-        "Notification" in window &&
+else if(
+Notification.permission === "denied"
+){
 
-        Notification.permission === "granted"
+element.innerText =
+"🔴 Notifikasi DIBLOKIR";
 
-    ){
+}
 
-        try{
+else{
 
-            new Notification(
+element.innerText =
+"🟡 Notifikasi belum diaktifkan";
 
-                title,
-
-                {
-                    body:message,
-
-                    icon:"icon-192.png",
-
-                    tag:
-                        "tugas-deadline-"+Date.now(),
-
-                    requireInteraction:true
-
-                }
-
-            );
-
-        }
-
-        catch(error){
-
-            console.log(
-                "Notification error:",
-                error
-            );
-
-        }
-
-    }
+}
 
 }
 
@@ -1152,91 +1121,81 @@ function notify(title,message){
 
 function editTask(id){
 
-    const task =
-        tasks.find(
-            t => t.id===id
-        );
+const task =
+tasks.find(
+t => t.id === id
+);
 
 
-    if(!task) return;
+if(!task)return;
 
 
-    const newName =
-        prompt(
-            "Nama tugas:",
-            task.name
-        );
+const name =
+prompt(
+"Nama tugas:",
+task.name
+);
 
 
-    if(newName===null) return;
+if(name === null)return;
 
 
-    const newDeadline =
-        prompt(
+const deadline =
+prompt(
 
-            "Deadline dengan format " +
+"Deadline format:" +
 
-            "2026-09-15T20:00:",
+" 2026-09-15T20:00",
 
-            task.deadline
+task.deadline
 
-        );
-
-
-    if(newDeadline===null) return;
+);
 
 
-    const time =
-        new Date(
-            newDeadline
-        ).getTime();
+if(deadline === null)return;
 
 
-    if(
-
-        isNaN(time) ||
-
-        time<=Date.now()
-
-    ){
-
-        alert(
-            "Deadline tidak valid!"
-        );
-
-        return;
-
-    }
+const time =
+new Date(deadline).getTime();
 
 
-    task.name =
-        newName.trim();
+if(
+isNaN(time) ||
+time <= Date.now()
+){
+
+alert(
+"Deadline tidak valid!"
+);
+
+return;
+
+}
 
 
-    task.deadline =
-        newDeadline;
+task.name =
+name.trim();
 
 
-    /*
-       Reset alarm
-       karena deadline berubah.
-    */
-
-    task.alarm1day=false;
-
-    task.alarm3=false;
-
-    task.alarmDeadline=false;
+task.deadline =
+deadline;
 
 
-    saveTasks();
+task.alarm1day=false;
 
-    renderTasks();
+task.alarm3=false;
+
+task.alarmDeadline=false;
 
 
-    showToast(
-        "✏️ Tugas berhasil diperbarui!"
-    );
+saveTasks();
+
+renderTasks();
+
+
+showToast(
+"✏️ Tugas berhasil diperbarui!"
+);
 
 }
 
@@ -1247,42 +1206,40 @@ function editTask(id){
 
 function deleteTask(id){
 
-    const task =
-        tasks.find(
-            t => t.id===id
-        );
+const task =
+tasks.find(
+t => t.id === id
+);
 
 
-    if(!task) return;
+if(!task)return;
 
 
-    if(
+if(
+!confirm(
+`Hapus tugas "${task.name}"?`
+)
+){
 
-        !confirm(
-            `Hapus tugas "${task.name}"?`
-        )
+return;
 
-    ){
-
-        return;
-
-    }
+}
 
 
-    tasks =
-        tasks.filter(
-            t => t.id!==id
-        );
+tasks =
+tasks.filter(
+t => t.id !== id
+);
 
 
-    saveTasks();
+saveTasks();
 
-    renderTasks();
+renderTasks();
 
 
-    showToast(
-        "🗑️ Tugas berhasil dihapus."
-    );
+showToast(
+"🗑️ Tugas berhasil dihapus."
+);
 
 }
 
@@ -1293,27 +1250,24 @@ function deleteTask(id){
 
 function formatDate(date){
 
-    return date.toLocaleString(
+return date.toLocaleString(
+"id-ID",
+{
 
-        "id-ID",
+weekday:"long",
 
-        {
+day:"2-digit",
 
-            weekday:"long",
+month:"long",
 
-            day:"2-digit",
+year:"numeric",
 
-            month:"long",
+hour:"2-digit",
 
-            year:"numeric",
+minute:"2-digit"
 
-            hour:"2-digit",
-
-            minute:"2-digit"
-
-        }
-
-    );
+}
+);
 
 }
 
@@ -1324,32 +1278,17 @@ function formatDate(date){
 
 function escapeHTML(text){
 
-    return text
+return text
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+.replace(/&/g,"&amp;")
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+.replace(/</g,"&lt;")
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+.replace(/>/g,"&gt;")
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+.replace(/"/g,"&quot;")
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+.replace(/'/g,"&#039;");
 
 }
 
@@ -1363,147 +1302,74 @@ let toastTimer;
 
 function showToast(message){
 
-    const toast =
-        document.getElementById(
-            "toast"
-        );
+const toast =
+document.getElementById("toast");
 
 
-    toast.innerText =
-        message;
+toast.innerText =
+message;
 
 
-    toast.classList.add(
-        "show"
-    );
+toast.classList.add("show");
 
 
-    clearTimeout(
-        toastTimer
-    );
+clearTimeout(toastTimer);
 
 
-    toastTimer =
-        setTimeout(
+toastTimer =
+setTimeout(
 
-            () => {
+() => {
 
-                toast.classList.remove(
-                    "show"
-                );
+toast.classList.remove("show");
 
-            },
+},
 
-            6000
+6000
 
-        );
+);
 
 }
 
 
 /* =====================================================
-   START
-===================================================== */
-
-/* semua fungsi addTask(),
-   renderTasks(),
-   checkAlarms(),
-   speak(),
-   notify(),
-   editTask(),
-   deleteTask(),
-   dll berada di atas sini */
-
-
-/* =====================================================
-   START APLIKASI
+   MULAI
 ===================================================== */
 
 renderTasks();
-
-updateNotificationStatus();
 
 updateCountdown();
 
 checkAlarms();
 
-
-setInterval(
-    updateCountdown,
-    1000
-);
+updateNotificationStatus();
 
 
 setInterval(
-    checkAlarms,
-    1000
+updateCountdown,
+1000
 );
 
 
-if("speechSynthesis" in window){
+setInterval(
+checkAlarms,
+1000
+);
 
-    speechSynthesis.onvoiceschanged =
-        function(){
 
-            speechSynthesis.getVoices();
+if(
+"speechSynthesis" in window
+){
 
-        };
+speechSynthesis.onvoiceschanged =
+function(){
+
+speechSynthesis.getVoices();
+
+};
 
 }
 
-
-if("Notification" in window){
-
-    updateNotificationStatus();
-
-}else{
-
-    document
-        .getElementById("notificationStatus")
-        .innerText =
-        "❌ Browser tidak mendukung notifikasi.";
-
-}
-
-
-document.addEventListener(
-    "click",
-    function(){
-
-        if("speechSynthesis" in window){
-
-            speechSynthesis.getVoices();
-
-        }
-
-    },
-    { once:true }
-);
-
-
-console.log(
-    "📚 Tugas Deadline aktif!"
-);
-
-console.log(
-    "📅 Alarm 1 hari aktif."
-);
-
-console.log(
-    "🔔 Alarm 3 jam aktif."
-);
-
-console.log(
-    "🚨 Alarm deadline aktif."
-);
-
-console.log(
-    "🔊 Sistem suara aktif."
-);
-
-console.log(
-    "📱 Sistem notifikasi aktif."
-);
 
 </script>
 
