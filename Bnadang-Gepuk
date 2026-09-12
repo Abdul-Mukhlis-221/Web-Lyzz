@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bandang Gepuk | Pesan Sekarang</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #fff8ef;
+    color: #3b1f12;
+}
+
+header {
+    background: linear-gradient(135deg, #7b1e16, #b83224);
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+header h1 {
+    font-size: 38px;
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 16px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 25px auto;
+    padding: 0 18px;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    margin-bottom: 20px;
+    color: #7b1e16;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.menu-item {
+    border: 2px solid #f0d4c4;
+    border-radius: 16px;
+    padding: 20px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.menu-item:hover {
+    transform: translateY(-3px);
+    border-color: #b83224;
+}
+
+.menu-item.selected {
+    border-color: #b83224;
+    background: #fff0eb;
+}
+
+.menu-item h3 {
+    margin-bottom: 8px;
+}
+
+.price {
+    color: #b83224;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 13px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 90px;
+    resize: none;
+}
+
+label {
+    font-weight: bold;
+}
+
+.total {
+    background: #fff0eb;
+    border-radius: 15px;
+    padding: 18px;
+    margin-top: 10px;
+}
+
+.total p {
+    margin: 7px 0;
+}
+
+.total-price {
+    font-size: 28px;
+    color: #b83224;
+    font-weight: bold;
+}
+
+button {
+    width: 100%;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    background: #25D366;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 18px;
+}
+
+button:hover {
+    background: #1ebe5d;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+}
+
+@media(max-width: 600px) {
+    header h1 {
+        font-size: 30px;
+    }
+
+    .menu {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🥩 BANDANG GEPUK</h1>
+    <p>Enak, gurih, dan bikin nagih!</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>🛒 Pilih Pesanan</h2>
+
+        <div class="menu">
+
+            <div class="menu-item" onclick="pilihMenu('Tanpa Wadah', 27000, this)">
+                <h3>🥩 Bandang Gepuk</h3>
+                <p>Tanpa wadah</p>
+                <br>
+                <div class="price">Rp27.000</div>
+            </div>
+
+            <div class="menu-item" onclick="pilihMenu('Pakai Wadah', 30000, this)">
+                <h3>📦 Bandang Gepuk</h3>
+                <p>Pakai wadah</p>
+                <br>
+                <div class="price">Rp30.000</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📝 Data Pesanan</h2>
+
+        <label>Nama</label>
+        <input type="text" id="nama" placeholder="Masukkan nama kamu">
+
+        <label>Jumlah</label>
+        <input type="number" id="jumlah" value="1" min="1" onchange="hitungTotal()">
+
+        <label>Catatan</label>
+        <textarea id="catatan" placeholder="Contoh: pedas, tidak pedas, dll."></textarea>
+
+        <div class="total">
+            <p>Pesanan: <b id="pesanan">Belum dipilih</b></p>
+            <p>Harga satuan: <b id="harga">Rp0</b></p>
+            <p>Jumlah: <b id="jumlahTampil">1</b></p>
+            <hr style="margin:12px 0;">
+            <p>Total:</p>
+            <div class="total-price" id="total">Rp0</div>
+        </div>
+
+        <button onclick="pesanWhatsApp()">
+            💬 PESAN VIA WHATSAPP
+        </button>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Bandang Gepuk • Terima kasih sudah memesan ❤️
+</footer>
+
+<script>
+
+let menuDipilih = "";
+let hargaSatuan = 0;
+
+function pilihMenu(nama, harga, element) {
+
+    menuDipilih = nama;
+    hargaSatuan = harga;
+
+    document.querySelectorAll(".menu-item")
+        .forEach(item => item.classList.remove("selected"));
+
+    element.classList.add("selected");
+
+    document.getElementById("pesanan").innerText = nama;
+    document.getElementById("harga").innerText = rupiah(harga);
+
+    hitungTotal();
+}
+
+function hitungTotal() {
+
+    let jumlah = parseInt(document.getElementById("jumlah").value) || 1;
+
+    document.getElementById("jumlahTampil").innerText = jumlah;
+
+    let total = hargaSatuan * jumlah;
+
+    document.getElementById("total").innerText = rupiah(total);
+}
+
+function rupiah(angka) {
+
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+    }).format(angka);
+}
+
+function pesanWhatsApp() {
+
+    let nama = document.getElementById("nama").value.trim();
+    let jumlah = parseInt(document.getElementById("jumlah").value) || 1;
+    let catatan = document.getElementById("catatan").value.trim();
+
+    if (!menuDipilih) {
+        alert("Silakan pilih pesanan terlebih dahulu!");
+        return;
+    }
+
+    if (!nama) {
+        alert("Silakan masukkan nama terlebih dahulu!");
+        return;
+    }
+
+    let total = hargaSatuan * jumlah;
+
+    let pesan =
+`Halo, saya mau pesan Bandang Gepuk 🥩
+
+Nama: ${nama}
+Pesanan: Bandang Gepuk (${menuDipilih})
+Harga: ${rupiah(hargaSatuan)}
+Jumlah: ${jumlah}
+Total: ${rupiah(total)}
+Catatan: ${catatan || "-"}
+
+Mohon diproses ya. Terima kasih 🙏`;
+
+    let nomor = "6281385861215";
+
+    let url =
+        "https://wa.me/" + nomor +
+        "?text=" + encodeURIComponent(pesan);
+
+    window.open(url, "_blank");
+}
+
+</script>
+
+</body>
+</html>
