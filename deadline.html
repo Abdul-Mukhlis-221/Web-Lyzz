@@ -2,258 +2,112 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#6c63ff">
-
-<link rel="manifest" href="manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111827">
 
 <title>Tugas Deadline</title>
 
 <style>
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,sans-serif;
 }
 
 body{
-    background:#f4f5fb;
-    color:#202534;
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f3f4f6;
+    color:#111827;
 }
 
-.app{
-    max-width:480px;
-    min-height:100vh;
-    margin:auto;
-    padding-bottom:90px;
-}
-
-.header{
-    background:linear-gradient(135deg,#6c63ff,#8b5cf6);
+header{
+    background:#111827;
     color:white;
-    padding:28px 20px 24px;
-    border-radius:0 0 30px 30px;
-}
-
-.header-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.logo-icon{
-    width:45px;
-    height:45px;
-    background:rgba(255,255,255,.2);
-    border-radius:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:23px;
-}
-
-.logo h1{
-    font-size:20px;
-}
-
-.logo p{
-    font-size:11px;
-    opacity:.8;
-    margin-top:4px;
-}
-
-.clock{
-    background:rgba(255,255,255,.18);
-    padding:9px 11px;
-    border-radius:11px;
-    font-size:13px;
-    font-weight:bold;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:9px;
-    margin-top:22px;
-}
-
-.stat{
-    text-align:center;
-    background:rgba(255,255,255,.15);
-    padding:12px 5px;
-    border-radius:14px;
-}
-
-.stat b{
-    display:block;
-    font-size:20px;
-}
-
-.stat span{
-    font-size:10px;
-    opacity:.8;
-}
-
-.content{
     padding:20px;
+    text-align:center;
 }
 
-.add{
-    width:100%;
-    border:0;
+header h1{
+    margin:0;
+    font-size:24px;
+}
+
+header p{
+    margin:7px 0 0;
+    opacity:.8;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
     padding:15px;
-    border-radius:15px;
-    background:#202534;
-    color:white;
-    font-weight:bold;
+}
+
+.card{
+    background:white;
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+input{
+    width:100%;
+    padding:13px;
+    margin:7px 0 12px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    font-size:15px;
+}
+
+button{
+    border:0;
+    border-radius:10px;
+    padding:12px 16px;
     font-size:15px;
     cursor:pointer;
-    margin-bottom:18px;
 }
 
-.form{
-    display:none;
-    background:white;
-    padding:18px;
-    border-radius:20px;
-    margin-bottom:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
-}
-
-.form.show{
-    display:block;
-}
-
-.form-title{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:17px;
-}
-
-.close{
-    border:0;
-    background:#f0f1f6;
-    border-radius:9px;
-    width:30px;
-    height:30px;
-}
-
-.field{
-    margin-bottom:14px;
-}
-
-.field label{
-    display:block;
-    font-size:11px;
-    color:#777f91;
-    font-weight:bold;
-    margin-bottom:6px;
-}
-
-.field input{
+.btn-add{
     width:100%;
-    padding:13px;
-    border:1px solid #e4e6ed;
-    border-radius:11px;
-    background:#f9fafc;
-    outline:none;
-}
-
-.save{
-    width:100%;
-    padding:13px;
-    border:0;
-    border-radius:12px;
-    background:linear-gradient(135deg,#6c63ff,#8b5cf6);
+    background:#111827;
     color:white;
-    font-weight:bold;
 }
 
-.section{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:13px;
-}
-
-.section h2{
-    font-size:18px;
-}
-
-.section span{
-    font-size:11px;
-    color:#7d8493;
+.btn-sound{
+    width:100%;
+    margin-top:10px;
+    background:#2563eb;
+    color:white;
 }
 
 .task{
-    background:white;
-    padding:17px;
-    border-radius:19px;
-    margin-bottom:12px;
-    border:1px solid #e9eaf0;
-    box-shadow:0 4px 16px rgba(0,0,0,.04);
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:15px;
+    margin-top:12px;
 }
 
-.task-head{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-}
-
-.task-name{
-    font-size:16px;
-    font-weight:bold;
-}
-
-.badge{
-    font-size:9px;
-    font-weight:bold;
-    padding:5px 8px;
-    border-radius:8px;
-}
-
-.safe{
-    background:#dcfce7;
-    color:#15803d;
-}
-
-.warning{
-    background:#fef3c7;
-    color:#b45309;
-}
-
-.danger{
-    background:#fee2e2;
-    color:#b91c1c;
+.task h3{
+    margin:0 0 8px;
 }
 
 .deadline{
-    color:#7b8291;
-    font-size:12px;
-    margin-top:8px;
+    font-weight:bold;
+    margin-bottom:8px;
 }
 
 .countdown{
-    margin-top:12px;
-    padding:10px;
-    background:#f6f7fa;
-    border-radius:10px;
-    font-size:12px;
+    font-size:18px;
     font-weight:bold;
+    margin:10px 0;
 }
 
 .alarm{
-    margin-top:11px;
-    color:#7b8291;
-    font-size:10px;
-    line-height:1.8;
+    font-size:14px;
+    line-height:1.7;
+    background:#f9fafb;
+    padding:10px;
+    border-radius:10px;
 }
 
 .actions{
@@ -262,843 +116,768 @@ body{
     margin-top:12px;
 }
 
-.action{
+.btn-edit{
+    background:#f59e0b;
+    color:white;
     flex:1;
-    border:0;
-    padding:9px;
-    border-radius:9px;
-    font-weight:bold;
 }
 
-.edit{
-    background:#fff7ed;
-    color:#c2410c;
-}
-
-.delete{
-    background:#fef2f2;
-    color:#dc2626;
-}
-
-.test{
-    width:100%;
-    padding:12px;
-    border:1px dashed #aaa;
-    background:white;
-    border-radius:12px;
-    margin-top:5px;
+.btn-delete{
+    background:#dc2626;
+    color:white;
+    flex:1;
 }
 
 .empty{
-    background:white;
-    border-radius:18px;
-    padding:35px 15px;
     text-align:center;
-    color:#858b99;
-}
-
-.empty-icon{
-    font-size:40px;
-    margin-bottom:10px;
-}
-
-.bottom{
-    position:fixed;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:100%;
-    max-width:480px;
-    background:white;
-    border-top:1px solid #e7e8ed;
-    display:flex;
-    justify-content:space-around;
-    padding:11px;
-}
-
-.nav{
-    border:0;
-    background:none;
-    color:#858b99;
-    font-size:10px;
-}
-
-.nav span{
-    display:block;
-    font-size:20px;
-    margin-bottom:3px;
-}
-
-.active{
-    color:#6c63ff;
+    color:#6b7280;
+    padding:20px;
 }
 
 .toast{
     position:fixed;
-    left:50%;
-    bottom:75px;
-    transform:translateX(-50%);
-    background:#202534;
+    left:15px;
+    right:15px;
+    bottom:20px;
+    background:#111827;
     color:white;
-    padding:11px 15px;
-    border-radius:11px;
-    font-size:12px;
-    opacity:0;
-    pointer-events:none;
-    transition:.3s;
-    z-index:20;
+    padding:16px;
+    border-radius:14px;
+    display:none;
+    z-index:9999;
+    box-shadow:0 5px 20px rgba(0,0,0,.25);
 }
 
 .toast.show{
-    opacity:1;
+    display:block;
 }
 
-@media(min-width:481px){
-    body{
-        padding:20px 0;
-    }
-
-    .app{
-        border-radius:30px;
-        overflow:hidden;
-        box-shadow:0 10px 40px rgba(0,0,0,.12);
-    }
-
-    .bottom{
-        bottom:20px;
-        border-radius:20px;
-    }
+.status{
+    text-align:center;
+    font-size:13px;
+    color:#6b7280;
+    margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
-
-<header class="header">
-
-    <div class="header-top">
-
-        <div class="logo">
-
-            <div class="logo-icon">📚</div>
-
-            <div>
-                <h1>Tugas Deadline</h1>
-                <p>Jangan sampai terlambat!</p>
-            </div>
-
-        </div>
-
-        <div class="clock" id="clock">
-            00:00
-        </div>
-
-    </div>
-
-    <div class="stats">
-
-        <div class="stat">
-            <b id="total">0</b>
-            <span>Total</span>
-        </div>
-
-        <div class="stat">
-            <b id="soon">0</b>
-            <span>Segera</span>
-        </div>
-
-        <div class="stat">
-            <b id="late">0</b>
-            <span>Lewat</span>
-        </div>
-
-    </div>
-
+<header>
+    <h1>📚 Tugas Deadline</h1>
+    <p>Pengingat otomatis 1 hari, 3 jam & deadline</p>
 </header>
 
+<div class="container">
 
-<main class="content">
+    <div class="card">
 
-<button class="add" onclick="openForm()">
-    ＋ Tambah Tugas
-</button>
+        <h2>➕ Tambah Tugas</h2>
 
+        <label>Nama Tugas</label>
+        <input
+            type="text"
+            id="taskName"
+            placeholder="Contoh: Tugas Data Mining"
+        >
 
-<div class="form" id="form">
+        <label>Deadline</label>
+        <input
+            type="datetime-local"
+            id="taskDeadline"
+        >
 
-    <div class="form-title">
-
-        <h2>📝 Tugas Baru</h2>
-
-        <button class="close" onclick="closeForm()">
-            ✕
+        <button class="btn-add" onclick="addTask()">
+            💾 Simpan Tugas
         </button>
 
-    </div>
+        <button class="btn-sound" onclick="testSound()">
+            🔊 Tes Suara Alarm
+        </button>
 
-    <div class="field">
-
-        <label>NAMA TUGAS</label>
-
-        <input
-            id="taskName"
-            type="text"
-            placeholder="Contoh: Tugas Pemrograman">
+        <div class="status" id="notificationStatus">
+            Memeriksa izin notifikasi...
+        </div>
 
     </div>
 
-    <div class="field">
+    <div class="card">
 
-        <label>DEADLINE</label>
+        <h2>📋 Daftar Tugas</h2>
 
-        <input
-            id="deadline"
-            type="datetime-local">
+        <div id="taskList"></div>
 
     </div>
 
-    <button class="save" onclick="saveTask()">
-        💾 Simpan Tugas
-    </button>
-
 </div>
-
-
-<div class="section">
-
-    <h2>📋 Tugas Saya</h2>
-
-    <span id="count">0 tugas</span>
-
-</div>
-
-
-<div id="taskList"></div>
-
-
-<button class="test" onclick="testSound()">
-    🔊 Tes Suara Alarm
-</button>
-
-</main>
-
-</div>
-
-
-<div class="bottom">
-
-<button class="nav active">
-    <span>🏠</span>
-    Beranda
-</button>
-
-<button class="nav" onclick="openForm()">
-    <span>➕</span>
-    Tambah
-</button>
-
-<button class="nav" onclick="testSound()">
-    <span>🔊</span>
-    Suara
-</button>
-
-</div>
-
 
 <div class="toast" id="toast"></div>
 
-
 <script>
 
-let tasks =
-JSON.parse(localStorage.getItem("tugasDeadline")) || [];
+let tasks = JSON.parse(
+    localStorage.getItem("tugasDeadline") || "[]"
+);
 
+/* =========================
+   SIMPAN DATA
+========================= */
 
-// ========================
-// FORM
-// ========================
-
-function openForm(){
-
-    document
-    .getElementById("form")
-    .classList.add("show");
-
-    document
-    .getElementById("taskName")
-    .focus();
-
-}
-
-function closeForm(){
-
-    document
-    .getElementById("form")
-    .classList.remove("show");
-
+function saveTasks(){
+    localStorage.setItem(
+        "tugasDeadline",
+        JSON.stringify(tasks)
+    );
 }
 
 
-// ========================
-// SAVE TASK
-// ========================
+/* =========================
+   TAMBAH TUGAS
+========================= */
 
-function saveTask(){
+function addTask(){
 
     const name =
-    document.getElementById("taskName").value.trim();
+        document.getElementById("taskName").value.trim();
 
     const deadline =
-    document.getElementById("deadline").value;
+        document.getElementById("taskDeadline").value;
 
     if(!name || !deadline){
-
-        toast("⚠️ Lengkapi data tugas!");
-
+        alert("Nama tugas dan deadline harus diisi!");
         return;
     }
 
-    if(new Date(deadline).getTime() <= Date.now()){
+    const deadlineTime =
+        new Date(deadline).getTime();
 
-        toast("⚠️ Deadline harus di masa depan!");
-
+    if(deadlineTime <= Date.now()){
+        alert("Deadline harus berada di masa depan!");
         return;
     }
 
-    tasks.push({
+    const task = {
 
-        id:Date.now(),
+        id: Date.now(),
 
         name:name,
 
         deadline:deadline,
 
+        alarm1day:false,
+
         alarm3:false,
 
         alarmDeadline:false
+    };
 
-    });
+    tasks.push(task);
 
-    save();
+    saveTasks();
 
     document.getElementById("taskName").value="";
-    document.getElementById("deadline").value="";
+    document.getElementById("taskDeadline").value="";
 
-    closeForm();
+    renderTasks();
 
-    render();
-
-    requestNotification();
-
-    toast("✅ Tugas berhasil ditambahkan");
+    showToast("✅ Tugas berhasil disimpan!");
 
 }
 
 
-// ========================
-// STORAGE
-// ========================
+/* =========================
+   TAMPILKAN TUGAS
+========================= */
 
-function save(){
-
-    localStorage.setItem(
-        "tugasDeadline",
-        JSON.stringify(tasks)
-    );
-
-}
-
-
-// ========================
-// RENDER
-// ========================
-
-function render(){
+function renderTasks(){
 
     const list =
-    document.getElementById("taskList");
+        document.getElementById("taskList");
 
-    document.getElementById("total")
-    .innerText=tasks.length;
+    if(tasks.length === 0){
 
-    document.getElementById("count")
-    .innerText=tasks.length+" tugas";
-
-    let soon=0;
-    let late=0;
-
-    tasks.forEach(t=>{
-
-        const diff =
-        new Date(t.deadline).getTime()
-        -Date.now();
-
-        if(diff>0 && diff<=86400000)
-            soon++;
-
-        if(diff<=0)
-            late++;
-
-    });
-
-    document.getElementById("soon")
-    .innerText=soon;
-
-    document.getElementById("late")
-    .innerText=late;
-
-
-    if(tasks.length===0){
-
-        list.innerHTML=`
-
-        <div class="empty">
-
-            <div class="empty-icon">📚</div>
-
-            <b>Belum ada tugas</b>
-
-            <p style="margin-top:6px">
-                Tambahkan tugas pertamamu.
-            </p>
-
-        </div>`;
+        list.innerHTML =
+            `<div class="empty">
+                Belum ada tugas 📭
+            </div>`;
 
         return;
     }
 
-
-    tasks.sort(
-        (a,b)=>
-        new Date(a.deadline)
-        -
-        new Date(b.deadline)
-    );
-
-
     list.innerHTML="";
 
+    tasks.forEach(task => {
 
-    tasks.forEach(task=>{
-
-        const diff =
-        new Date(task.deadline).getTime()
-        -Date.now();
-
-        let badge="";
-
-        if(diff<=0){
-
-            badge=
-            `<span class="badge danger">
-                LEWAT
-            </span>`;
-
-        }else if(diff<=10800000){
-
-            badge=
-            `<span class="badge danger">
-                SEGERA
-            </span>`;
-
-        }else if(diff<=86400000){
-
-            badge=
-            `<span class="badge warning">
-                HARI INI
-            </span>`;
-
-        }else{
-
-            badge=
-            `<span class="badge safe">
-                AMAN
-            </span>`;
-
-        }
-
+        const deadline =
+            new Date(task.deadline);
 
         const div =
-        document.createElement("div");
+            document.createElement("div");
 
         div.className="task";
 
         div.innerHTML=`
 
-        <div class="task-head">
+            <h3>📚 ${escapeHTML(task.name)}</h3>
 
-            <div class="task-name">
-                📚 ${safe(task.name)}
+            <div class="deadline">
+                ⏰ Deadline:
+                ${formatDate(deadline)}
             </div>
 
-            ${badge}
+            <div
+                class="countdown"
+                id="count-${task.id}">
+                Menghitung...
+            </div>
 
-        </div>
+            <div class="alarm">
 
-        <div class="deadline">
-            🗓️ ${formatDate(task.deadline)}
-        </div>
+                📅 Alarm 1 hari:
+                ${task.alarm1day
+                    ? "✅ Sudah berbunyi"
+                    : "⏳ Menunggu"}
 
-        <div
-            class="countdown"
-            id="count-${task.id}">
-            ⏳ Menghitung...
-        </div>
+                <br>
 
-        <div class="alarm">
+                🔔 Alarm 3 jam:
+                ${task.alarm3
+                    ? "✅ Sudah berbunyi"
+                    : "⏳ Menunggu"}
 
-            🔔 Alarm 3 jam:
-            ${task.alarm3 ? "✅ Sudah berbunyi" : "⏳ Menunggu"}
+                <br>
 
-            <br>
+                🚨 Alarm deadline:
+                ${task.alarmDeadline
+                    ? "✅ Sudah berbunyi"
+                    : "⏳ Menunggu"}
 
-            🚨 Alarm deadline:
-            ${task.alarmDeadline ? "✅ Sudah berbunyi" : "⏳ Menunggu"}
+            </div>
 
-        </div>
+            <div class="actions">
 
-        <div class="actions">
+                <button
+                    class="btn-edit"
+                    onclick="editTask(${task.id})">
+                    ✏️ Edit
+                </button>
 
-            <button
-                class="action edit"
-                onclick="editTask(${task.id})">
-                ✏️ Edit
-            </button>
+                <button
+                    class="btn-delete"
+                    onclick="deleteTask(${task.id})">
+                    🗑️ Hapus
+                </button>
 
-            <button
-                class="action delete"
-                onclick="deleteTask(${task.id})">
-                🗑️ Hapus
-            </button>
-
-        </div>
-
+            </div>
         `;
 
         list.appendChild(div);
 
     });
 
-    updateCountdown();
-
 }
 
 
-// ========================
-// COUNTDOWN
-// ========================
+/* =========================
+   HITUNG COUNTDOWN
+========================= */
 
 function updateCountdown(){
 
-    tasks.forEach(task=>{
+    tasks.forEach(task => {
 
-        const el =
-        document.getElementById(
-            "count-"+task.id
-        );
+        const element =
+            document.getElementById(
+                "count-"+task.id
+            );
 
-        if(!el) return;
+        if(!element) return;
 
-        const diff =
-        new Date(task.deadline).getTime()
-        -Date.now();
+        const deadline =
+            new Date(task.deadline).getTime();
 
-        if(diff<=0){
+        let diff =
+            deadline - Date.now();
 
-            el.innerText=
-            "🚨 DEADLINE SUDAH TIBA";
+        if(diff <= 0){
+
+            element.innerHTML =
+                "🚨 DEADLINE SUDAH TIBA";
 
             return;
         }
 
-        let seconds=
-        Math.floor(diff/1000);
+        const days =
+            Math.floor(
+                diff / 86400000
+            );
 
-        const days=
-        Math.floor(seconds/86400);
+        diff %= 86400000;
 
-        seconds%=86400;
+        const hours =
+            Math.floor(
+                diff / 3600000
+            );
 
-        const hours=
-        Math.floor(seconds/3600);
+        diff %= 3600000;
 
-        seconds%=3600;
+        const minutes =
+            Math.floor(
+                diff / 60000
+            );
 
-        const minutes=
-        Math.floor(seconds/60);
+        const seconds =
+            Math.floor(
+                (diff % 60000) / 1000
+            );
 
-        seconds%=60;
-
-
-        if(days>0){
-
-            el.innerText=
-            `⏳ ${days} hari ${hours} jam ${minutes} menit lagi`;
-
-        }else{
-
-            el.innerText=
-            `🔥 ${hours} jam ${minutes} menit ${seconds} detik lagi`;
-
-        }
+        element.innerHTML =
+            `⏳ ${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
 
     });
 
 }
 
 
-// ========================
-// ALARM
-// ========================
+/* =========================
+   CEK ALARM
+========================= */
 
 function checkAlarms(){
 
-    const now=Date.now();
+    const now =
+        Date.now();
 
     let changed=false;
 
+    tasks.forEach(task => {
 
-    tasks.forEach(task=>{
-
-        const deadline=
-        new Date(task.deadline).getTime();
+        const deadline =
+            new Date(task.deadline).getTime();
 
 
-        // ALARM 3 JAM
+        /* =====================
+           ALARM 1 HARI
+        ===================== */
 
         if(
-            now >= deadline-10800000 &&
+            now >= deadline - 86400000 &&
+            now < deadline - 10800000 &&
+            !task.alarm1day
+        ){
+
+            const message =
+                `Perhatian. Tugas ${task.name}. ` +
+                `Akan mencapai deadline dalam satu hari.`;
+
+            speak(message);
+
+            notify(
+                "📅 Pengingat 1 Hari",
+                message
+            );
+
+            showToast(
+                "📅 "+message
+            );
+
+            task.alarm1day=true;
+
+            changed=true;
+        }
+
+
+        /* =====================
+           ALARM 3 JAM
+        ===================== */
+
+        if(
+            now >= deadline - 10800000 &&
             now < deadline &&
             !task.alarm3
         ){
 
-            const message=
-            `Tugas ${task.name} akan mencapai deadline dalam 3 jam.`;
+            const message =
+                `Perhatian. Tugas ${task.name}. ` +
+                `Akan mencapai deadline dalam tiga jam.`;
 
             speak(message);
 
             notify(
-                "⏰ Pengingat Tugas",
+                "🔔 Pengingat 3 Jam",
                 message
             );
 
-            toast("⏰ "+message);
+            showToast(
+                "🔔 "+message
+            );
 
             task.alarm3=true;
 
             changed=true;
-
         }
 
 
-        // ALARM DEADLINE
+        /* =====================
+           ALARM DEADLINE
+        ===================== */
 
         if(
-            now>=deadline &&
+            now >= deadline &&
             !task.alarmDeadline
         ){
 
-            const message=
-            `Tugas ${task.name} telah mencapai deadline.`;
+            const message =
+                `Perhatian. Deadline tugas ` +
+                `${task.name} telah tiba.`;
 
             speak(message);
 
             notify(
-                "🚨 Deadline Tugas",
+                "🚨 DEADLINE TUGAS",
                 message
             );
 
-            toast("🚨 "+message);
+            showToast(
+                "🚨 "+message
+            );
 
             task.alarmDeadline=true;
 
             changed=true;
-
         }
 
     });
 
+    if(changed){
 
-    if(changed)
-        save();
+        saveTasks();
+
+        renderTasks();
+    }
 
 }
 
 
-// ========================
-// TEXT TO SPEECH
-// ========================
+/* =========================
+   SUARA ALARM
+========================= */
 
 function speak(text){
 
     if(!("speechSynthesis" in window)){
 
-        toast("Browser tidak mendukung suara.");
+        alert(
+            "Browser kamu tidak mendukung suara otomatis."
+        );
 
         return;
     }
 
-    speechSynthesis.cancel();
+    window.speechSynthesis.cancel();
 
-    const voice=
-    new SpeechSynthesisUtterance(text);
+    const utterance =
+        new SpeechSynthesisUtterance(text);
 
-    voice.lang="id-ID";
-    voice.rate=.95;
-    voice.pitch=1;
-    voice.volume=1;
+    utterance.lang="id-ID";
 
-    speechSynthesis.speak(voice);
+    /*
+       Kecepatan dibuat lebih lambat
+       supaya suara lebih jelas.
+    */
+
+    utterance.rate=0.78;
+
+    /*
+       Nada suara normal.
+    */
+
+    utterance.pitch=1;
+
+    /*
+       Volume maksimal.
+    */
+
+    utterance.volume=1;
+
+    const voices =
+        speechSynthesis.getVoices();
+
+    const indonesianVoice =
+        voices.find(
+            voice =>
+                voice.lang &&
+                voice.lang.toLowerCase()
+                .startsWith("id")
+        );
+
+    if(indonesianVoice){
+
+        utterance.voice =
+            indonesianVoice;
+    }
+
+    speechSynthesis.speak(
+        utterance
+    );
 
 }
 
+
+/* =========================
+   TES SUARA
+========================= */
 
 function testSound(){
 
-    speak(
-        "Halo. Ini adalah suara alarm Tugas Deadline. Tugas Anda akan mencapai deadline dalam tiga jam."
-    );
+    const message =
+        "Halo. Ini adalah tes suara pengingat tugas. " +
+        "Suara alarm sudah aktif. " +
+        "Jangan lupa mengerjakan tugas sebelum deadline.";
 
-    toast("🔊 Tes suara sedang berjalan");
+    speak(message);
+
+    showToast(
+        "🔊 Tes suara sedang diputar..."
+    );
 
 }
 
 
-// ========================
-// NOTIFICATION
-// ========================
+/* =========================
+   NOTIFIKASI
+========================= */
 
-function requestNotification(){
+async function requestNotification(){
 
-    if(
-        "Notification" in window &&
-        Notification.permission==="default"
-    ){
+    if(!("Notification" in window)){
 
-        Notification.requestPermission();
+        document.getElementById(
+            "notificationStatus"
+        ).innerText =
+            "Browser tidak mendukung notifikasi.";
+
+        return;
+    }
+
+    if(Notification.permission === "default"){
+
+        const permission =
+            await Notification.requestPermission();
+
+        updateNotificationStatus(
+            permission
+        );
+
+    }else{
+
+        updateNotificationStatus(
+            Notification.permission
+        );
 
     }
 
 }
+
+
+function updateNotificationStatus(permission){
+
+    const element =
+        document.getElementById(
+            "notificationStatus"
+        );
+
+    if(permission==="granted"){
+
+        element.innerText =
+            "🔔 Notifikasi aktif";
+
+    }else{
+
+        element.innerText =
+            "⚠️ Notifikasi belum diizinkan";
+
+    }
+
+}
+
+
+/* =========================
+   KIRIM NOTIFIKASI
+========================= */
 
 function notify(title,message){
 
     if(
         "Notification" in window &&
-        Notification.permission==="granted"
+        Notification.permission === "granted"
     ){
 
-        new Notification(title,{
-            body:message,
-            icon:"icon-192.png"
-        });
+        new Notification(
+            title,
+            {
+                body:message,
+                icon:"icon-192.png"
+            }
+        );
 
     }
 
 }
 
 
-// ========================
-// EDIT
-// ========================
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.innerText=message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(
+            () => {
+                toast.classList.remove("show");
+            },
+            6000
+        );
+
+}
+
+
+/* =========================
+   EDIT TUGAS
+========================= */
 
 function editTask(id){
 
-    const task=
-    tasks.find(t=>t.id===id);
+    const task =
+        tasks.find(
+            t => t.id === id
+        );
 
-    if(!task)return;
+    if(!task) return;
 
-    const name=
-    prompt("Nama tugas:",task.name);
+    const newName =
+        prompt(
+            "Nama tugas:",
+            task.name
+        );
 
-    if(name===null)return;
+    if(newName === null) return;
 
-    const deadline=
-    prompt(
-        "Deadline (YYYY-MM-DDTHH:MM):",
-        task.deadline
-    );
+    if(!newName.trim()){
 
-    if(deadline===null)return;
-
-    if(
-        new Date(deadline).getTime()
-        <=Date.now()
-    ){
-
-        toast("⚠️ Deadline tidak valid!");
+        alert("Nama tugas tidak boleh kosong.");
 
         return;
     }
 
-    task.name=name.trim();
-    task.deadline=deadline;
+    const newDeadline =
+        prompt(
+            "Deadline (contoh: 2026-09-15T20:00):",
+            task.deadline
+        );
 
+    if(newDeadline === null) return;
+
+    const newTime =
+        new Date(newDeadline).getTime();
+
+    if(
+        isNaN(newTime) ||
+        newTime <= Date.now()
+    ){
+
+        alert(
+            "Format deadline tidak valid atau sudah lewat."
+        );
+
+        return;
+    }
+
+    task.name =
+        newName.trim();
+
+    task.deadline =
+        newDeadline;
+
+    /*
+       Reset semua alarm
+       karena deadline berubah.
+    */
+
+    task.alarm1day=false;
     task.alarm3=false;
     task.alarmDeadline=false;
 
-    save();
-    render();
+    saveTasks();
 
-    toast("✅ Tugas diperbarui");
+    renderTasks();
 
-}
-
-
-// ========================
-// DELETE
-// ========================
-
-function deleteTask(id){
-
-    if(
-        !confirm("Hapus tugas ini?")
-    )return;
-
-    tasks=
-    tasks.filter(t=>t.id!==id);
-
-    save();
-    render();
-
-    toast("🗑️ Tugas dihapus");
-
-}
-
-
-// ========================
-// CLOCK
-// ========================
-
-function updateClock(){
-
-    document.getElementById("clock")
-    .innerText=
-    new Date().toLocaleTimeString(
-        "id-ID",
-        {
-            hour:"2-digit",
-            minute:"2-digit"
-        }
+    showToast(
+        "✏️ Tugas berhasil diperbarui!"
     );
 
 }
 
 
-// ========================
-// HELPERS
-// ========================
+/* =========================
+   HAPUS TUGAS
+========================= */
 
-function formatDate(value){
+function deleteTask(id){
 
-    return new Date(value)
-    .toLocaleString(
+    const task =
+        tasks.find(
+            t => t.id === id
+        );
+
+    if(!task) return;
+
+    const yakin =
+        confirm(
+            `Hapus tugas "${task.name}"?`
+        );
+
+    if(!yakin) return;
+
+    tasks =
+        tasks.filter(
+            t => t.id !== id
+        );
+
+    saveTasks();
+
+    renderTasks();
+
+    showToast(
+        "🗑️ Tugas berhasil dihapus."
+    );
+
+}
+
+
+/* =========================
+   FORMAT TANGGAL
+========================= */
+
+function formatDate(date){
+
+    return date.toLocaleString(
         "id-ID",
         {
-            day:"numeric",
+            weekday:"long",
+            day:"2-digit",
             month:"long",
             year:"numeric",
             hour:"2-digit",
@@ -1108,64 +887,44 @@ function formatDate(value){
 
 }
 
-function safe(text){
+
+/* =========================
+   KEAMANAN HTML
+========================= */
+
+function escapeHTML(text){
 
     return text
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-function toast(message){
-
-    const t=
-    document.getElementById("toast");
-
-    t.innerText=message;
-
-    t.classList.add("show");
-
-    setTimeout(
-        ()=>t.classList.remove("show"),
-        3500
-    );
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
 
-// ========================
-// SERVICE WORKER
-// ========================
+/* =========================
+   START
+========================= */
 
-if("serviceWorker" in navigator){
-
-    navigator.serviceWorker
-    .register("sw.js")
-    .catch(
-        err=>console.log(err)
-    );
-
-}
-
-
-// ========================
-// START
-// ========================
-
-render();
-
-updateClock();
+renderTasks();
 
 requestNotification();
 
-setInterval(updateClock,1000);
+setInterval(
+    updateCountdown,
+    1000
+);
 
-setInterval(updateCountdown,1000);
+setInterval(
+    checkAlarms,
+    1000
+);
 
-setInterval(checkAlarms,1000);
+updateCountdown();
+
+checkAlarms();
 
 </script>
 
