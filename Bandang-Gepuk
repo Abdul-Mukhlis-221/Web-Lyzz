@@ -3,306 +3,1508 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bandang Gepuk | Pesan Sekarang</title>
+
+<title>Bandang Gepuk | Enak, Empuk & Bikin Nagih</title>
+
+<meta name="description"
+content="Pesan Bandang Gepuk dengan mudah. Tanpa wadah Rp27.000 dan pakai wadah Rp30.000. Pesan langsung melalui WhatsApp.">
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    background: #fff8ef;
-    color: #3b1f12;
+    font-family:
+        Inter,
+        Poppins,
+        Arial,
+        sans-serif;
+
+    background: #fff8f0;
+    color: #29140d;
+    overflow-x: hidden;
 }
+
+button,
+input,
+textarea {
+    font-family: inherit;
+}
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root {
+    --primary: #8f1d14;
+    --primary-dark: #64120d;
+    --red: #c52b1f;
+    --gold: #f4b942;
+    --cream: #fff8f0;
+    --white: #ffffff;
+    --text: #29140d;
+    --muted: #765f57;
+    --green: #20c66b;
+    --shadow: 0 15px 40px rgba(66, 25, 10, .12);
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
 
 header {
-    background: linear-gradient(135deg, #7b1e16, #b83224);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: rgba(100, 18, 13, .96);
+    backdrop-filter: blur(12px);
+
     color: white;
-    text-align: center;
-    padding: 35px 20px;
+
+    border-bottom: 1px solid rgba(255,255,255,.1);
 }
 
-header h1 {
-    font-size: 38px;
+.navbar {
+    max-width: 1150px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 21px;
+    font-weight: 900;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--gold);
+    border-radius: 13px;
+
+    font-size: 23px;
+}
+
+.cart-top {
+    position: relative;
+
+    border: none;
+    background: rgba(255,255,255,.12);
+
+    color: white;
+
+    padding: 11px 15px;
+    border-radius: 30px;
+
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.cart-count {
+    position: absolute;
+
+    top: -7px;
+    right: -5px;
+
+    min-width: 22px;
+    height: 22px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--gold);
+    color: #4d2500;
+
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    position: relative;
+
+    min-height: 620px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        radial-gradient(circle at 80% 30%, rgba(244,185,66,.25), transparent 30%),
+        linear-gradient(135deg, #65130e, #a92519 55%, #d34227);
+
+    color: white;
+
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    right: -150px;
+    top: -130px;
+
+    background: rgba(255,255,255,.07);
+
+    border-radius: 50%;
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    left: -100px;
+    bottom: -100px;
+
+    background: rgba(244,185,66,.1);
+
+    border-radius: 50%;
+}
+
+.hero-inner {
+    width: 100%;
+    max-width: 1150px;
+
+    margin: auto;
+
+    padding: 65px 20px;
+
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+
+    gap: 50px;
+
+    align-items: center;
+
+    position: relative;
+    z-index: 2;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 15px;
+
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.18);
+
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: clamp(42px, 7vw, 76px);
+
+    line-height: .98;
+
+    margin-bottom: 20px;
+
+    letter-spacing: -3px;
+}
+
+.hero h1 span {
+    color: var(--gold);
+}
+
+.hero-text {
+    max-width: 580px;
+
+    color: rgba(255,255,255,.85);
+
+    line-height: 1.7;
+
+    font-size: 17px;
+
+    margin-bottom: 28px;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.btn {
+    border: none;
+
+    padding: 15px 22px;
+
+    border-radius: 13px;
+
+    font-size: 16px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.btn-gold {
+    background: var(--gold);
+    color: #4c2600;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}
+
+.btn-light {
+    background: white;
+    color: var(--primary);
+}
+
+/* Hero product */
+
+.hero-product {
+    min-height: 400px;
+
+    display: grid;
+    place-items: center;
+
+    position: relative;
+}
+
+.food-circle {
+    width: min(390px, 80vw);
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle at 40% 30%, #fff0c4, #e9a42f 38%, #913118 72%);
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.28),
+        inset 0 0 0 14px rgba(255,255,255,.12);
+
+    display: grid;
+    place-items: center;
+
+    font-size: 150px;
+
+    animation: floating 4s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%,100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(2deg);
+    }
+}
+
+.price-bubble {
+    position: absolute;
+
+    right: 0;
+    bottom: 35px;
+
+    background: white;
+    color: var(--primary);
+
+    padding: 17px 20px;
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow);
+
+    font-weight: 900;
+}
+
+.price-bubble small {
+    display: block;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section {
+    max-width: 1150px;
+
+    margin: auto;
+
+    padding: 75px 20px;
+}
+
+.section-title {
+    text-align: center;
+
+    margin-bottom: 40px;
+}
+
+.section-title span {
+    color: var(--primary);
+    font-weight: 900;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.section-title h2 {
+    font-size: clamp(30px, 5vw, 44px);
+
+    margin-top: 8px;
+
+    letter-spacing: -1px;
+}
+
+.section-title p {
+    color: var(--muted);
+
+    max-width: 600px;
+
+    margin: 10px auto 0;
+
+    line-height: 1.6;
+}
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+.products {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+.product {
+    position: relative;
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 25px;
+
+    box-shadow: var(--shadow);
+
+    border: 1px solid #f1dfd3;
+
+    transition: .25s;
+}
+
+.product:hover {
+    transform: translateY(-6px);
+}
+
+.product-top {
+    height: 210px;
+
+    display: grid;
+    place-items: center;
+
+    background:
+        linear-gradient(135deg, #fff1df, #ffe0c2);
+
+    border-radius: 20px;
+
+    margin-bottom: 20px;
+
+    font-size: 95px;
+}
+
+.product h3 {
+    font-size: 24px;
+
     margin-bottom: 8px;
 }
 
-header p {
+.product-description {
+    color: var(--muted);
+
+    line-height: 1.6;
+
+    margin-bottom: 16px;
+}
+
+.product-price {
+    color: var(--primary);
+
+    font-size: 27px;
+
+    font-weight: 950;
+
+    margin-bottom: 16px;
+}
+
+.product-price small {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+.add-btn {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    background: var(--primary);
+
+    color: white;
+
+    border-radius: 12px;
+
     font-size: 16px;
-}
 
-.container {
-    max-width: 900px;
-    margin: 25px auto;
-    padding: 0 18px;
-}
+    font-weight: 900;
 
-.card {
-    background: white;
-    border-radius: 20px;
-    padding: 25px;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-}
-
-.card h2 {
-    margin-bottom: 20px;
-    color: #7b1e16;
-}
-
-.menu {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-}
-
-.menu-item {
-    border: 2px solid #f0d4c4;
-    border-radius: 16px;
-    padding: 20px;
     cursor: pointer;
+
     transition: .2s;
 }
 
-.menu-item:hover {
-    transform: translateY(-3px);
-    border-color: #b83224;
+.add-btn:hover {
+    background: var(--red);
 }
 
-.menu-item.selected {
-    border-color: #b83224;
-    background: #fff0eb;
+.popular {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    background: var(--gold);
+
+    color: #4b2700;
+
+    padding: 7px 11px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 900;
 }
 
-.menu-item h3 {
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.features {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+.feature {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.06);
+
+    text-align: center;
+}
+
+.feature-icon {
+    font-size: 38px;
+
+    margin-bottom: 12px;
+}
+
+.feature h3 {
     margin-bottom: 8px;
 }
 
-.price {
-    color: #b83224;
-    font-size: 22px;
-    font-weight: bold;
+.feature p {
+    color: var(--muted);
+
+    line-height: 1.6;
+
+    font-size: 14px;
 }
 
-input, textarea {
+/* =====================================================
+   ORDER
+===================================================== */
+
+.order-box {
+    max-width: 850px;
+
+    margin: auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 25px;
+
+    box-shadow: var(--shadow);
+}
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group textarea {
     width: 100%;
-    padding: 13px;
-    margin-top: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 16px;
-}
 
-textarea {
-    height: 90px;
-    resize: none;
-}
+    padding: 14px;
 
-label {
-    font-weight: bold;
-}
+    border: 1px solid #e5d8d0;
 
-.total {
-    background: #fff0eb;
-    border-radius: 15px;
-    padding: 18px;
-    margin-top: 10px;
-}
-
-.total p {
-    margin: 7px 0;
-}
-
-.total-price {
-    font-size: 28px;
-    color: #b83224;
-    font-weight: bold;
-}
-
-button {
-    width: 100%;
-    border: none;
-    padding: 16px;
     border-radius: 12px;
-    background: #25D366;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 18px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    background: #fffdfb;
+
+    transition: .2s;
 }
 
-button:hover {
-    background: #1ebe5d;
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(143,29,20,.08);
 }
+
+.form-group textarea {
+    min-height: 100px;
+
+    resize: vertical;
+}
+
+/* =====================================================
+   CART
+===================================================== */
+
+.cart-box {
+    margin-top: 10px;
+
+    background: #fff8f0;
+
+    border-radius: 18px;
+
+    padding: 18px;
+}
+
+.empty-cart {
+    text-align: center;
+
+    color: var(--muted);
+
+    padding: 25px;
+}
+
+.cart-item {
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+
+    gap: 15px;
+
+    padding: 16px 0;
+
+    border-bottom: 1px solid #eadbd2;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item h4 {
+    margin-bottom: 5px;
+}
+
+.cart-item small {
+    color: var(--muted);
+}
+
+.quantity {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 9px;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.qty-number {
+    min-width: 25px;
+
+    text-align: center;
+
+    font-weight: 900;
+}
+
+.item-total {
+    text-align: right;
+
+    font-weight: 900;
+
+    color: var(--primary);
+}
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary {
+    margin-top: 20px;
+
+    background: #64120d;
+
+    color: white;
+
+    padding: 22px;
+
+    border-radius: 18px;
+}
+
+.summary-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin: 9px 0;
+}
+
+.summary-total {
+    border-top: 1px solid rgba(255,255,255,.2);
+
+    margin-top: 15px;
+
+    padding-top: 15px;
+
+    font-size: 25px;
+
+    font-weight: 950;
+
+    color: var(--gold);
+}
+
+.whatsapp-btn {
+    width: 100%;
+
+    border: none;
+
+    background: var(--green);
+
+    color: white;
+
+    padding: 17px;
+
+    border-radius: 13px;
+
+    margin-top: 18px;
+
+    font-size: 17px;
+
+    font-weight: 950;
+
+    cursor: pointer;
+
+    box-shadow: 0 10px 25px rgba(32,198,107,.2);
+
+    transition: .2s;
+}
+
+.whatsapp-btn:hover {
+    transform: translateY(-2px);
+
+    background: #16b85e;
+}
+
+/* =====================================================
+   PROMO
+===================================================== */
+
+.promo {
+    background:
+        linear-gradient(135deg, #7a160f, #b82b1e);
+
+    color: white;
+
+    border-radius: 28px;
+
+    padding: 45px 35px;
+
+    text-align: center;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.promo h2 {
+    font-size: 35px;
+
+    margin-bottom: 10px;
+}
+
+.promo p {
+    color: rgba(255,255,255,.82);
+
+    margin-bottom: 22px;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
 
 footer {
+    background: #35120d;
+
+    color: white;
+
     text-align: center;
-    padding: 25px;
-    color: #777;
+
+    padding: 35px 20px;
 }
 
-@media(max-width: 600px) {
-    header h1 {
-        font-size: 30px;
+footer strong {
+    color: var(--gold);
+}
+
+.footer-wa {
+    display: inline-block;
+
+    margin-top: 12px;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 900;
+}
+
+/* =====================================================
+   FLOATING WHATSAPP
+===================================================== */
+
+.floating-wa {
+    position: fixed;
+
+    right: 18px;
+    bottom: 18px;
+
+    z-index: 2000;
+
+    width: 58px;
+    height: 58px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--green);
+
+    color: white;
+
+    border-radius: 50%;
+
+    text-decoration: none;
+
+    font-size: 27px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(32,198,107,.5);
     }
 
-    .menu {
+    70% {
+        box-shadow: 0 0 0 14px rgba(32,198,107,0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(32,198,107,0);
+    }
+}
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 90px;
+
+    transform: translate(-50%, 120px);
+
+    background: #29140d;
+
+    color: white;
+
+    padding: 13px 20px;
+
+    border-radius: 30px;
+
+    z-index: 3000;
+
+    opacity: 0;
+
+    transition: .3s;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+
+    opacity: 1;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width: 800px) {
+
+    .hero-inner {
+        grid-template-columns: 1fr;
+
+        text-align: center;
+    }
+
+    .hero-text {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-product {
+        min-height: 320px;
+    }
+
+    .food-circle {
+        width: 280px;
+
+        font-size: 110px;
+    }
+
+    .price-bubble {
+        right: 5%;
+
+        bottom: 0;
+    }
+
+    .features {
         grid-template-columns: 1fr;
     }
 }
+
+@media(max-width: 600px) {
+
+    .navbar {
+        padding: 12px 15px;
+    }
+
+    .logo {
+        font-size: 17px;
+    }
+
+    .hero {
+        min-height: auto;
+    }
+
+    .hero-inner {
+        padding: 55px 18px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+    .section {
+        padding: 55px 15px;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .order-box {
+        padding: 20px;
+    }
+
+    .promo {
+        padding: 35px 20px;
+    }
+
+    .promo h2 {
+        font-size: 28px;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
-    <h1>🥩 BANDANG GEPUK</h1>
-    <p>Enak, gurih, dan bikin nagih!</p>
-</header>
 
-<div class="container">
+    <div class="navbar">
 
-    <div class="card">
-        <h2>🛒 Pilih Pesanan</h2>
-
-        <div class="menu">
-
-            <div class="menu-item" onclick="pilihMenu('Tanpa Wadah', 27000, this)">
-                <h3>🥩 Bandang Gepuk</h3>
-                <p>Tanpa wadah</p>
-                <br>
-                <div class="price">Rp27.000</div>
-            </div>
-
-            <div class="menu-item" onclick="pilihMenu('Pakai Wadah', 30000, this)">
-                <h3>📦 Bandang Gepuk</h3>
-                <p>Pakai wadah</p>
-                <br>
-                <div class="price">Rp30.000</div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>📝 Data Pesanan</h2>
-
-        <label>Nama</label>
-        <input type="text" id="nama" placeholder="Masukkan nama kamu">
-
-        <label>Jumlah</label>
-        <input type="number" id="jumlah" value="1" min="1" onchange="hitungTotal()">
-
-        <label>Catatan</label>
-        <textarea id="catatan" placeholder="Contoh: pedas, tidak pedas, dll."></textarea>
-
-        <div class="total">
-            <p>Pesanan: <b id="pesanan">Belum dipilih</b></p>
-            <p>Harga satuan: <b id="harga">Rp0</b></p>
-            <p>Jumlah: <b id="jumlahTampil">1</b></p>
-            <hr style="margin:12px 0;">
-            <p>Total:</p>
-            <div class="total-price" id="total">Rp0</div>
+        <div class="logo">
+            <div class="logo-icon">🥩</div>
+            <span>Bandang Gepuk</span>
         </div>
 
-        <button onclick="pesanWhatsApp()">
-            💬 PESAN VIA WHATSAPP
+        <button class="cart-top"
+                onclick="scrollToOrder()">
+
+            🛒 Keranjang
+
+            <span class="cart-count"
+                  id="cartCount">
+                0
+            </span>
+
         </button>
 
     </div>
 
-</div>
+</header>
 
-<footer>
-    © 2026 Bandang Gepuk • Terima kasih sudah memesan ❤️
-</footer>
 
-<script>
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-let menuDipilih = "";
-let hargaSatuan = 0;
+<section class="hero">
 
-function pilihMenu(nama, harga, element) {
+    <div class="hero-inner">
 
-    menuDipilih = nama;
-    hargaSatuan = harga;
+        <div>
 
-    document.querySelectorAll(".menu-item")
-        .forEach(item => item.classList.remove("selected"));
+            <div class="badge">
+                🔥 Favorit Pelanggan
+            </div>
 
-    element.classList.add("selected");
+            <h1>
+                BANDANG<br>
+                <span>GEPUK</span>
+            </h1>
 
-    document.getElementById("pesanan").innerText = nama;
-    document.getElementById("harga").innerText = rupiah(harga);
+            <p class="hero-text">
+                Nikmati Bandang Gepuk yang lezat, gurih,
+                dan bikin nagih. Pilih mau tanpa wadah
+                atau pakai wadah sesuai kebutuhanmu.
+            </p>
 
-    hitungTotal();
-}
+            <div class="hero-buttons">
 
-function hitungTotal() {
+                <button class="btn btn-gold"
+                        onclick="scrollToMenu()">
+                    🛒 Pesan Sekarang
+                </button>
 
-    let jumlah = parseInt(document.getElementById("jumlah").value) || 1;
+                <button class="btn btn-light"
+                        onclick="scrollToOrder()">
+                    Lihat Keranjang
+                </button>
 
-    document.getElementById("jumlahTampil").innerText = jumlah;
+            </div>
 
-    let total = hargaSatuan * jumlah;
+        </div>
 
-    document.getElementById("total").innerText = rupiah(total);
-}
 
-function rupiah(angka) {
+        <div class="hero-product">
 
-    return new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        maximumFractionDigits: 0
-    }).format(angka);
-}
+            <div class="food-circle">
+                🥩
+            </div>
 
-function pesanWhatsApp() {
+            <div class="price-bubble">
+                Mulai dari
+                <strong>Rp27.000</strong>
 
-    let nama = document.getElementById("nama").value.trim();
-    let jumlah = parseInt(document.getElementById("jumlah").value) || 1;
-    let catatan = document.getElementById("catatan").value.trim();
+                <small>
+                    Enak • Gurih • Nagih
+                </small>
+            </div>
 
-    if (!menuDipilih) {
-        alert("Silakan pilih pesanan terlebih dahulu!");
-        return;
-    }
+        </div>
 
-    if (!nama) {
-        alert("Silakan masukkan nama terlebih dahulu!");
-        return;
-    }
+    </div>
 
-    let total = hargaSatuan * jumlah;
+</section>
 
-    let pesan =
-`Halo, saya mau pesan Bandang Gepuk 🥩
 
-Nama: ${nama}
-Pesanan: Bandang Gepuk (${menuDipilih})
-Harga: ${rupiah(hargaSatuan)}
-Jumlah: ${jumlah}
-Total: ${rupiah(total)}
-Catatan: ${catatan || "-"}
+<!-- =====================================================
+     MENU
+===================================================== -->
 
-Mohon diproses ya. Terima kasih 🙏`;
+<section class="section"
+         id="menu">
 
-    let nomor = "6281385861215";
+    <div class="section-title">
 
-    let url =
-        "https://wa.me/" + nomor +
-        "?text=" + encodeURIComponent(pesan);
+        <span>Menu Kami</span>
 
-    window.open(url, "_blank");
-}
+        <h2>Pilih Sesuai Selera ❤️</h2>
 
-</script>
+        <p>
+            Kamu bisa memilih salah satu atau bahkan
+            memesan kedua jenis sekaligus.
+        </p>
 
-</body>
-</html>
+    </div>
+
+
+    <div class="products">
+
+
+        <!-- PRODUK 1 -->
+
+        <div class="product">
+
+            <div class="product-top">
+                🥩
+            </div>
+
+            <h3>
+                Bandang Gepuk
+            </h3>
+
+            <p class="product-description">
+                Tanpa wadah. Cocok untuk langsung
+                dinikmati atau dibawa pulang dengan
+                tempat sendiri.
+            </p>
+
+            <div class="product-price">
+                Rp27.000
+                <small>/ porsi</small>
+            </div>
+
+            <button class="add-btn"
+                    onclick="addToCart('Bandang Gepuk - Tanpa Wadah', 27000)">
+                + Tambah ke Keranjang
+            </button>
+
+        </div>
+
+
+        <!-- PRODUK 2 -->
+
+        <div class="product">
+
+            <div class="popular">
+                ⭐ POPULER
+            </div>
+
+            <div class="product-top">
+                📦🥩
+            </div>
+
+            <h3>
+                Bandang Gepuk
+            </h3>
+
+            <p class="product-description">
+                Sudah termasuk wadah. Praktis untuk
+                dibawa pulang dan cocok untuk diberikan
+                kepada keluarga.
+            </p>
+
+            <div class="product-price">
+                Rp30.000
+                <small>/ porsi</small>
+            </div>
+
+            <button class="add-btn"
+                    onclick="addToCart('Bandang Gepuk - Pakai Wadah', 30000)">
+                + Tambah ke Keranjang
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <span>Kenapa Pilih Kami?</span>
+
+        <h2>Bukan Cuma Enak 😋</h2>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                😋
+            </div>
+
+            <h3>
+                Rasa Nikmat
+            </h3>
+
+            <p>
+                Rasa gurih dan lezat yang cocok
+                dinikmati kapan saja.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                💰
+            </div>
+
+            <h3>
+                Harga Bersahabat
+            </h3>
+
+            <p>
+                Pilihan tanpa wadah Rp27.000 dan
+                pakai wadah Rp30.000.
+            </p>
+
+        </div>
+
+
+        <        <div class="feature">
+
+            <div class="feature-icon">
+                💬
+            </div>
+
+            <h3>
+                Pesan Mudah
+            </h3>
+
+            <p>
+                Pilih menu, masukkan jumlah,
+                lalu langsung pesan melalui WhatsApp.
+                Cepat, praktis, dan tidak ribet!
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROMO
+===================================================== -->
+
+<section class="section">
+
+    <div class="promo">
+
+        <h2>
+            Lagi Ngidam Bandang Gepuk? 🤤
+        </h2>
+
+        <p>
+            Jangan cuma lihat-lihat.
+            Yuk pesan sekarang!
+        </p>
+
+        <button class="btn btn-gold"
+                onclick="scrollToMenu()">
+            🛒 PILIH MENU SEKARANG
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ORDER / CHECKOUT
+===================================================== -->
+
+<section class="section"
+         id="order">
+
+    <div class="section-title">
+
+        <span>Checkout</span>
+
+        <h2>
+            Pesanan Kamu 🛒
+        </h2>
+
+        <p>
+            Periksa pesanan sebelum dikirim ke WhatsApp.
+        </p>
+
+    </div>
+
+    <div class="order-box">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>
+                    Nama *
+                </label>
+
+                <input
+                    type="text"
+                    id="nama"
+                    placeholder="Masukkan nama kamu">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Nomor HP
+                </label>
+
+                <input
+                    type="tel"
+                    id="hp"
+                    placeholder="Contoh: 08123456789">
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Alamat / Lokasi
+                </label>
+
+                <input
+                    type="text"
+                    id="alamat"
+                    placeholder="Contoh: Kp. ..., RT/RW ...">
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Catatan Pesanan
+                </label>
+
+                <textarea
+                    id="catatan"
+                    placeholder="Contoh: Tolong dipisahkan, dll.">
+                </textarea>
+
+            </div>
+
+        </div>
+
+
+        <h3 style="margin-top:20px;">
+            🛍️ Isi Keranjang
+        </h3>
+
+
+        <div class="cart-box"
+             id="cartBox">
+
+            <div class="empty-cart">
+
+                Keranjang masih kosong.
+                <br>
+
+                Yuk pilih menu terlebih dahulu 😊
+
+            </div>
+
+        </div>
+
+
+        <div class="summary">
+
+            <div class="summary-row">
+
+                <span>
+                    Total Item
+                </span>
+
+                <strong id="summaryItems">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Total Harga
+                </span>
+
+                <strong id="summaryPrice">
+                    Rp0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row summary-total">
+
+                <span>
+                    TOTAL
+                </span>
+
+                <span id="grandTotal">
+                    Rp0
+                </span>
+
+            </div>
+
+
+            <button class="whatsapp-btn"
+                    onclick="orderWhatsApp()">
+
+                💬 PESAN SEKARANG VIA WHATSAPP
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
