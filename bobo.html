@@ -3,452 +3,539 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Selamat Tidur 🌙</title>
+<title>Good Night 🌙</title>
 
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    min-height:100vh;
-    overflow:hidden;
-    font-family:"Segoe UI",Arial,sans-serif;
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
     background:
-        radial-gradient(circle at 50% 20%,#27356b 0%,#121a3b 38%,#070b1c 100%);
-    color:white;
+        radial-gradient(circle at 50% 25%, #263b70 0%, #101936 35%, #050817 75%);
 }
 
-/* LANGIT */
-
-.sky{
-    position:relative;
-    width:100%;
-    height:100vh;
-    overflow:hidden;
+/* BACKGROUND */
+.night {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* BINTANG */
-
-.star{
-    position:absolute;
-    width:3px;
-    height:3px;
-    background:white;
-    border-radius:50%;
-    animation:twinkle 2s infinite alternate;
+/* STARS */
+.stars,
+.stars::before,
+.stars::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background-image:
+        radial-gradient(circle, white 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1.5px);
+    background-size: 90px 90px, 150px 150px, 220px 220px;
+    background-position: 10px 20px, 50px 70px, 100px 30px;
+    animation: starsMove 25s linear infinite;
 }
 
-@keyframes twinkle{
-    from{
-        opacity:.2;
-        transform:scale(.7);
+.stars::before {
+    opacity: .5;
+    animation-duration: 40s;
+}
+
+.stars::after {
+    opacity: .3;
+    animation-duration: 60s;
+}
+
+@keyframes starsMove {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(90px);
+    }
+}
+
+/* SHOOTING STAR */
+.shooting-star {
+    position: absolute;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, white, transparent);
+    transform: rotate(-35deg);
+    top: 20%;
+    left: -150px;
+    animation: shooting 7s linear infinite;
+    opacity: .8;
+}
+
+@keyframes shooting {
+    0% {
+        left: -150px;
+        top: 10%;
+        opacity: 0;
     }
 
-    to{
-        opacity:1;
-        transform:scale(1.4);
+    10% {
+        opacity: 1;
+    }
+
+    30% {
+        left: 110%;
+        top: 45%;
+        opacity: 0;
+    }
+
+    100% {
+        left: 110%;
+        opacity: 0;
     }
 }
 
-/* BULAN */
-
-.moon{
-    position:absolute;
-    width:150px;
-    height:150px;
-    border-radius:50%;
-    background:#fff8d9;
-    right:12%;
-    top:10%;
+/* MOON */
+.moon {
+    position: absolute;
+    width: 155px;
+    height: 155px;
+    border-radius: 50%;
+    background: #fffbea;
+    top: 10%;
+    right: 12%;
     box-shadow:
-        0 0 25px #fff4bd,
-        0 0 60px rgba(255,244,189,.35);
+        0 0 30px rgba(255,255,220,.7),
+        0 0 80px rgba(255,255,220,.25);
 }
 
-.moon:before{
-    content:"";
-    position:absolute;
-    width:25px;
-    height:25px;
-    border-radius:50%;
-    background:#eee7c5;
-    top:35px;
-    left:35px;
-    opacity:.55;
+.moon::before {
+    content: "";
+    position: absolute;
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    background: #101936;
+    left: 35px;
+    top: -12px;
 }
 
-.moon:after{
-    content:"";
-    position:absolute;
-    width:18px;
-    height:18px;
-    border-radius:50%;
-    background:#eee7c5;
-    bottom:35px;
-    right:30px;
-    opacity:.45;
+/* CLOUDS */
+.cloud {
+    position: absolute;
+    width: 180px;
+    height: 45px;
+    border-radius: 50px;
+    background: rgba(255,255,255,.08);
+    filter: blur(1px);
 }
 
-/* AWAN */
-
-.cloud{
-    position:absolute;
-    width:180px;
-    height:55px;
-    background:rgba(255,255,255,.08);
-    border-radius:50px;
-    filter:blur(.5px);
-    animation:moveCloud 25s linear infinite;
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
 }
 
-.cloud:before,
-.cloud:after{
-    content:"";
-    position:absolute;
-    background:inherit;
-    border-radius:50%;
+.cloud::before {
+    width: 70px;
+    height: 70px;
+    left: 30px;
+    bottom: 0;
 }
 
-.cloud:before{
-    width:80px;
-    height:80px;
-    left:30px;
-    bottom:0;
+.cloud::after {
+    width: 90px;
+    height: 90px;
+    right: 25px;
+    bottom: 0;
 }
 
-.cloud:after{
-    width:100px;
-    height:100px;
-    right:20px;
-    bottom:0;
+.cloud1 {
+    top: 25%;
+    left: -220px;
+    animation: cloudMove 35s linear infinite;
 }
 
-.cloud1{
-    top:25%;
-    left:-200px;
+.cloud2 {
+    top: 65%;
+    left: -250px;
+    transform: scale(.7);
+    animation: cloudMove 50s linear infinite;
 }
 
-.cloud2{
-    top:45%;
-    left:-300px;
-    transform:scale(.7);
-    animation-duration:32s;
-    animation-delay:5s;
-}
-
-@keyframes moveCloud{
-
-    from{
-        left:-250px;
+@keyframes cloudMove {
+    from {
+        left: -250px;
     }
 
-    to{
-        left:110%;
+    to {
+        left: 110%;
+    }
+}
+
+/* CONTENT */
+.content {
+    position: relative;
+    z-index: 10;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.card {
+    width: min(90%, 650px);
+    padding: 50px 30px;
+    border-radius: 30px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    animation: cardIn 1.5s ease;
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(.95);
     }
 
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-/* KONTEN */
-
-.content{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:90%;
-    max-width:700px;
-    text-align:center;
-    z-index:5;
+/* MOON ICON */
+.sleep-icon {
+    font-size: 65px;
+    margin-bottom: 15px;
+    animation: floatMoon 3s ease-in-out infinite;
 }
 
-.sleep-icon{
-    font-size:70px;
-    margin-bottom:15px;
-    animation:float 3s ease-in-out infinite;
-}
-
-@keyframes float{
-
-    0%,100%{
-        transform:translateY(0);
+@keyframes floatMoon {
+    0%,100% {
+        transform: translateY(0) rotate(-5deg);
     }
 
-    50%{
-        transform:translateY(-12px);
+    50% {
+        transform: translateY(-12px) rotate(5deg);
     }
-
 }
 
-h1{
-    font-size:clamp(42px,8vw,75px);
-    font-weight:800;
-    letter-spacing:2px;
-    text-shadow:
-        0 0 15px rgba(255,255,255,.35);
+h1 {
+    font-size: clamp(45px, 10vw, 85px);
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(255,255,255,.3);
 }
 
-.subtitle{
-    margin-top:15px;
-    font-size:18px;
-    line-height:1.7;
-    color:#d8defc;
+.subtitle {
+    font-size: 18px;
+    color: #d7ddff;
+    margin-bottom: 25px;
 }
 
-/* PESAN */
-
-.message{
-    margin:30px auto;
-    padding:20px 25px;
-    max-width:560px;
-    border:1px solid rgba(255,255,255,.12);
-    background:rgba(255,255,255,.07);
-    backdrop-filter:blur(12px);
-    border-radius:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,.25);
+.message {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #e9ecff;
+    margin-bottom: 25px;
 }
 
-.message p{
-    font-size:16px;
-    line-height:1.8;
-    color:#e7eaff;
+/* CLOCK */
+.clock {
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    color: #fff;
 }
 
-/* TOMBOL */
-
-button{
-    border:none;
-    padding:13px 25px;
-    border-radius:30px;
-    background:#fff;
-    color:#17204b;
-    font-weight:700;
-    cursor:pointer;
-    transition:.3s;
-    box-shadow:0 5px 20px rgba(255,255,255,.15);
+/* BUTTON */
+button {
+    border: none;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #111936;
+    background: #fffbea;
+    cursor: pointer;
+    transition: .3s;
+    box-shadow: 0 8px 25px rgba(255,255,255,.15);
 }
 
-button:hover{
-    transform:translateY(-3px);
-    box-shadow:0 8px 25px rgba(255,255,255,.3);
+button:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 12px 35px rgba(255,255,255,.25);
+}
+
+button:active {
+    transform: scale(.95);
 }
 
 /* FOOTER */
-
-.footer{
-    position:absolute;
-    bottom:25px;
-    left:0;
-    width:100%;
-    text-align:center;
-    color:#858db8;
-    font-size:13px;
+.footer {
+    margin-top: 25px;
+    font-size: 13px;
+    color: #aab4dc;
 }
 
-/* BINTANG JATUH */
+/* MOBILE */
+@media (max-width: 600px) {
 
-.shooting-star{
-    position:absolute;
-    width:100px;
-    height:2px;
-    background:linear-gradient(
-        90deg,
-        white,
-        transparent
-    );
-    transform:rotate(-35deg);
-    opacity:0;
-    animation:shoot 5s linear infinite;
+    .moon {
+        width: 100px;
+        height: 100px;
+        right: 7%;
+        top: 8%;
+    }
+
+    .moon::before {
+        width: 95px;
+        height: 95px;
+        left: 25px;
+        top: -8px;
+    }
+
+    .card {
+        padding: 40px 22px;
+    }
+
+    .sleep-icon {
+        font-size: 50px;
+    }
+
+    .message {
+        font-size: 15px;
+    }
+
+    .clock {
+        font-size: 20px;
+    }
 }
 
-.shooting1{
-    top:20%;
-    left:20%;
+/* SLEEP MODE */
+.sleep-mode {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.92);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-.shooting2{
-    top:35%;
-    left:70%;
-    animation-delay:2.5s;
+.sleep-mode.active {
+    display: flex;
 }
 
-@keyframes shoot{
-
-    0%{
-        opacity:0;
-        transform:translate(0,0) rotate(-35deg);
-    }
-
-    10%{
-        opacity:1;
-    }
-
-    30%{
-        opacity:0;
-        transform:translate(250px,180px) rotate(-35deg);
-    }
-
-    100%{
-        opacity:0;
-    }
-
+.sleep-content {
+    animation: fadeIn 1s ease;
 }
 
-/* RESPONSIVE */
-
-@media(max-width:600px){
-
-    .moon{
-        width:100px;
-        height:100px;
-        right:8%;
-        top:8%;
-    }
-
-    .sleep-icon{
-        font-size:55px;
-    }
-
-    .subtitle{
-        font-size:15px;
-    }
-
-    .message{
-        padding:18px;
-    }
-
-    .message p{
-        font-size:14px;
-    }
-
+.sleep-content div {
+    font-size: 80px;
+    margin-bottom: 20px;
 }
 
+.sleep-content h2 {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.sleep-content p {
+    color: #b9c1e5;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
 </style>
 </head>
 
-
 <body>
 
-<div class="sky">
+<div class="night">
 
-    <!-- BINTANG -->
-    <div class="star" style="top:8%;left:15%;"></div>
-    <div class="star" style="top:18%;left:35%;"></div>
-    <div class="star" style="top:12%;left:60%;"></div>
-    <div class="star" style="top:28%;left:78%;"></div>
-    <div class="star" style="top:40%;left:12%;"></div>
-    <div class="star" style="top:50%;left:30%;"></div>
-    <div class="star" style="top:35%;left:50%;"></div>
-    <div class="star" style="top:55%;left:70%;"></div>
-    <div class="star" style="top:65%;left:85%;"></div>
-    <div class="star" style="top:72%;left:20%;"></div>
-    <div class="star" style="top:80%;left:45%;"></div>
-    <div class="star" style="top:15%;left:90%;"></div>
-    <div class="star" style="top:45%;left:92%;"></div>
-    <div class="star" style="top:70%;left:65%;"></div>
-    <div class="star" style="top:30%;left:5%;"></div>
+    <!-- Bintang -->
+    <div class="stars"></div>
 
-    <!-- BULAN -->
+    <!-- Bintang jatuh -->
+    <div class="shooting-star"></div>
+
+    <!-- Bulan -->
     <div class="moon"></div>
 
-    <!-- AWAN -->
+    <!-- Awan -->
     <div class="cloud cloud1"></div>
     <div class="cloud cloud2"></div>
 
-    <!-- BINTANG JATUH -->
-    <div class="shooting-star shooting1"></div>
-    <div class="shooting-star shooting2"></div>
+    <!-- CONTENT -->
+    <main class="content">
 
+        <section class="card">
 
-    <!-- KONTEN -->
+            <div class="sleep-icon">🌙</div>
 
-    <div class="content">
+            <h1>Good Night</h1>
 
-        <div class="sleep-icon">
-            🌙
-        </div>
+            <div class="subtitle">
+                Semoga malam ini membawa ketenangan ✨
+            </div>
 
-        <h1>
-            Selamat Tidur
-        </h1>
-
-        <div class="subtitle">
-            Pejamkan mata, tenangkan pikiran,<br>
-            dan biarkan malam membawamu menuju mimpi indah.
-        </div>
-
-
-        <div class="message">
-
-            <p id="message">
-                Hari ini mungkin melelahkan,
-                tapi kamu sudah berhasil melewatinya.
-                Sekarang waktunya beristirahat. ✨
+            <p class="message" id="message">
+                Lepaskan semua lelah hari ini.
+                Istirahatlah dengan tenang dan biarkan
+                mimpi-mimpi indah menemanimu malam ini. 🤍
             </p>
 
-        </div>
+            <div class="clock" id="clock">
+                00:00:00
+            </div>
 
+            <button onclick="sleepMode()">
+                🌙 Waktunya Tidur
+            </button>
 
-        <button onclick="changeMessage()">
-            ✨ Pesan Sebelum Tidur
+            <div class="footer">
+                Sweet dreams • Have a peaceful night
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- SLEEP MODE -->
+<div class="sleep-mode" id="sleepMode">
+
+    <div class="sleep-content">
+
+        <div>😴🌙</div>
+
+        <h2>Selamat Tidur</h2>
+
+        <p>
+            Tutup matamu dan istirahatlah...
+            <br>
+            Besok adalah hari baru yang indah ✨
+        </p>
+
+        <br>
+
+        <button onclick="closeSleepMode()">
+            Kembali
         </button>
 
     </div>
 
-
-    <div class="footer">
-        Good night • Sweet dreams 🌌
-    </div>
-
 </div>
-
 
 <script>
 
+/* =========================
+   JAM DIGITAL
+========================= */
+
+function updateClock() {
+
+    const now = new Date();
+
+    let hours = String(now.getHours()).padStart(2, "0");
+    let minutes = String(now.getMinutes()).padStart(2, "0");
+    let seconds = String(now.getSeconds()).padStart(2, "0");
+
+    document.getElementById("clock").textContent =
+        `${hours}:${minutes}:${seconds}`;
+}
+
+updateClock();
+
+setInterval(updateClock, 1000);
+
+
+/* =========================
+   PESAN GOOD NIGHT RANDOM
+========================= */
+
 const messages = [
 
-    "Hari ini mungkin melelahkan, tapi kamu sudah berhasil melewatinya. Sekarang waktunya beristirahat. ✨",
+    "Lepaskan semua lelah hari ini. Istirahatlah dengan tenang dan biarkan mimpi-mimpi indah menemanimu malam ini. 🤍",
 
-    "Tidak semua hal harus selesai malam ini. Istirahat dulu, besok kita lanjut lagi. 🌙",
+    "Hari ini mungkin melelahkan, tapi kamu sudah melakukan yang terbaik. Sekarang waktunya beristirahat. 🌙",
 
-    "Semoga malam ini membawa ketenangan dan pagi esok membawa semangat baru. ☁️",
+    "Tidak perlu memikirkan semuanya malam ini. Besok masih ada waktu untuk melanjutkannya. Selamat tidur. ✨",
 
-    "Letakkan semua kekhawatiran untuk sementara. Malam ini adalah waktunya kamu beristirahat. 💫",
+    "Semoga tidurmu nyenyak, pikiranmu tenang, dan besok kamu bangun dengan energi baru. 💤",
 
-    "Semoga mimpi malam ini lebih indah daripada hari yang telah kamu lewati. 🌌",
-
-    "Tarik napas perlahan, tutup mata, dan biarkan tubuhmu beristirahat. 😴",
-
-    "Selamat malam. Semoga tidurmu nyenyak dan bangun dengan perasaan yang lebih ringan. 🌙"
+    "Malam adalah waktunya berhenti sejenak. Tarik napas, lepaskan beban, dan nikmati ketenangan. 🌌"
 
 ];
 
-function changeMessage(){
+let randomMessage =
+    messages[Math.floor(Math.random() * messages.length)];
 
-    const message =
-        document.getElementById("message");
+document.getElementById("message").textContent = randomMessage;
 
-    const random =
-        Math.floor(
-            Math.random() * messages.length
-        );
 
-    message.style.opacity = "0";
+/* =========================
+   SLEEP MODE
+========================= */
 
-    setTimeout(function(){
+function sleepMode() {
 
-        message.textContent =
-            messages[random];
-
-        message.style.opacity = "1";
-
-    },300);
+    document
+        .getElementById("sleepMode")
+        .classList.add("active");
 
 }
+
+
+/* =========================
+   CLOSE SLEEP MODE
+========================= */
+
+function closeSleepMode() {
+
+    document
+        .getElementById("sleepMode")
+        .classList.remove("active");
+
+}
+
+
+/* =========================
+   KLIK BULAN
+========================= */
+
+document.querySelector(".moon").addEventListener("click", function() {
+
+    this.style.transform = "scale(1.1)";
+
+    setTimeout(() => {
+        this.style.transform = "";
+    }, 400);
+
+});
 
 </script>
 
