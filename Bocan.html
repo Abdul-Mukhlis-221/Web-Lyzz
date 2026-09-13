@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Good Night, Fikriyatul Qur'ani 🌙</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    #344b82 0%,
+                    #18264f 30%,
+                    #0b1230 60%,
+                    #030612 100%
+                );
+        }
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        .night {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Glow background */
+
+        .glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(93, 119, 201, 0.12);
+            filter: blur(80px);
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* =========================
+           STARS
+        ========================= */
+
+        .stars,
+        .stars::before,
+        .stars::after {
+            position: absolute;
+            inset: 0;
+            content: "";
+            pointer-events: none;
+
+            background-image:
+                radial-gradient(circle, white 1px, transparent 1.5px),
+                radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1.5px),
+                radial-gradient(circle, rgba(255,255,255,.5) 1px, transparent 1.5px);
+
+            background-size:
+                90px 90px,
+                150px 150px,
+                220px 220px;
+
+            background-position:
+                10px 20px,
+                50px 70px,
+                100px 30px;
+
+            animation: starsMove 30s linear infinite;
+        }
+
+        .stars::before {
+            opacity: .5;
+            animation-duration: 45s;
+        }
+
+        .stars::after {
+            opacity: .3;
+            animation-duration: 65s;
+        }
+
+        @keyframes starsMove {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(100px);
+            }
+        }
+
+        /* =========================
+           SHOOTING STAR
+        ========================= */
+
+        .shooting-star {
+            position: absolute;
+            width: 150px;
+            height: 2px;
+
+            background: linear-gradient(
+                90deg,
+                white,
+                rgba(255,255,255,.4),
+                transparent
+            );
+
+            transform: rotate(-35deg);
+            left: -200px;
+            top: 10%;
+
+            animation: shootingStar 8s linear infinite;
+
+            opacity: 0;
+        }
+
+        @keyframes shootingStar {
+
+            0% {
+                left: -200px;
+                top: 10%;
+                opacity: 0;
+            }
+
+            8% {
+                opacity: 1;
+            }
+
+            25% {
+                left: 110%;
+                top: 45%;
+                opacity: 0;
+            }
+
+            100% {
+                left: 110%;
+                opacity: 0;
+            }
+        }
+
+        /* =========================
+           MOON
+        ========================= */
+
+        .moon {
+            position: absolute;
+
+            width: 165px;
+            height: 165px;
+
+            border-radius: 50%;
+
+            background: #fffbea;
+
+            top: 8%;
+            right: 11%;
+
+            box-shadow:
+                0 0 30px rgba(255,255,230,.8),
+                0 0 80px rgba(255,255,230,.35),
+                0 0 130px rgba(255,255,230,.15);
+
+            animation: moonFloat 5s ease-in-out infinite;
+
+            cursor: pointer;
+
+            z-index: 2;
+        }
+
+        .moon::before {
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            background: #17244b;
+
+            left: 40px;
+            top: -12px;
+        }
+
+        @keyframes moonFloat {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* =========================
+           MOON CRATERS
+        ========================= */
+
+        .moon-crater {
+            position: absolute;
+
+            border-radius: 50%;
+
+            background: rgba(210,205,175,.3);
+        }
+
+        .crater1 {
+            width: 20px;
+            height: 20px;
+            top: 45px;
+            left: 45px;
+        }
+
+        .crater2 {
+            width: 12px;
+            height: 12px;
+            top: 85px;
+            left: 80px;
+        }
+
+        .crater3 {
+            width: 25px;
+            height: 25px;
+            top: 105px;
+            left: 35px;
+        }
+
+        /* =========================
+           CLOUDS
+        ========================= */
+
+        .cloud {
+            position: absolute;
+
+            width: 190px;
+            height: 45px;
+
+            border-radius: 50px;
+
+            background: rgba(255,255,255,.07);
+
+            filter: blur(1px);
+
+            z-index: 1;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: "";
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,.07);
+        }
+
+        .cloud::before {
+            width: 75px;
+            height: 75px;
+
+            left: 30px;
+            bottom: 0;
+        }
+
+        .cloud::after {
+            width: 90px;
+            height: 90px;
+
+            right: 25px;
+            bottom: 0;
+        }
+
+        .cloud1 {
+            top: 28%;
+            left: -250px;
+
+            animation: cloudMove 40s linear infinite;
+        }
+
+        .cloud2 {
+            top: 70%;
+            left: -300px;
+
+            transform: scale(.65);
+
+            animation: cloudMove 55s linear infinite;
+        }
+
+        @keyframes cloudMove {
+
+            from {
+                left: -300px;
+            }
+
+            to {
+                left: 110%;
+            }
+        }
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+
+            position: relative;
+
+            z-index: 10;
+
+            width: 100%;
+            height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            text-align: center;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+
+            width: min(90%, 680px);
+
+            padding: 48px 35px;
+
+            border-radius: 35px;
+
+            background: rgba(255,255,255,.075);
+
+            border:
+                1px solid rgba(255,255,255,.16);
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,.5),
+                inset 0 1px 0 rgba(255,255,255,.08);
+
+            animation: cardAppear 1.5s ease;
+
+            transition: .4s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow:
+                0 30px 90px rgba(0,0,0,.55),
+                inset 0 1px 0 rgba(255,255,255,.1);
+        }
+
+        @keyframes cardAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(.92);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* =========================
+           ICON
+        ========================= */
+
+        .sleep-icon {
+
+            font-size: 62px;
+
+            margin-bottom: 5px;
+
+            animation:
+                floatIcon 3s ease-in-out infinite;
+        }
+
+        @keyframes floatIcon {
+
+            0%,100% {
+                transform:
+                    translateY(0)
+                    rotate(-5deg);
+            }
+
+            50% {
+                transform:
+                    translateY(-12px)
+                    rotate(5deg);
+            }
+        }
+
+        /* =========================
+           TITLE
+        ========================= */
+
+        h1 {
+
+            font-family:
+                'Cormorant Garamond',
+                serif;
+
+            font-size:
+                clamp(55px, 11vw, 95px);
+
+            font-weight: 600;
+
+            letter-spacing: 2px;
+
+            line-height: .9;
+
+            margin-bottom: 12px;
+
+            text-shadow:
+                0 0 25px rgba(255,255,255,.2);
+        }
+
+        /* =========================
+           NAME
+        ========================= */
+
+        .name {
+
+            font-family:
+                'Cormorant Garamond',
+                serif;
+
+            font-size:
+                clamp(28px, 6vw, 45px);
+
+            font-weight: 500;
+
+            color: #fffbea;
+
+            margin-bottom: 18px;
+
+            text-shadow:
+                0 0 15px rgba(255,255,255,.25);
+
+            animation: nameGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes nameGlow {
+
+            0%,100% {
+                text-shadow:
+                    0 0 10px rgba(255,255,255,.15);
+            }
+
+            50% {
+                text-shadow:
+                    0 0 30px rgba(255,255,255,.6);
+            }
+        }
+
+        /* =========================
+           SUBTITLE
+        ========================= */
+
+        .subtitle {
+
+            font-size: 15px;
+
+            color: #cdd5f5;
+
+            margin-bottom: 25px;
+
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+
+            max-width: 540px;
+
+            margin: 0 auto 25px;
+
+            font-size: 16px;
+
+            line-height: 1.9;
+
+            color: #e7ebff;
+
+            font-weight: 300;
+        }
+
+        /* =========================
+           CLOCK
+        ========================= */
+
+        .clock {
+
+            font-family:
+                'Cormorant Garamond',
+                serif;
+
+            font-size: 32px;
+
+            font-weight: 600;
+
+            letter-spacing: 5px;
+
+            color: #fff;
+
+            margin-bottom: 28px;
+
+            text-shadow:
+                0 0 15px rgba(255,255,255,.25);
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        button {
+
+            border: none;
+
+            padding: 14px 30px;
+
+            border-radius: 50px;
+
+            font-family:
+                'Poppins',
+                sans-serif;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #101a3c;
+
+            background: #fffbea;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 30px rgba(255,255,255,.12);
+
+            transition: .3s;
+        }
+
+        button:hover {
+
+            transform:
+                translateY(-4px)
+                scale(1.04);
+
+            box-shadow:
+                0 12px 40px rgba(255,255,255,.25);
+        }
+
+        button:active {
+
+            transform: scale(.95);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+
+            margin-top: 25px;
+
+            font-size: 12px;
+
+            color: #8995c4;
+
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           HEARTS
+        ========================= */
+
+        .heart {
+
+            position: absolute;
+
+            color: rgba(255,255,255,.5);
+
+            font-size: 14px;
+
+            animation: heartFloat 8s linear infinite;
+
+            opacity: 0;
+        }
+
+        .heart:nth-child(1) {
+            left: 15%;
+            bottom: -30px;
+            animation-delay: 1s;
+        }
+
+        .heart:nth-child(2) {
+            left: 75%;
+            bottom: -30px;
+            animation-delay: 4s;
+        }
+
+        .heart:nth-child(3) {
+            left: 45%;
+            bottom: -30px;
+            animation-delay: 7s;
+        }
+
+        @keyframes heartFloat {
+
+            0% {
+                transform:
+                    translateY(0)
+                    scale(.5);
+
+                opacity: 0;
+            }
+
+            20% {
+                opacity: .7;
+            }
+
+            80% {
+                opacity: .3;
+            }
+
+            100% {
+                transform:
+                    translateY(-100vh)
+                    scale(1.3);
+
+                opacity: 0;
+            }
+        }
+
+        /* =========================
+           SLEEP MODE
+        ========================= */
+
+        .sleep-mode {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #182650,
+                    #050817 75%
+                );
+
+            z-index: 100;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+        .sleep-mode.active {
+
+            display: flex;
+
+            animation: sleepFade 1s ease;
+        }
+
+        @keyframes sleepFade {
+
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .sleep-content {
+
+            animation:
+                sleepContent 1.2s ease;
+        }
+
+        @keyframes sleepContent {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sleep-icon-big {
+
+            font-size: 80px;
+
+            margin-bottom: 15px;
+
+            animation:
+                floatIcon 3s ease-in-out infinite;
+        }
+
+        .sleep-content h2 {
+
+            font-family:
+                'Cormorant Garamond',
+                serif;
+
+            font-size:
+                clamp(45px, 9vw, 75px);
+
+            font-weight: 600;
+
+            margin-bottom: 10px;
+        }
+
+        .sleep-name {
+
+            font-family:
+                'Cormorant Garamond',
+                serif;
+
+            font-size: 30px;
+
+            color: #fffbea;
+
+            margin-bottom: 20px;
+        }
+
+        .sleep-content p {
+
+            color: #b9c2e7;
+
+            line-height: 1.8;
+
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .moon {
+
+                width: 105px;
+                height: 105px;
+
+                right: 7%;
+                top: 7%;
+            }
+
+            .moon::before {
+
+                width: 95px;
+                height: 95px;
+
+                left: 27px;
+                top: -8px;
+            }
+
+            .card {
+
+                width: 94%;
+
+                padding:
+                    38px
+                    20px;
+            }
+
+            .sleep-icon {
+                font-size: 50px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+            }
+
+            .message {
+                font-size: 14px;
+                line-height: 1.8;
+            }
+
+            .clock {
+                font-size: 24px;
+            }
+
+            .footer {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="night">
+
+    <!-- Background glow -->
+    <div class="glow"></div>
+
+    <!-- Stars -->
+    <div class="stars"></div>
+
+    <!-- Shooting star -->
+    <div class="shooting-star"></div>
+
+    <!-- Moon -->
+    <div class="moon">
+
+        <div class="moon-crater crater1"></div>
+        <div class="moon-crater crater2"></div>
+        <div class="moon-crater crater3"></div>
+
+    </div>
+
+    <!-- Clouds -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+
+    <!-- Floating hearts -->
+    <div class="heart">♡</div>
+    <div class="heart">♡</div>
+    <div class="heart">♡</div>
+
+    <!-- Main content -->
+    <main class="content">
+
+        <section class="card">
+
+            <div class="sleep-icon">
+                🌙
+            </div>
+
+            <h1>
+                Good Night
+            </h1>
+
+            <div class="name">
+                Fikriyatul Qur'ani
+            </div>
+
+            <div class="subtitle">
+                ✨ Semoga malam ini membawa ketenangan ✨
+            </div>
+
+            <p class="message" id="message">
+                Selamat malam, Fikriyatul Qur'ani 🤍
+                Semoga semua lelah hari ini hilang bersama
+                tenangnya malam. Istirahatlah dengan nyaman,
+                semoga tidurmu nyenyak dan mimpi-mimpimu indah. 🌙
+            </p>
+
+            <!-- Digital clock -->
+            <div class="clock" id="clock">
+                00:00:00
+            </div>
+
+            <button onclick="sleepMode()">
+                🌙 Waktunya Tidur
+            </button>
+
+            <div class="footer">
+                Sweet dreams • Have a peaceful night
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     SLEEP SCREEN
+========================= -->
+
+<div class="sleep-mode" id="sleepMode">
+
+    <div class="sleep-content">
+
+        <div class="sleep-icon-big">
+            😴🌙
+        </div>
+
+        <h2>
+            Selamat Tidur
+        </h2>
+
+        <div class="sleep-name">
+            Fikriyatul Qur'ani 🤍
+        </div>
+
+        <p>
+            Tutup matamu dan lepaskan semua lelah hari ini.
+            <br>
+            Semoga tidurmu nyenyak dan mimpi-mimpimu indah.
+            <br>
+            Besok adalah hari baru yang lebih indah. ✨
+        </p>
+
+        <button onclick="closeSleepMode()">
+            Kembali
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =========================
+       DIGITAL CLOCK
+    ========================= */
+
+    function updateClock() {
+
+        const now = new Date();
+
+        const hours =
+            String(now.getHours()).padStart(2, "0");
+
+        const minutes =
+            String(now.getMinutes()).padStart(2, "0");
+
+        const seconds =
+            String(now.getSeconds()).padStart(2, "0");
+
+        document.getElementById("clock").textContent =
+            `${hours}:${minutes}:${seconds}`;
+    }
+
+    updateClock();
+
+    setInterval(updateClock, 1000);
+
+
+    /* =========================
+       RANDOM GOOD NIGHT MESSAGE
+    ========================= */
+
+    const messages = [
+
+        `Selamat malam, Fikriyatul Qur'ani 🤍
+        Semoga semua lelah hari ini hilang bersama
+        tenangnya malam. Istirahatlah dengan nyaman,
+        semoga tidurmu nyenyak dan mimpi-mimpimu indah. 🌙`,
+
+        `Fikriyatul Qur'ani, hari ini mungkin melelahkan,
+        tapi kamu sudah melakukan yang terbaik.
+        Sekarang waktunya beristirahat dan memanjakan
+        diri dengan tidur yang nyenyak. 🌙✨`,
+
+        `Tidak perlu memikirkan semuanya malam ini,
+        Fikriyatul Qur'ani. Biarkan malam membawa
+        semua kekhawatiran pergi. Besok masih ada
+        kesempatan untuk memulai lagi. 🤍`,
+
+        `Semoga malam ini menjadi malam yang tenang
+        untuk Fikriyatul Qur'ani.
+        Semoga hati menjadi damai,
+        pikiran menjadi ringan,
+        dan mimpi-mimpi menjadi indah. 🌌`,
+
+        `Good night, Fikriyatul Qur'ani. 🌙
+        Tarik napas perlahan, pejamkan mata,
+        dan biarkan tubuhmu beristirahat.
+        Kamu pantas mendapatkan malam yang damai. 🤍`
+
+    ];
+
+    const randomMessage =
+        messages[
+            Math.floor(
+                Math.random() * messages.length
+            )
+        ];
+
+    document.getElementById("message")
+        .textContent = randomMessage;
+
+
+    /* =========================
+       SLEEP MODE
+    ========================= */
+
+    function sleepMode() {
+
+        document
+            .getElementById("sleepMode")
+            .classList.add("active");
+
+    }
+
+
+    /* =========================
+       CLOSE SLEEP MODE
+    ========================= */
+
+    function closeSleepMode() {
+
+        document
+            .getElementById("sleepMode")
+            .classList.remove("active");
+
+    }
+
+
+    /* =========================
+       MOON CLICK EFFECT
+    ========================= */
+
+    const moon =
+        document.querySelector(".moon");
+
+    moon.addEventListener("click", function() {
+
+        this.style.transition = ".5s";
+
+        this.style.transform =
+            "scale(1.12)";
+
+        setTimeout(() => {
+
+            this.style.transform = "";
+
+        }, 500);
+
+    });
+
+
+    /* =========================
+       ESCAPE KEY
+    ========================= */
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+
+            closeSleepMode();
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
