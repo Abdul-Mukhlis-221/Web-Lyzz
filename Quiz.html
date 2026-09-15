@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Matematika Kelas 6</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 20px;
+    background:
+        radial-gradient(circle at top left, #bfdbfe, transparent 35%),
+        radial-gradient(circle at bottom right, #ddd6fe, transparent 35%),
+        #f8fafc;
+    color: #1e293b;
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    color: white;
+    padding: 30px 20px;
+    border-radius: 25px;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    box-shadow: 0 15px 35px rgba(37,99,235,.25);
+}
+
+.header .icon {
+    font-size: 55px;
+}
+
+.header h1 {
+    font-size: 32px;
+    margin: 8px 0;
+}
+
+.header p {
+    opacity: .9;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,.97);
+    border-radius: 25px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.09);
+    margin-bottom: 18px;
+}
+
+/* START */
+.start-screen {
+    text-align: center;
+}
+
+.start-screen h2 {
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+.start-screen p {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.setting-title {
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.timer-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.timer-option {
+    padding: 15px 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    background: white;
+    cursor: pointer;
+    transition: .2s;
+    font-weight: bold;
+}
+
+.timer-option:hover {
+    border-color: #6366f1;
+    background: #eef2ff;
+}
+
+.timer-option.selected {
+    border-color: #2563eb;
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.start-btn,
+.next-btn,
+.restart-btn {
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 15px;
+    transition: .2s;
+}
+
+.start-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg,#2563eb,#7c3aed);
+}
+
+.start-btn:hover,
+.next-btn:hover,
+.restart-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* INFO */
+.info {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.info-box {
+    background: white;
+    padding: 14px;
+    border-radius: 17px;
+    text-align: center;
+    box-shadow: 0 5px 18px rgba(0,0,0,.07);
+}
+
+.info-box span {
+    display: block;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.info-box strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 21px;
+    color: #2563eb;
+}
+
+/* QUIZ */
+#quizScreen {
+    display: none;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.progress {
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,#2563eb,#7c3aed);
+    transition: .3s;
+}
+
+.category {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 17px;
+}
+
+.question {
+    font-size: 23px;
+    font-weight: bold;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.answers {
+    display: grid;
+    gap: 12px;
+}
+
+.answer {
+    padding: 16px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    background: white;
+    cursor: pointer;
+    font-size: 17px;
+    transition: .2s;
+}
+
+.answer:hover {
+    border-color: #6366f1;
+    background: #eef2ff;
+    transform: translateX(4px);
+}
+
+.answer.correct {
+    background: #dcfce7;
+    border-color: #22c55e;
+    color: #166534;
+}
+
+.answer.wrong {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+.answer.disabled {
+    pointer-events: none;
+}
+
+.feedback {
+    display: none;
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 13px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.next-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background: linear-gradient(135deg,#2563eb,#4f46e5);
+}
+
+/* RESULT */
+#resultScreen {
+    display: none;
+    text-align: center;
+}
+
+.result-icon {
+    font-size: 65px;
+}
+
+.result-title {
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.final-score {
+    font-size: 70px;
+    font-weight: bold;
+    color: #2563eb;
+    margin: 15px 0;
+}
+
+.result-message {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.restart-btn {
+    padding: 15px 25px;
+    background: linear-gradient(135deg,#16a34a,#059669);
+}
+
+.review-title {
+    text-align: left;
+    margin: 30px 0 15px;
+}
+
+.review {
+    text-align: left;
+}
+
+.review-item {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 13px;
+    margin-bottom: 10px;
+    border-left: 5px solid #2563eb;
+    line-height: 1.5;
+}
+
+.review-item small {
+    display: block;
+    color: #475569;
+    margin-top: 8px;
+}
+
+.warning {
+    color: #dc2626 !important;
+    animation: blink .8s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: .5;
+    }
+}
+
+.footer {
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* MOBILE */
+@media(max-width:600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .header {
+        padding: 25px 15px;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .header .icon {
+        font-size: 45px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .timer-options {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .question {
+        font-size: 19px;
+    }
+
+    .answer {
+        font-size: 16px;
+    }
+
+    .info-box {
+        padding: 12px 5px;
+    }
+
+    .info-box span {
+        font-size: 11px;
+    }
+
+    .info-box strong {
+        font-size: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+    <div class="icon">🧮</div>
+    <h1>QUIZ MATEMATIKA</h1>
+    <p>Kelas 6 • Pecahan • Skala • Pembagian</p>
+</div>
+
+
+<!-- =========================
+     HALAMAN AWAL
+========================= -->
+
+<div class="card start-screen" id="startScreen">
+
+    <h2>🎯 Siap Mengerjakan?</h2>
+
+    <p>
+        Jawab 10 soal matematika secara acak.
+        Setiap jawaban benar mendapatkan 10 poin.
+    </p>
+
+    <div class="setting-title">
+        ⏱️ Pilih Waktu Quiz
+    </div>
+
+    <div class="timer-options">
+
+        <div class="timer-option"
+             onclick="selectTime(1,this)">
+            1 Menit
+        </div>
+
+        <div class="timer-option"
+             onclick="selectTime(3,this)">
+            3 Menit
+        </div>
+
+        <div class="timer-option selected"
+             onclick="selectTime(5,this)">
+            5 Menit
+        </div>
+
+        <div class="timer-option"
+             onclick="selectTime(10,this)">
+            10 Menit
+        </div>
+
+        <div class="timer-option"
+             onclick="selectTime(15,this)">
+            15 Menit
+        </div>
+
+        <div class="timer-option"
+             onclick="selectTime(0,this)">
+            ∞ Tanpa Batas
+        </div>
+
+    </div>
+
+    <button class="start-btn"
+            onclick="startQuiz()">
+
+        🚀 MULAI QUIZ
+
+    </button>
+
+</div>
+
+
+<!-- =========================
+     INFO QUIZ
+========================= -->
+
+<div id="quizScreen">
+
+    <div class="info">
+
+        <div class="info-box">
+            <span>SOAL</span>
+            <strong id="questionNumber">
+                1 / 10
+            </strong>
+        </div>
+
+        <div class="info-box">
+            <span>POIN</span>
+            <strong id="score">
+                0
+            </strong>
+        </div>
+
+        <div class="info-box">
+            <span>WAKTU</span>
+            <strong id="timer">
+                05:00
+            </strong>
+        </div>
+
+    </div>
+
+
+    <!-- QUIZ CARD -->
+
+    <div class="card">
+
+        <div class="progress-info">
+
+            <span>Progress</span>
+
+            <span id="progressText">
+                0%
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-bar"
+                 id="progressBar">
+            </div>
+
+        </div>
+
+
+        <div class="category"
+             id="category">
+            📚 Matematika
+        </div>
+
+
+        <div class="question"
+             id="question">
+
+        </div>
+
+
+        <div class="answers"
+             id="answers">
+
+        </div>
+
+
+        <div class="feedback"
+             id="feedback">
+
+        </div>
+
+
+        <button class="next-btn"
+                id="nextButton"
+                onclick="nextQuestion()"
+                style="display:none">
+
+            Soal Berikutnya ➜
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     HASIL
+========================= -->
+
+<div class="card"
+     id="resultScreen">
+
+    <div class="result-icon">
+        🏆
+    </div>
+
+    <h2 class="result-title">
+        Quiz Selesai!
+    </h2>
+
+    <p>
+        Nilai kamu
+    </p>
+
+    <div class="final-score"
+         id="finalScore">
+        0
+    </div>
+
+    <div class="result-message"
+         id="resultMessage">
+    </div>
+
+    <button class="restart-btn"
+            onclick="backToStart()">
+
+        🔀 Main Lagi
+
+    </button>
+
+
+    <h3 class="review-title">
+        📖 Pembahasan
+    </h3>
+
+    <div class="review"
+         id="review">
+
+    </div>
+
+</div>
+
+
+<div class="footer">
+    Quiz Matematika Kelas 6 • Semangat Belajar! 📚
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   VARIABEL
+===================================================== */
+
+let questions = [];
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let answered = false;
+
+let selectedTime = 5;
+
+let timeLeft = 0;
+
+let timerInterval;
+
+
+/* =====================================================
+   RANDOM
+===================================================== */
+
+function random(min, max) {
+
+    return Math.floor(
+        Math.random() * (max - min + 1)
+    ) + min;
+
+}
+
+
+function shuffle(array) {
+
+    return array.sort(
+        () => Math.random() - 0.5
+    );
+
+}
+
+
+/* =====================================================
+   PILIH TIMER
+===================================================== */
+
+function selectTime(minutes, element) {
+
+    selectedTime = minutes;
+
+    document
+        .querySelectorAll(".timer-option")
+        .forEach(item => {
+
+            item.classList.remove("selected");
+
+        });
+
+    element.classList.add("selected");
+
+}
+
+
+/* =====================================================
+   SOAL PECAHAN
+===================================================== */
+
+function createFractionQuestion() {
+
+    let penyebut = random(2,10);
+
+    let a = random(1,penyebut - 1);
+
+    let b = random(1,penyebut - 1);
+
+    let operasi =
+        Math.random() < 0.5
+        ? "+"
+        : "-";
+
+
+    /* PENGURANGAN */
+
+    if (operasi === "-" && a < b) {
+
+        let temp = a;
+
+        a = b;
+
+        b = temp;
+
+    }
+
+
+    let hasil =
+        operasi === "+"
+        ? a + b
+        : a - b;
+
+
+    let answer =
+        `${hasil}/${penyebut}`;
+
+
+    let options = shuffle([
+
+        answer,
+
+        `${Math.max(0,hasil - 1)}/${penyebut}`,
+
+        `${hasil + 1}/${penyebut}`,
+
+        `${a}/${penyebut + 1}`
+
+    ]);
+
+
+    return {
+
+        category: "🍕 Pecahan",
+
+        question:
+        `Hasil dari <b>${a}/${penyebut}
+        ${operasi}
+        ${b}/${penyebut}</b> adalah ...`,
+
+        answer: answer,
+
+        options: options,
+
+        explanation:
+        `${a}/${penyebut}
+        ${operasi}
+        ${b}/${penyebut}
+        = ${hasil}/${penyebut}`
+
+    };
+
+}
+
+
+/* =====================================================
+   SOAL SKALA
+===================================================== */
+
+function createScaleQuestion() {
+
+    let skala = random(10000,50000);
+
+    let jarakPeta = random(2,8);
+
+    let jarakCm =
+        skala * jarakPeta;
+
+    let jarakMeter =
+        jarakCm / 100;
+
+
+    let answer =
+        jarakMeter.toLocaleString("id-ID")
+        + " m";
+
+
+    let options = shuffle([
+
+        answer,
+
+        (jarakMeter + random(100,500))
+            .toLocaleString("id-ID")
+            + " m",
+
+        Math.max(1,jarakMeter - random(50,100))
+            .toLocaleString("id-ID")
+            + " m",
+
+        (jarakMeter + random(500,1000))
+            .toLocaleString("id-ID")
+            + " m"
+
+    ]);
+
+
+    return {
+
+        category: "🗺️ Skala",
+
+        question:
+        `Sebuah peta memiliki skala
+        <b>1 : ${skala.toLocaleString("id-ID")}</b>.
+        Jika jarak pada peta adalah
+        <b>${jarakPeta} cm</b>,
+        berapa jarak sebenarnya dalam meter?`,
+
+        answer: answer,
+
+        options: options,
+
+        explanation:
+        `${jarakPeta} ×
+        ${skala.toLocaleString("id-ID")}
+        = ${jarakCm.toLocaleString("id-ID")} cm
+        = ${answer}`
+
+    };
+
+}
+
+
+/* =====================================================
+   SOAL PEMBAGIAN PULUH RIBUAN
+===================================================== */
+
+function createDivisionQuestion() {
+
+    let pembagi =
+        random(2,9);
+
+    let hasil =
+        random(1000,9999);
+
+    let angka =
+        pembagi * hasil;
+
+
+    let answer =
+        hasil.toLocaleString("id-ID");
+
+
+    let options = shuffle([
+
+        answer,
+
+        (hasil + random(10,100))
+            .toLocaleString("id-ID"),
+
+        Math.max(1,hasil - random(10,100))
+            .toLocaleString("id-ID"),
+
+        (hasil + random(100,300))
+            .toLocaleString("id-ID")
+
+    ]);
+
+
+    return {
+
+        category: "➗ Pembagian",
+
+        question:
+        `<b>${angka.toLocaleString("id-ID")}
+        ÷ ${pembagi}</b> = ...`,
+
+        answer: answer,
+
+        options: options,
+
+        explanation:
+        `${angka.toLocaleString("id-ID")}
+        ÷ ${pembagi}
+        = ${answer}`
+
+    };
+
+}
+
+
+/* =====================================================
+   MEMBUAT BANK SOAL
+===================================================== */
+
+function generateQuestions() {
+
+    let bank = [];
+
+
+    /*
+       Membuat banyak soal.
+       Kemudian mengambil 10 secara random.
+    */
+
+    for(let i = 0; i < 20; i++) {
+
+        bank.push(
+            createFractionQuestion()
+        );
+
+        bank.push(
+            createScaleQuestion()
+        );
+
+        bank.push(
+            createDivisionQuestion()
+        );
+
+    }
+
+
+    shuffle(bank);
+
+
+    questions =
+        bank.slice(0,10);
+
+}
+
+
+/* =====================================================
+   MULAI QUIZ
+===================================================== */
+
+function startQuiz() {
+
+    currentQuestion = 0;
+
+    score = 0;
+
+
+    generateQuestions();
+
+
+    document.getElementById(
+        "startScreen"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "resultScreen"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "quizScreen"
+    ).style.display = "block";
+
+
+    if(selectedTime === 0) {
+
+        document.getElementById(
+            "timer"
+        ).innerText = "∞";
+
+        clearInterval(timerInterval);
+
+    }
+
+    else {
+
+        timeLeft =
+            selectedTime * 60;
+
+        startTimer();
+
+    }
+
+
+    showQuestion();
+
+}
+
+
+/* =====================================================
+   MENAMPILKAN SOAL
+===================================================== */
+
+function showQuestion() {
+
+    answered = false;
+
+
+    let q =
+        questions[currentQuestion];
+
+
+    document.getElementById(
+        "questionNumber"
+    ).innerText =
+        `${currentQuestion + 1} / 10`;
+
+
+    document.getElementById(
+        "score"
+    ).innerText =
+        score;
+
+
+    document.getElementById(
+        "category"
+    ).innerText =
+        q.category;
+
+
+    document.getElementById(
+        "question"
+    ).innerHTML =
+        q.question;
+
+
+    let progress =
+        (currentQuestion / 10) * 100;
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        progress + "%";
+
+
+    document.getElementById(
+        "progressText"
+    ).innerText =
+        Math.round(progress) + "%";
+
+
+    let answers =
+        document.getElementById(
+            "answers"
+        );
+
+
+    answers.innerHTML = "";
+
+
+    q.options.forEach(option => {
+
+        let button =
+            document.createElement("div");
+
+
+        button.className =
+            "answer";
+
+
+        button.innerHTML =
+            option;
+
+
+        button.onclick =
+            function() {
+
+                checkAnswer(
+                    button,
+                    option
+                );
+
+            };
+
+
+        answers.appendChild(button);
+
+    });
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "feedback"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   CEK JAWABAN
+===================================================== */
+
+function checkAnswer(
+    button,
+    selected
+) {
+
+    if(answered) return;
+
+
+    answered = true;
+
+
+    let q =
+        questions[currentQuestion];
+
+
+    let all =
+        document.querySelectorAll(
+            ".answer"
+        );
+
+
+    all.forEach(item => {
+
+        item.classList.add(
+            "disabled"
+        );
+
+    });
+
+
+    let feedback =
+        document.getElementById(
+            "feedback"
+        );
+
+
+    if(selected === q.answer) {
+
+        button.classList.add(
+            "correct"
+        );
+
+
+        score += 10;
+
+
+        document.getElementById(
+            "score"
+        ).innerText =
+            score;
+
+
+        feedback.innerText =
+            "✅ Jawaban benar! +10 poin";
+
+
+        feedback.style.display =
+            "block";
+
+
+        feedback.style.background =
+            "#dcfce7";
+
+
+        feedback.style.color =
+            "#166534";
+
+
+        playSound(true);
+
+    }
+
+    else {
+
+        button.classList.add(
+            "wrong"
+        );
+
+
+        all.forEach(item => {
+
+            if(
+                item.innerHTML ===
+                q.answer
+            ) {
+
+                item.classList.add(
+                    "correct"
+                );
+
+            }
+
+        });
+
+
+        feedback.innerText =
+            `❌ Jawaban yang benar: ${q.answer}`;
+
+
+        feedback.style.display =
+            "block";
+
+
+        feedback.style.background =
+            "#fee2e2";
+
+
+        feedback.style.color =
+            "#991b1b";
+
+
+        playSound(false);
+
+    }
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   SOAL BERIKUTNYA
+===================================================== */
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+
+    if(currentQuestion >= 10) {
+
+        finishQuiz();
+
+        return;
+
+    }
+
+
+    showQuestion();
+
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(() => {
+
+            timeLeft--;
+
+
+            updateTimer();
+
+
+            if(timeLeft <= 0) {
+
+                clearInterval(
+                    timerInterval
+                );
+
+
+                finishQuiz();
+
+            }
+
+        },1000);
+
+}
+
+
+function updateTimer() {
+
+    let minutes =
+        Math.floor(
+            timeLeft / 60
+        );
+
+
+    let seconds =
+        timeLeft % 60;
+
+
+    let timer =
+        document.getElementById(
+            "timer"
+        );
+
+
+    timer.innerText =
+        `${minutes}:${seconds
+        .toString()
+        .padStart(2,"0")}`;
+
+
+    if(timeLeft <= 30) {
+
+        timer.classList.add(
+            "warning"
+        );
+
+    }
+
+}
+
+
+<!-- =====================================================
+     HASIL
+===================================================== -->
+
+<div class="card" id="resultScreen">
+
+    <div class="result-icon">
+        🏆
+    </div>
+
+    <h2 class="result-title">
+        Quiz Selesai!
+    </h2>
+
+    <p>
+        Nilai kamu
+    </p>
+
+    <div class="final-score" id="finalScore">
+        0
+    </div>
+
+    <div class="result-message" id="resultMessage">
+    </div>
+
+    <button class="restart-btn" onclick="backToStart()">
+        🔀 Main Lagi
+    </button>
+
+    <h3 class="review-title">
+        📖 Pembahasan
+    </h3>
+
+    <div class="review" id="review">
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<div class="footer">
+    Quiz Matematika Kelas 6 • Semangat Belajar! 📚
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+let selectedTime = 5;
+let timeLeft = 0;
+let timerInterval;
+
+
+/* =====================================================
+   RANDOM
+===================================================== */
+
+function random(min, max) {
+
+    return Math.floor(
+        Math.random() * (max - min + 1)
+    ) + min;
+
+}
+
+
+function shuffle(array) {
+
+    return array.sort(
+        () => Math.random() - 0.5
+    );
+
+}
+
+
+/* =====================================================
+   PILIH TIMER
+===================================================== */
+
+function selectTime(minutes, element) {
+
+    selectedTime = minutes;
+
+    document
+        .querySelectorAll(".timer-option")
+        .forEach(item => {
+
+            item.classList.remove("selected");
+
+        });
+
+    element.classList.add("selected");
+
+}
+
+
+/* =====================================================
+   SOAL PECAHAN
+===================================================== */
+
+function createFractionQuestion() {
+
+    let penyebut = random(2, 10);
+
+    let a = random(1, penyebut - 1);
+
+    let b = random(1, penyebut - 1);
+
+    let operasi =
+        Math.random() < 0.5 ? "+" : "-";
+
+
+    if (operasi === "-" && a < b) {
+
+        let temp = a;
+
+        a = b;
+        b = temp;
+
+    }
+
+
+    let hasil =
+        operasi === "+"
+        ? a + b
+        : a - b;
+
+
+    let answer =
+        `${hasil}/${penyebut}`;
+
+
+    let options = shuffle([
+
+        answer,
+
+        `${Math.max(0, hasil - 1)}/${penyebut}`,
+
+        `${hasil + 1}/${penyebut}`,
+
+        `${a}/${penyebut + 1}`
+
+    ]);
+
+
+    return {
+
+        category: "🍕 Pecahan",
+
+        question:
+        `Hasil dari <b>${a}/${penyebut}
+        ${operasi}
+        ${b}/${penyebut}</b> adalah ...`,
+
+        answer: answer,
+
+        options: options,
+
+        explanation:
+        `${a}/${penyebut}
+        ${operasi}
+        ${b}/${penyebut}
+        = ${hasil}/${penyebut}`
+
+    };
+
+}
+
+
+/* =====================================================
+   SOAL SKALA
+===================================================== */
+
+function createScaleQuestion() {
+
+    let skala = random(10000, 50000);
+
+    let jarakPeta = random(2, 8);
+
+    let jarakCm =
+        skala * jarakPeta;
+
+    let jarakMeter =
+        jarakCm / 100;
+
+
+    let answer =
+        jarakMeter.toLocaleString("id-ID")
+        + " m";
+
+
+    let options = shuffle([
+
+        answer,
+
+        (jarakMeter + random(100, 500))
+        .toLocaleString("id-ID") + " m",
+
+        Math.max(
+            1,
+            jarakMeter - random(50, 100)
+        )
+        .toLocaleString("id-ID") + " m",
+
+        (jarakMeter + random(500, 1000))
+        .toLocaleString("id-ID") + " m"
+
+    ]);
+
+
+    return {
+
+        category: "🗺️ Skala",
+
+        question:
+        `Sebuah peta memiliki skala
+        <b>1 : ${skala.toLocaleString("id-ID")}</b>.
+        Jika jarak pada peta adalah
+        <b>${jarakPeta} cm</b>,
+        berapa jarak sebenarnya dalam meter?`,
+
+        answer: answer,
+
+        options: options,
+
+        explanation:
+        `${jarakPeta} ×
+        ${skala.toLocaleString("id-ID")}
+        = ${jarakCm.toLocaleString("id-ID")} cm
+        = ${answer}`
+
+    };
+
+}
+
+
+/* =====================================================
+   SOAL PEMBAGIAN PULUH RIBUAN
+===================================================== */
+
+function createDivisionQuestion() {
+
+    let pembagi = random(2, 9);
+
+    let hasil = random(1000, 9999);
+
+    let angka =
+        pembagi * hasil;
+
+
+    let answer =
+        hasil.toLocaleString("id-ID");
+
+
+    let options = shuffle([
+
+        answer,
+
+        (hasil + random(10, 100))
+        .toLocaleString("id-ID"),
+
+        Math.max(
+            1,
+            hasil - random(10, 100)
+        )
+        .toLocaleString("id-ID"),
+
+        (hasil + random(100, 300))
+        .toLocaleString("id-ID")
+
+    ]);
+
+
+    return {
+
+        category: "➗ Pembagian",
+
+        question:
+        `<b>${angka.toLocaleString("id-ID")}
+        ÷ ${pembagi}</b> = ...`,
+
+        answer: answer,
+
+        options: options,
+
+        explanation:
+        `${angka.toLocaleString("id-ID")}
+        ÷ ${pembagi}
+        = ${answer}`
+
+    };
+
+}
+
+
+/* =====================================================
+   MEMBUAT BANK SOAL RANDOM
+===================================================== */
+
+function generateQuestions() {
+
+    let bank = [];
+
+
+    for (let i = 0; i < 20; i++) {
+
+        bank.push(
+            createFractionQuestion()
+        );
+
+        bank.push(
+            createScaleQuestion()
+        );
+
+        bank.push(
+            createDivisionQuestion()
+        );
+
+    }
+
+
+    shuffle(bank);
+
+
+    /*
+       Hanya mengambil 10 soal
+    */
+
+    questions =
+        bank.slice(0, 10);
+
+}
+
+
+/* =====================================================
+   MULAI QUIZ
+===================================================== */
+
+function startQuiz() {
+
+    currentQuestion = 0;
+
+    score = 0;
+
+
+    generateQuestions();
+
+
+    document.getElementById(
+        "startScreen"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "resultScreen"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "quizScreen"
+    ).style.display = "block";
+
+
+    if (selectedTime === 0) {
+
+        document.getElementById(
+            "timer"
+        ).innerText = "∞";
+
+        clearInterval(timerInterval);
+
+    }
+
+    else {
+
+        timeLeft =
+            selectedTime * 60;
+
+        startTimer();
+
+    }
+
+
+    showQuestion();
+
+}
+
+
+/* =====================================================
+   TAMPILKAN SOAL
+===================================================== */
+
+function showQuestion() {
+
+    answered = false;
+
+
+    let q =
+        questions[currentQuestion];
+
+
+    document.getElementById(
+        "questionNumber"
+    ).innerText =
+        `${currentQuestion + 1} / 10`;
+
+
+    document.getElementById(
+        "score"
+    ).innerText =
+        score;
+
+
+    document.getElementById(
+        "category"
+    ).innerText =
+        q.category;
+
+
+    document.getElementById(
+        "question"
+    ).innerHTML =
+        q.question;
+
+
+    let progress =
+        (currentQuestion / 10) * 100;
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        progress + "%";
+
+
+    document.getElementById(
+        "progressText"
+    ).innerText =
+        Math.round(progress) + "%";
+
+
+    let answers =
+        document.getElementById(
+            "answers"
+        );
+
+
+    answers.innerHTML = "";
+
+
+    q.options.forEach(option => {
+
+        let button =
+            document.createElement("div");
+
+
+        button.className =
+            "answer";
+
+
+        button.innerHTML =
+            option;
+
+
+        button.onclick =
+            function() {
+
+                checkAnswer(
+                    button,
+                    option
+                );
+
+            };
+
+
+        answers.appendChild(
+            button
+        );
+
+    });
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "feedback"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   CEK JAWABAN
+===================================================== */
+
+function checkAnswer(button, selected) {
+
+    if (answered) return;
+
+
+    answered = true;
+
+
+    let q =
+        questions[currentQuestion];
+
+
+    let all =
+        document.querySelectorAll(
+            ".answer"
+        );
+
+
+    all.forEach(item => {
+
+        item.classList.add(
+            "disabled"
+        );
+
+    });
+
+
+    let feedback =
+        document.getElementById(
+            "feedback"
+        );
+
+
+    if (selected === q.answer) {
+
+        button.classList.add(
+            "correct"
+        );
+
+
+        /* BENAR = 10 POIN */
+
+        score += 10;
+
+
+        document.getElementById(
+            "score"
+        ).innerText =
+            score;
+
+
+        feedback.innerText =
+            "✅ Jawaban benar! +10 poin";
+
+
+        feedback.style.display =
+            "block";
+
+
+        feedback.style.background =
+            "#dcfce7";
+
+
+        feedback.style.color =
+            "#166534";
+
+
+        playSound(true);
+
+    }
+
+    else {
+
+        button.classList.add(
+            "wrong"
+        );
+
+
+        all.forEach(item => {
+
+            if (
+                item.innerHTML ===
+                q.answer
+            ) {
+
+                item.classList.add(
+                    "correct"
+                );
+
+            }
+
+        });
+
+
+        feedback.innerText =
+            `❌ Jawaban yang benar: ${q.answer}`;
+
+
+        feedback.style.display =
+            "block";
+
+
+        feedback.style.background =
+            "#fee2e2";
+
+
+        feedback.style.color =
+            "#991b1b";
+
+
+        playSound(false);
+
+    }
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   SOAL BERIKUTNYA
+===================================================== */
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+
+    if (currentQuestion >= 10) {
+
+        finishQuiz();
+
+        return;
+
+    }
+
+
+    showQuestion();
+
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(() => {
+
+            timeLeft--;
+
+
+            updateTimer();
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(
+                    timerInterval
+                );
+
+
+                finishQuiz();
+
+            }
+
+        }, 1000);
+
+}
+
+
+function updateTimer() {
+
+    let minutes =
+        Math.floor(
+            timeLeft / 60
+        );
+
+
+    let seconds =
+        timeLeft % 60;
+
+
+    let timer =
+        document.getElementById(
+            "timer"
+        );
+
+
+    timer.innerText =
+        `${minutes}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+
+
+    if (timeLeft <= 30) {
+
+        timer.classList.add(
+            "warning"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   HASIL
+===================================================== */
+
+function finishQuiz() {
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    document.getElementById(
+        "quizScreen"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "resultScreen"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "finalScore"
+    ).innerText =
+        score;
+
+
+    let message;
+
+
+    if (score === 100) {
+
+        message =
+            "🏆 SEMPURNA! Semua jawaban kamu benar!";
+
+    }
+
+    else if (score >= 80) {
+
+        message =
+            "🌟 Hebat! Hasil kamu sangat bagus!";
+
+    }
+
+    else if (score >= 60) {
+
+        message =
+            "👍 Bagus! Terus berlatih ya!";
+
+    }
+
+    else if (score >= 40) {
+
+        message =
+            "💪 Lumayan! Coba lagi agar lebih jago!";
+
+    }
+
+    else {
+
+        message =
+            "📚 Jangan menyerah! Belajar dan coba lagi!";
+
+    }
+
+
+    document.getElementById(
+        "resultMessage"
+    ).innerText =
+        message;
+
+
+    showReview();
+
+}
+
+
+/* =====================================================
+   PEMBAHASAN
+===================================================== */
+
+function showReview() {
+
+    let review =
+        document.getElementById(
+            "review"
+        );
+
+
+    review.innerHTML = "";
+
+
+    questions.forEach(
+        (q, index) => {
+
+            let item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "review-item";
+
+
+            item.innerHTML = `
+
+                <b>
+                    ${index + 1}.
+                    ${q.category}
+                </b>
+
+                <br><br>
+
+                ${q.question}
+
+                <small>
+
+                    ✅ Jawaban:
+                    <b>${q.answer}</b>
+
+                    <br>
+
+                    💡 ${q.explanation}
+
+                </small>
+
+            `;
+
+
+            review.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   MAIN LAGI
+===================================================== */
+
+function backToStart() {
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    document.getElementById(
+        "resultScreen"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "quizScreen"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "startScreen"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "timer"
+    ).classList.remove(
+        "warning"
+    );
+
+}
+
+
+/* =====================================================
+   SUARA BENAR / SALAH
+===================================================== */
+
+function playSound(correct) {
+
+    try {
+
+        let audio =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+
+        let oscillator =
+            audio.createOscillator();
+
+
+        let gain =
+            audio.createGain();
+
+
+        oscillator.connect(gain);
+
+        gain.connect(
+            audio.destination
+        );
+
+
+        oscillator.frequency.value =
+            correct ? 700 : 200;
+
+
+        oscillator.type =
+            "sine";
+
+
+        gain.gain.value =
+            0.08;
+
+
+        oscillator.start();
+
+
+        oscillator.stop(
+            audio.currentTime + 0.15
+        );
+
+    }
+
+    catch(error) {
+
+        console.log(
+            "Audio tidak tersedia."
+        );
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
