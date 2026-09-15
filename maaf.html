@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maaf Untukmu 🤍</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #dbeafe, #fce7f3, #ede9fe);
+            position: relative;
+        }
+
+        /* Background */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.5;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle.one {
+            width: 180px;
+            height: 180px;
+            background: #93c5fd;
+            top: 5%;
+            left: 5%;
+        }
+
+        .circle.two {
+            width: 220px;
+            height: 220px;
+            background: #f9a8d4;
+            bottom: 0;
+            right: 3%;
+            animation-delay: 1s;
+        }
+
+        .circle.three {
+            width: 120px;
+            height: 120px;
+            background: #c4b5fd;
+            top: 50%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-25px);
+            }
+        }
+
+        /* Card */
+        .card {
+            width: 90%;
+            max-width: 500px;
+            padding: 40px 30px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.7);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 5;
+            animation: muncul 1s ease;
+        }
+
+        @keyframes muncul {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .emoji {
+            font-size: 65px;
+            margin-bottom: 15px;
+            animation: heartbeat 1.8s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.12);
+            }
+        }
+
+        h1 {
+            color: #374151;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .message {
+            min-height: 130px;
+            padding: 20px;
+            border-radius: 18px;
+            background: rgba(249, 250, 251, 0.8);
+            color: #4b5563;
+            line-height: 1.8;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        #typing {
+            transition: opacity 0.4s ease;
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 13px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-maaf {
+            background: #6366f1;
+            color: white;
+            box-shadow: 0 8px 20px rgba(99,102,241,0.3);
+        }
+
+        .btn-maaf:hover {
+            transform: translateY(-3px);
+            background: #4f46e5;
+        }
+
+        .btn-pesan {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .btn-pesan:hover {
+            transform: translateY(-3px);
+            background: #e5e7eb;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Love particles */
+        .heart {
+            position: absolute;
+            bottom: -30px;
+            font-size: 20px;
+            animation: naik 5s linear forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes naik {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 22px;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        /* Mobile */
+        @media (max-width: 500px) {
+            .card {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .emoji {
+                font-size: 55px;
+            }
+
+            .message {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="circle one"></div>
+    <div class="circle two"></div>
+    <div class="circle three"></div>
+
+    <!-- Card utama -->
+    <div class="card">
+
+        <div class="emoji">🥺🤍</div>
+
+        <h1>Maaf Ya...</h1>
+
+        <p class="subtitle">
+            Ada sesuatu yang ingin aku sampaikan.
+        </p>
+
+        <div class="message">
+            <span id="typing"></span>
+        </div>
+
+        <div class="buttons">
+
+            <button class="btn-maaf" onclick="terimaMaaf()">
+                🤍 Aku Minta Maaf
+            </button>
+
+            <button class="btn-pesan" onclick="pesanLain()">
+                💌 Baca Lagi
+            </button>
+
+        </div>
+
+        <div class="footer">
+            Dibuat dengan ketulusan 🤍
+        </div>
+
+    </div>
+
+    <script>
+
+        /* =========================
+           PESAN
+        ========================= */
+
+        const pesan = [
+            "Aku sadar mungkin ada perkataan atau perbuatanku yang membuatmu kecewa.",
+            
+            "Aku benar-benar minta maaf. Aku tidak bermaksud membuat keadaan menjadi seperti ini.",
+            
+            "Aku mungkin tidak bisa mengubah apa yang sudah terjadi, tapi aku ingin belajar dari kesalahan ini.",
+            
+            "Semoga kamu bisa memaafkanku. Terima kasih karena sudah mau membaca pesan sederhana ini. 🤍"
+        ];
+
+        let index = 0;
+
+        /* =========================
+           TYPING EFFECT
+        ========================= */
+
+        function ketik(teks) {
+
+            const element = document.getElementById("typing");
+
+            element.innerHTML = "";
+
+            let i = 0;
+
+            function mulai() {
+
+                if (i < teks.length) {
+
+                    element.innerHTML += teks.charAt(i);
+
+                    i++;
+
+                    setTimeout(mulai, 35);
+
+                }
+
+            }
+
+            mulai();
+        }
+
+        ketik(pesan[index]);
+
+
+        /* =========================
+           TOMBOL BACA LAGI
+        ========================= */
+
+        function pesanLain() {
+
+            index++;
+
+            if (index >= pesan.length) {
+                index = 0;
+            }
+
+            const element = document.getElementById("typing");
+
+            element.style.opacity = "0";
+
+            setTimeout(() => {
+
+                ketik(pesan[index]);
+
+                element.style.opacity = "1";
+
+            }, 400);
+
+        }
+
+
+        /* =========================
+           TOMBOL MINTA MAAF
+        ========================= */
+
+        function terimaMaaf() {
+
+            const element = document.getElementById("typing");
+
+            element.style.opacity = "0";
+
+            setTimeout(() => {
+
+                element.innerHTML =
+                    "Terima kasih sudah mau membaca sampai akhir. Aku sungguh minta maaf. Semoga semuanya bisa kembali baik-baik saja. 🤍";
+
+                element.style.opacity = "1";
+
+            }, 400);
+
+            buatHati();
+
+        }
+
+
+        /* =========================
+           ANIMASI HATI
+        ========================= */
+
+        function buatHati() {
+
+            for (let i = 0; i < 25; i++) {
+
+                setTimeout(() => {
+
+                    const heart = document.createElement("div");
+
+                    heart.className = "heart";
+
+                    const jenis = ["🤍", "💗", "💜", "✨", "🥺"];
+
+                    heart.innerHTML =
+                        jenis[Math.floor(Math.random() * jenis.length)];
+
+                    heart.style.left =
+                        Math.random() * 100 + "vw";
+
+                    heart.style.fontSize =
+                        (15 + Math.random() * 20) + "px";
+
+                    heart.style.animationDuration =
+                        (3 + Math.random() * 3) + "s";
+
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 6000);
+
+                }, i * 100);
+
+            }
+
+        }
+
+        /* Hati kecil muncul sesekali */
+
+        setInterval(() => {
+
+            const heart = document.createElement("div");
+
+            heart.className = "heart";
+
+            heart.innerHTML = "🤍";
+
+            heart.style.left =
+                Math.random() * 100 + "vw";
+
+            heart.style.fontSize = "14px";
+
+            heart.style.animationDuration = "6s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+
+        }, 1200);
+
+    </script>
+
+</body>
+</html>
